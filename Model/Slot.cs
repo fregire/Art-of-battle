@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Art_of_battle.Model
 {
-    public class Card
+    public class Slot
     {
-        public Creature Character { get; set; }
-        public int Cost { get; set; }
+        public Card Card;
+        public bool IsCardReady { get; set; }
     }
 }
