@@ -6,12 +6,22 @@ using System.Text;
 
 namespace Art_of_battle.Model
 {
-    public class Creature
+    class Creature
     {
-        public int Health { get; set; }
-        public int CurrHealth { get; set; }
-        public int Damage { get; set; }
-        public int Speed { get; set; }
-        public Point Position { get; set; }
+        public string Name;
+        public int Health;
+        public int CurrHealth;
+        public Point Position;
+
+        public Creature(string name, int health, Point startedPosition)
+        {
+            Name = name;
+            Health = health;
+            Position = startedPosition;
+        }
+        public Creature GenerateSameCreature()
+        {
+            return new Creature(Name, Health, Position);
+        }
     }
 }

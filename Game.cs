@@ -9,17 +9,16 @@ using Art_of_battle.Model;
 namespace Art_of_battle
 {
     class Game
-    {
+    { 
         public GoldInfo GoldInfo { get; }
         public Player FirstPlayer { get; set; }
         public Player SecondPlayer { get; set; }
         public Size BattleFieldSize { get; set; }
 
-        public List<Card> AllCards = new List<Card>();
+        public List<Creature> AllCards = new List<Creature>();
         public Settings GameSettings { get; set; }
 
-        private Dictionary<Player, HashSet<Creature>> playerCreaturesInGame;
-
+        public Dictionary<Player, HashSet<Creature>> playerCreaturesInGame;
 
         public void DeleteCreature(Creature creature, Player player)
         {
@@ -27,20 +26,11 @@ namespace Art_of_battle
             playerCreaturesInGame[player].Remove(creature);
         }
 
-        public void PlaceCreature(Creature creature, Player player)
+        public Action<Creature> GenerateCreature = (creature) => creature.GenerateSameCreature();
+            
+        public void PlaceCreatureOnField(Creature creature, Player player)
         {
-            //TODO: Implement exception if player doesnt exist
             playerCreaturesInGame[player].Add(creature);
-        }
-
-        public void CreatePlayer(string name)
-        {
-            var defaultCards = AllCards.Take(4).ToArray();
-
-            if (FirstPlayer == null)
-                FirstPlayer = new Player(name, defaultCards);
-            else
-                SecondPlayer = new Player(name, defaultCards);
         }
 
         public Game(Settings settings)
@@ -51,7 +41,6 @@ namespace Art_of_battle
 
         public void Start()
         {
-
         }
     }
 }

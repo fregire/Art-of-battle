@@ -11,5 +11,6 @@ namespace Art_of_battle.Model
     {
         public int Volume = 10;
         public Size WindowSize = new Size(1280, 720);
+        public int CardsPerPlayerCount = 2;
     }
 }
