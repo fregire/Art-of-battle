@@ -9,5 +9,6 @@ namespace Art_of_battle.Model
     {
         public Creature Character { get; set; }
         public int Cost { get; set; }
+        public int TimeReload { get; set; }
     }
 }
