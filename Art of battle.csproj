@@ -51,17 +51,23 @@
   <ItemGroup>
     <Compile Include="Game.cs" />
     <Compile Include="Model\Card.cs" />
-    <Compile Include="Model\Creature.cs" />
-    <Compile Include="Model\CreatureCreator.cs" />
+    <Compile Include="Model\Creatures\Knight.cs" />
+    <Compile Include="Model\Creatures\Orc.cs" />
+    <Compile Include="Model\ICreature.cs" />
     <Compile Include="Model\GoldInfo.cs" />
     <Compile Include="Model\Player.cs" />
-    <Compile Include="Model\Settings.cs" />
+    <Compile Include="Model\GameSettings.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\Game_Tests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\Creatures\Castle\" />
+    <Folder Include="Assets\Creatures\Knight\" />
+    <Folder Include="Assets\Creatures\Orc\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -6,16 +6,16 @@ using System.Text;
 
 namespace Art_of_battle.Model
 {
-    class Player
+    public class Player
     {
         public string Name { get; }
-        public Creature[] Cards { get; }
-        public Point CreaturesStartPosition;
+        public Card[] Cards { get; }
+        public Point CreaturesSpawnPoint;
 
-        public Player(string name, Creature[] defaultCreatures)
+        public Player(string name, params Card[] defaultCards)
         {
             Name = name;
-            Cards = defaultCreatures;
+            Cards = defaultCards;
         }
     }
 }

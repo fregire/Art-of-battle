@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace Art_of_battle.Model
 {
-    class Settings
+    public class GameSettings
     {
         public int Volume = 10;
         public Size WindowSize = new Size(1280, 720);
