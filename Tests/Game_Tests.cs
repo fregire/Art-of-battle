@@ -12,6 +12,8 @@ namespace Art_of_battle.Tests
     [TestFixture]
     class Game_Tests
     {
+        private Game game;
+
         [Test]
         public void GameInit_Tests()
         {
@@ -25,14 +27,16 @@ namespace Art_of_battle.Tests
                 400, 
                 100, 
                 50, 
-                new Size(100, 100));
+                new Size(100, 100),
+                Direction.None);
 
             var knight = new MeleeCreature(
                 CreatureType.Orc,
                 600,
                 90,
                 80,
-                new Size(100, 100));
+                new Size(100, 100),
+                Direction.None);
 
             var cards = new HashSet<Card>() {
                 new Card(orc, 100, 10), 

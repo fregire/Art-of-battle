@@ -8,6 +8,7 @@ namespace Art_of_battle.Model
     public enum Direction
     {
         Left,
-        Right
+        Right,
+        None
     }
 }

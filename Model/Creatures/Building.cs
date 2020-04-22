@@ -8,18 +8,40 @@ namespace Art_of_battle.Model.Creatures
 {
     class Building : ICreature
     {
-        public CreatureType CreatureType { get; }
         public Point Position { get; set; }
+        public int CurrHealth { get; set; }
+        public CreatureType CreatureType { get; }
         public int Health { get; }
         public Size Dimensions { get; }
+        public Direction Direction { get; }
         public Building(
             CreatureType creatureType,
             int health,
-            Size dimensions)
+            Size dimensions,
+            Direction direction)
         {
             CreatureType = creatureType;
             Health = health;
             Dimensions = dimensions;
+            CurrHealth = health;
+            Direction = direction;
+        }
+
+        public void GetDamage(int damage)
+        {
+            CurrHealth -= damage;
+
+            Damaged?.Invoke(this);
+            //Do smth
+            if (IsDead())
+                return;
+        }
+
+        public event Action<ICreature> Damaged;
+
+        private bool IsDead()
+        {
+            return CurrHealth <= 0;
         }
 
         public void Attack(ICreature creature)
@@ -32,12 +54,18 @@ namespace Art_of_battle.Model.Creatures
             return;
         }
 
-        public ICreature CreateCreature()
+        public void Act(Game game, Player player)
+        {
+            return;
+        }
+
+        public ICreature CreateCreature(Player player)
         {
             return new Building(
                 CreatureType,
                 Health,
-                Dimensions);
+                Dimensions,
+                player.CreaturesDirection);
         }
     }
 }

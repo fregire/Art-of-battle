@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Policy;
 using System.Text;
 using Art_of_battle.Model;
+using Art_of_battle.Model.Creatures;
 
 namespace Art_of_battle
 {
@@ -23,6 +24,7 @@ namespace Art_of_battle
         {
             GameSettings = settings;
             AllCards = cards;
+            playerCreaturesInGame = new Dictionary<Player, HashSet<ICreature>>();
         }
 
         public void PlaceCreatureCardOnField(Card card, Player player)
@@ -40,6 +42,19 @@ namespace Art_of_battle
             var defaultCards = AllCards.Take(GameSettings.CardsPlayerCount).ToArray();
             FirstPlayer = new Player(name1, Direction.Right, defaultCards);
             SecondPlayer = new Player(name2, Direction.Left, defaultCards);
+        }
+
+        public void MakeCreaturesAct()
+        {
+            
+        }
+
+        public void Start()
+        {
+            var castle = new Building(CreatureType.Castle, 1000, new Size(200, 200));
+
+            playerCreaturesInGame[FirstPlayer].Add(castle);
+            playerCreaturesInGame[SecondPlayer].Add(castle.CreateCreature());
         }
     }
 }
