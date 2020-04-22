@@ -10,9 +10,9 @@ namespace Art_of_battle.Model.Creatures
     {
         public Point Position { get; set; }
         public int Health { get; }
-        public Knight()
+        public Knight(int health)
         {
-            Health = 200;
+            Health = health;
         }
 
         public void Attack()
@@ -27,7 +27,7 @@ namespace Art_of_battle.Model.Creatures
 
         public ICreature CreateCreature()
         {
-            return new Knight();
+            return new Knight(Health);
         }
     }
 }

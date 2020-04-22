@@ -20,8 +20,8 @@ namespace Art_of_battle.Tests
             Assert.AreEqual(new Size(1280, 720), gameSettings.WindowSize);
             Assert.AreEqual(2, gameSettings.CardsPlayerCount);
 
-            var orcCard = new Card(new Orc(), 10, 20);
-            var knightCard = new Card(new Knight(), 25, 40);
+            var orcCard = new Card(new Orc(300), 10, 20);
+            var knightCard = new Card(new Knight(150), 25, 40);
             var cards = new List<Card>() {orcCard, knightCard};
 
             var game = new Game(gameSettings, cards);

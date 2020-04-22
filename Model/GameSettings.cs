@@ -12,5 +12,7 @@ namespace Art_of_battle.Model
         public int Volume = 10;
         public Size WindowSize = new Size(1280, 720);
         public int CardsPlayerCount = 2;
+        public int GoldPerTick = 5;
+        public int MaxGoldAmount = 100;
     }
 }

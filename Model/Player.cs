@@ -10,6 +10,8 @@ namespace Art_of_battle.Model
     {
         public string Name { get; }
         public Card[] Cards { get; }
+        public int CurrentGold { get; set; }
+
         public Point CreaturesSpawnPoint;
 
         public Player(string name, params Card[] defaultCards)

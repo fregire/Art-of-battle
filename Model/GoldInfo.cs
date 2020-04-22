@@ -9,6 +9,5 @@ namespace Art_of_battle.Model
     {
         public int MaxGoldAmount { get; private set; }
         public int GoldPerSecond { get; set; }
-        public int CurrentGoldAmount { get; set; }
     }
 }
