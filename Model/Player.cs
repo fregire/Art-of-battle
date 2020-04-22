@@ -13,11 +13,13 @@ namespace Art_of_battle.Model
         public int CurrentGold { get; set; }
 
         public Point CreaturesSpawnPoint;
+        public Direction MoveDirection { get; }
 
-        public Player(string name, params Card[] defaultCards)
+        public Player(string name, Direction creaturesDirection, params Card[] defaultCards)
         {
             Name = name;
             Cards = defaultCards;
+            MoveDirection = creaturesDirection;
         }
     }
 }

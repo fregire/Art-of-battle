@@ -15,11 +15,11 @@ namespace Art_of_battle
         public Size BattleFieldSize { get; set; }
         public GameSettings GameSettings { get; set; }
 
-        public List<Card> AllCards { get; }
+        public HashSet<Card> AllCards { get; }
 
         public Dictionary<Player, HashSet<ICreature>> playerCreaturesInGame;
 
-        public Game(GameSettings settings, List<Card> cards)
+        public Game(GameSettings settings, HashSet<Card> cards)
         {
             GameSettings = settings;
             AllCards = cards;
@@ -38,8 +38,8 @@ namespace Art_of_battle
         public void CreatePlayers(string name1, string name2)
         {
             var defaultCards = AllCards.Take(GameSettings.CardsPlayerCount).ToArray();
-            FirstPlayer = new Player(name1, defaultCards);
-            SecondPlayer = new Player(name2, defaultCards);
+            FirstPlayer = new Player(name1, Direction.Right, defaultCards);
+            SecondPlayer = new Player(name2, Direction.Left, defaultCards);
         }
     }
 }

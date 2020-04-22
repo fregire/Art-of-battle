@@ -51,8 +51,10 @@
   <ItemGroup>
     <Compile Include="Game.cs" />
     <Compile Include="Model\Card.cs" />
-    <Compile Include="Model\Creatures\Knight.cs" />
-    <Compile Include="Model\Creatures\Orc.cs" />
+    <Compile Include="Model\Creatures\Building.cs" />
+    <Compile Include="Model\Creatures\MeleeCreature.cs" />
+    <Compile Include="Model\Creatures\CreatureType.cs" />
+    <Compile Include="Model\Direction.cs" />
     <Compile Include="Model\ICreature.cs" />
     <Compile Include="Model\GoldInfo.cs" />
     <Compile Include="Model\Player.cs" />

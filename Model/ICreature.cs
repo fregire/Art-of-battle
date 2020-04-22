@@ -8,8 +8,10 @@ namespace Art_of_battle.Model
 {
     public interface ICreature
     {
-        void MoveTo();
-        void Attack();
+        Point Position { get; set; }
+        int Health { get; }
+        void Move();
+        void Attack(ICreature creature);
         ICreature CreateCreature();
     }
 }
