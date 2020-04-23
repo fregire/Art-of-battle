@@ -9,13 +9,13 @@ namespace Art_of_battle.Model
     public class Player
     {
         public string Name { get; }
-        public Card[] Cards { get; }
+        public IEnumerable<Card> Cards { get; }
         public int CurrentGold { get; set; }
 
         public Point CreaturesSpawnPoint;
         public Direction CreaturesDirection { get; }
 
-        public Player(string name, Direction creaturesDirection, params Card[] defaultCards)
+        public Player(string name, Direction creaturesDirection, IEnumerable<Card> defaultCards)
         {
             Name = name;
             Cards = defaultCards;

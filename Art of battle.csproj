@@ -55,6 +55,7 @@
     <Compile Include="Model\Creatures\MeleeCreature.cs" />
     <Compile Include="Model\Creatures\CreatureType.cs" />
     <Compile Include="Model\Direction.cs" />
+    <Compile Include="Model\GameStage.cs" />
     <Compile Include="Model\ICreature.cs" />
     <Compile Include="Model\GoldInfo.cs" />
     <Compile Include="Model\Player.cs" />

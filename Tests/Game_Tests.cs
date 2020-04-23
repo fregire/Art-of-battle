@@ -12,43 +12,66 @@ namespace Art_of_battle.Tests
     [TestFixture]
     class Game_Tests
     {
-        private Game game;
-
         [Test]
-        public void GameSettings_Test()
+        public void GameDefaultSettings_Test()
         {
-            var gameSettings = new GameSettings();
-            game = new Game(gameSettings, cards);
-            Assert.AreEqual(10, gameSettings.Volume);
-            Assert.AreEqual(new Size(1280, 720), gameSettings.WindowSize);
-            Assert.AreEqual(2, gameSettings.CardsPlayerCount);
+            var game = new Game();
+
+            Assert.AreEqual(2, game.GameSettings.CardsCountInPlayerHand);
+            Assert.AreEqual(5, game.GameSettings.GoldPerTick);
+            Assert.AreEqual(100, game.GameSettings.MaxGoldAmount);
         }
 
-        [Test]
-        public void Cards_Tests()
+        private IEnumerable<Card> GenerateCards()
         {
-            var orc = new MeleeCreature(
-                CreatureType.Orc,
-                400,
-                100,
-                50,
-                new Size(100, 100),
-                Direction.None);
+            var orcCard = new Card(
+                new MeleeCreature(
+                    CreatureType.Orc,
+                    100,
+                    20,
+                    50,
+                    new Size(50, 50),
+                    Direction.None),
+                15,
+                20
+            );
 
-            var knight = new MeleeCreature(
-                CreatureType.Orc,
-                600,
-                90,
-                80,
-                new Size(100, 100),
-                Direction.None);
+            var knightCard = new Card(
+                new MeleeCreature(
+                    CreatureType.Knight,
+                    100,
+                    50,
+                    10,
+                    new Size(200, 300),
+                    Direction.None
+                ),
+                25,
+                15
+            );
 
-            var cards = new HashSet<Card>() {
-                new Card(orc, 100, 10),
-                new Card(knight, 200, 10)
-            };
+            yield return orcCard;
+            yield return knightCard;
+        }
+        [Test]
+        public void StartingGame_Test()
+        {
+            var cards = GenerateCards();
+            var game = new Game(cards);
 
-            game.CreatePlayers("Daniil", "Roman");
+            var firstPlayer = new Player(
+                "Daniil", 
+                Direction.Right, 
+                game.DefaultPlayerCards);
+
+            var secondPlayer = new Player(
+                "Roman",
+                Direction.Left,
+                game.DefaultPlayerCards);
+
+            game.Start(firstPlayer, secondPlayer);
+
+            Assert.AreEqual(game.GameSettings.CardsCountInPlayerHand, game.FirstPlayer.Cards.Count());
+            Assert.AreEqual(game.GameSettings.CardsCountInPlayerHand, game.SecondPlayer.Cards.Count());
         }
     }
 }

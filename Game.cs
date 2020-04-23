@@ -15,31 +15,38 @@ namespace Art_of_battle
         public Player SecondPlayer { get; set; }
         public Size BattleFieldSize { get; set; }
         public GameSettings GameSettings { get; set; }
+        public IEnumerable<Card> Cards { get; }
+        public IEnumerable<Card> DefaultPlayerCards
+            => Cards.Take(GameSettings.CardsCountInPlayerHand);
 
-        public HashSet<Card> Cards { get; }
+        public GameStage GameStage = GameStage.NotStarted;
 
-        public Dictionary<Player, HashSet<ICreature>> playerCreaturesInGame;
+        private Dictionary<Player, HashSet<ICreature>> playerCreaturesInGame;
 
-
-        public Game(GameSettings settings, HashSet<Card> cards)
+        public Game(GameSettings settings, IEnumerable<Card> cards)
         {
             GameSettings = settings;
             Cards = cards;
             playerCreaturesInGame = new Dictionary<Player, HashSet<ICreature>>();
         }
 
-        public Game(GameSettings settings)
+        public Game(IEnumerable<Card> cards)
         {
-            GameSettings = settings;
+            GameSettings = new GameSettings();
+            Cards = cards;
+            playerCreaturesInGame = new Dictionary<Player, HashSet<ICreature>>();
+        }
+
+        public Game()
+        {
+            GameSettings = new GameSettings();
             Cards = new HashSet<Card>();
             playerCreaturesInGame = new Dictionary<Player, HashSet<ICreature>>();
         }
 
-        public void PlaceCreatureOnField(Card card, Player player)
+        public void PlaceCreatureOnField(ICreature creature, Player player)
         {
-            var creature = card.Creature.CreateCreature(player);
             creature.Position = player.CreaturesSpawnPoint;
-
             playerCreaturesInGame[player].Add(creature);
         }
 
@@ -48,19 +55,51 @@ namespace Art_of_battle
             playerCreaturesInGame[player].Remove(creature);
         }
 
-        public void CreatePlayers(string name1, string name2)
+        public void ClearField()
         {
-            var defaultCards = Cards.Take(GameSettings.CardsPlayerCount).ToArray();
+            playerCreaturesInGame[FirstPlayer].Clear();
+            playerCreaturesInGame[SecondPlayer].Clear();
+        }
 
-            FirstPlayer = new Player(name1, Direction.Right, defaultCards);
-            SecondPlayer = new Player(name2, Direction.Left, defaultCards);
+        public void ChangeState(GameStage stage)
+        {
+            this.GameStage = stage;
+            StateChanged?.Invoke(stage);
+        }
+
+        public event Action<GameStage> StateChanged;
+
+        private void PlaceCastlesOnField()
+        {
+            var firstCastle = new Building(
+                CreatureType.Castle, 
+                1000, 
+                new Size(50, 100), 
+                FirstPlayer.CreaturesDirection);
+
+            var secondCastle = new Building(
+                CreatureType.Castle,
+                1000,
+                new Size(50, 100),
+                SecondPlayer.CreaturesDirection);
+
+            firstCastle.Position = FirstPlayer.CreaturesSpawnPoint;
+            secondCastle.Position = SecondPlayer.CreaturesSpawnPoint;
+
+            PlaceCreatureOnField(firstCastle, FirstPlayer);
+            PlaceCreatureOnField(secondCastle, SecondPlayer);
+        }
+
+        public void Start(Player firstPlayer, Player secondPlayer)
+        {
+            FirstPlayer = firstPlayer;
+            SecondPlayer = secondPlayer;
 
             playerCreaturesInGame.Add(FirstPlayer, new HashSet<ICreature>());
             playerCreaturesInGame.Add(SecondPlayer, new HashSet<ICreature>());
-        }
 
-        public void Start()
-        {
+            PlaceCastlesOnField();
+            ChangeState(GameStage.Started);
         }
     }
 }
