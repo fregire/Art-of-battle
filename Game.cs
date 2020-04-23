@@ -16,20 +16,31 @@ namespace Art_of_battle
         public Size BattleFieldSize { get; set; }
         public GameSettings GameSettings { get; set; }
 
-        public HashSet<Card> AllCards { get; }
+        public HashSet<Card> Cards { get; }
 
         public Dictionary<Player, HashSet<ICreature>> playerCreaturesInGame;
+
 
         public Game(GameSettings settings, HashSet<Card> cards)
         {
             GameSettings = settings;
-            AllCards = cards;
+            Cards = cards;
             playerCreaturesInGame = new Dictionary<Player, HashSet<ICreature>>();
         }
 
-        public void PlaceCreatureCardOnField(Card card, Player player)
+        public Game(GameSettings settings)
         {
-            playerCreaturesInGame[player].Add(card.Creature.CreateCreature());
+            GameSettings = settings;
+            Cards = new HashSet<Card>();
+            playerCreaturesInGame = new Dictionary<Player, HashSet<ICreature>>();
+        }
+
+        public void PlaceCreatureOnField(Card card, Player player)
+        {
+            var creature = card.Creature.CreateCreature(player);
+            creature.Position = player.CreaturesSpawnPoint;
+
+            playerCreaturesInGame[player].Add(creature);
         }
 
         public void DeleteCreatureFromField(ICreature creature, Player player)
@@ -39,22 +50,17 @@ namespace Art_of_battle
 
         public void CreatePlayers(string name1, string name2)
         {
-            var defaultCards = AllCards.Take(GameSettings.CardsPlayerCount).ToArray();
+            var defaultCards = Cards.Take(GameSettings.CardsPlayerCount).ToArray();
+
             FirstPlayer = new Player(name1, Direction.Right, defaultCards);
             SecondPlayer = new Player(name2, Direction.Left, defaultCards);
-        }
 
-        public void MakeCreaturesAct()
-        {
-            
+            playerCreaturesInGame.Add(FirstPlayer, new HashSet<ICreature>());
+            playerCreaturesInGame.Add(SecondPlayer, new HashSet<ICreature>());
         }
 
         public void Start()
         {
-            var castle = new Building(CreatureType.Castle, 1000, new Size(200, 200));
-
-            playerCreaturesInGame[FirstPlayer].Add(castle);
-            playerCreaturesInGame[SecondPlayer].Add(castle.CreateCreature());
         }
     }
 }

@@ -27,7 +27,7 @@ namespace Art_of_battle.Model.Creatures
             Direction = direction;
         }
 
-        public void GetDamage(int damage)
+        public void AcceptDamage(int damage)
         {
             CurrHealth -= damage;
 
@@ -54,7 +54,7 @@ namespace Art_of_battle.Model.Creatures
             return;
         }
 
-        public void Act(Game game, Player player)
+        public void Act(HashSet<ICreature> enemies)
         {
             return;
         }

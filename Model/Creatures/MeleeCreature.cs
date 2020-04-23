@@ -48,7 +48,6 @@ namespace Art_of_battle.Model.Creatures
                     break;
             }
 
-
             Position = new Point(Position.X + dPoint.X, Position.Y + dPoint.Y);
 
             PositionChanged?.Invoke(this);
@@ -58,22 +57,21 @@ namespace Art_of_battle.Model.Creatures
 
         public void Attack(ICreature enemy)
         {
-            enemy.GetDamage(Damage);
+            enemy.AcceptDamage(Damage);
             Attacked?.Invoke(this);
         }
 
         public event Action<ICreature> Attacked;
 
-        public void GetDamage(int damage)
+        public void AcceptDamage(int damage)
         {
             CurrHealth -= damage;
-
-            //Do smth
-            if (IsDead())
-                return;
+            AcceptedDamage?.Invoke(this);
         }
 
-        private bool IsDead()
+        public event Action<ICreature> AcceptedDamage;
+
+        public bool IsDead()
         {
             return CurrHealth <= 0;
         }
