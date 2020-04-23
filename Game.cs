@@ -13,24 +13,24 @@ namespace Art_of_battle
     {
         public Player FirstPlayer { get; set; }
         public Player SecondPlayer { get; set; }
-        public Size BattleFieldSize { get; set; }
         public GameSettings GameSettings { get; set; }
-        public IEnumerable<Card> Cards { get; }
-        public IEnumerable<Card> DefaultPlayerCards
-            => Cards.Take(GameSettings.CardsCountInPlayerHand);
+        public List<Card> DefaultPlayerCards
+            => Cards.Take(GameSettings.CardsCountInPlayerHand).ToList();
 
         public GameStage GameStage = GameStage.NotStarted;
 
-        private Dictionary<Player, HashSet<ICreature>> playerCreaturesInGame;
+        public readonly List<Card> Cards;
 
-        public Game(GameSettings settings, IEnumerable<Card> cards)
+        private readonly Dictionary<Player, HashSet<ICreature>> playerCreaturesInGame;
+
+        public Game(GameSettings settings, List<Card> cards)
         {
             GameSettings = settings;
             Cards = cards;
             playerCreaturesInGame = new Dictionary<Player, HashSet<ICreature>>();
         }
 
-        public Game(IEnumerable<Card> cards)
+        public Game(List<Card> cards)
         {
             GameSettings = new GameSettings();
             Cards = cards;
@@ -40,8 +40,21 @@ namespace Art_of_battle
         public Game()
         {
             GameSettings = new GameSettings();
-            Cards = new HashSet<Card>();
+            Cards = new List<Card>();
             playerCreaturesInGame = new Dictionary<Player, HashSet<ICreature>>();
+        }
+
+
+        public HashSet<ICreature> GetEnemiesOf(Player player)
+        {
+            return player.Equals(FirstPlayer)
+                ? playerCreaturesInGame[SecondPlayer]
+                : playerCreaturesInGame[FirstPlayer];
+        }
+
+        public void PlaceCardCreatureOnField(Card card, Player player)
+        {
+            PlaceCreatureOnField(card.Creature.CreateCreature(player), player);
         }
 
         public void PlaceCreatureOnField(ICreature creature, Player player)
@@ -69,36 +82,28 @@ namespace Art_of_battle
 
         public event Action<GameStage> StateChanged;
 
-        private void PlaceCastlesOnField()
+        private ICreature CreateCastle(Direction direction)
         {
-            var firstCastle = new Building(
+            return new Building(
                 CreatureType.Castle, 
                 1000, 
-                new Size(50, 100), 
-                FirstPlayer.CreaturesDirection);
-
-            var secondCastle = new Building(
-                CreatureType.Castle,
-                1000,
-                new Size(50, 100),
-                SecondPlayer.CreaturesDirection);
-
-            firstCastle.Position = FirstPlayer.CreaturesSpawnPoint;
-            secondCastle.Position = SecondPlayer.CreaturesSpawnPoint;
-
-            PlaceCreatureOnField(firstCastle, FirstPlayer);
-            PlaceCreatureOnField(secondCastle, SecondPlayer);
+                new Size(100, 100),
+                Direction.None);
         }
 
         public void Start(Player firstPlayer, Player secondPlayer)
         {
+            var firstCastle = CreateCastle(firstPlayer.CreaturesDirection);
+            var secondCastle = CreateCastle(secondPlayer.CreaturesDirection);
+
             FirstPlayer = firstPlayer;
+            FirstPlayer.Castle = firstCastle;
             SecondPlayer = secondPlayer;
+            SecondPlayer.Castle = secondCastle;
 
-            playerCreaturesInGame.Add(FirstPlayer, new HashSet<ICreature>());
-            playerCreaturesInGame.Add(SecondPlayer, new HashSet<ICreature>());
+            playerCreaturesInGame.Add(FirstPlayer, new HashSet<ICreature>() { firstCastle });
+            playerCreaturesInGame.Add(SecondPlayer, new HashSet<ICreature>() { secondCastle });
 
-            PlaceCastlesOnField();
             ChangeState(GameStage.Started);
         }
     }

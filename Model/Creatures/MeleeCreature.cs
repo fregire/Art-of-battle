@@ -78,10 +78,12 @@ namespace Art_of_battle.Model.Creatures
 
         private bool IsEnemyInAttackRange(ICreature enemy)
         {
+            // TODO: Check attackrange from back
             switch (Direction)
             {
                 case Direction.Right:
-                    return Position.X + Dimensions.Width + AttackRange >= enemy.Position.X;
+                    return Position.X + Dimensions.Width + AttackRange >= enemy.Position.X
+                        && Position.X <= enemy.Position.X;
                 case Direction.Left:
                     return Position.X - AttackRange <= enemy.Position.X + Dimensions.Width;
                 default:

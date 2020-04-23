@@ -22,7 +22,7 @@ namespace Art_of_battle.Tests
             Assert.AreEqual(100, game.GameSettings.MaxGoldAmount);
         }
 
-        private IEnumerable<Card> GenerateCards()
+        private List<Card> GenerateCards()
         {
             var orcCard = new Card(
                 new MeleeCreature(
@@ -49,18 +49,17 @@ namespace Art_of_battle.Tests
                 15
             );
 
-            yield return orcCard;
-            yield return knightCard;
+            return new List<Card>() {orcCard, knightCard};
         }
-        [Test]
-        public void StartingGame_Test()
+
+        private Game GetInitedAndStartedGame()
         {
             var cards = GenerateCards();
             var game = new Game(cards);
 
             var firstPlayer = new Player(
-                "Daniil", 
-                Direction.Right, 
+                "Daniil",
+                Direction.Right,
                 game.DefaultPlayerCards);
 
             var secondPlayer = new Player(
@@ -70,8 +69,44 @@ namespace Art_of_battle.Tests
 
             game.Start(firstPlayer, secondPlayer);
 
+            return game;
+        }
+        [Test]
+        public void StartingGame_Test()
+        {
+            var game = GetInitedAndStartedGame();
+
             Assert.AreEqual(game.GameSettings.CardsCountInPlayerHand, game.FirstPlayer.Cards.Count());
             Assert.AreEqual(game.GameSettings.CardsCountInPlayerHand, game.SecondPlayer.Cards.Count());
+            Assert.AreEqual(GameStage.Started, game.GameStage);
+        }
+
+        [Test]
+        public void TwoCreaturesAct_Test()
+        {
+            var game = GetInitedAndStartedGame();
+            var testUnitType = new MeleeCreature(
+                CreatureType.Knight,
+                10,
+                10,
+                1,
+                new Size(1, 1),
+                Direction.None);
+
+            var firstCreature = testUnitType.CreateCreature(game.FirstPlayer);
+            var enemyCreature = testUnitType.CreateCreature(game.SecondPlayer);
+
+            game.PlaceCreatureOnField(firstCreature, game.FirstPlayer);
+            game.PlaceCreatureOnField(enemyCreature, game.SecondPlayer);
+
+            firstCreature.Position = new Point(0, 0);
+            enemyCreature.Position = new Point(1, 1);
+
+            firstCreature.Act(game.GetEnemiesOf(game.FirstPlayer));
+
+            Assert.AreEqual(10, enemyCreature.Health);
+            Assert.AreEqual(0, enemyCreature.CurrHealth);
+
         }
     }
 }
