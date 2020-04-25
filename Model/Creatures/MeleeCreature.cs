@@ -12,7 +12,7 @@ namespace Art_of_battle.Model.Creatures
         public Point Position { get; set; }
         public int CurrHealth { get; set; }
         public CreatureType CreatureType { get; }
-        public int Health { get; }
+        public int MaxHealth { get; }
         public int Damage { get; }
         public Size Dimensions { get; }
         public int AttackRange { get; }
@@ -26,7 +26,7 @@ namespace Art_of_battle.Model.Creatures
             Direction direction)
         {
             CreatureType = creatureType;
-            Health = health;
+            MaxHealth = health;
             Damage = damage;
             Dimensions = dimensions;
             AttackRange = attackRange;
@@ -66,14 +66,19 @@ namespace Art_of_battle.Model.Creatures
         public void AcceptDamage(int damage)
         {
             CurrHealth -= damage;
+
+            if (CurrHealth <= 0)
+                Died?.Invoke(this);
+
             AcceptedDamage?.Invoke(this);
         }
 
         public event Action<ICreature> AcceptedDamage;
+        public event Action<ICreature> Died;
 
-        public bool IsDead()
+        public bool IsAlive()
         {
-            return CurrHealth <= 0;
+            return CurrHealth > 0;
         }
 
         private bool IsEnemyInAttackRange(ICreature enemy)
@@ -120,7 +125,7 @@ namespace Art_of_battle.Model.Creatures
             foreach (var e in enemies)
             {
                 var distance = GetDistanceToEnemy(e);
-                if (IsEnemyInAttackRange(e) &&  distance < minDistance)
+                if (IsEnemyInAttackRange(e) && e.IsAlive() &&  distance < minDistance)
                 {
                     minDistance = distance;
                     enemy = e;
@@ -145,7 +150,7 @@ namespace Art_of_battle.Model.Creatures
         {
             return new MeleeCreature(
                 CreatureType,
-                Health,
+                MaxHealth,
                 Damage,
                 AttackRange,
                 Dimensions,

@@ -37,14 +37,6 @@ namespace Art_of_battle
             playerCreaturesInGame = new Dictionary<Player, HashSet<ICreature>>();
         }
 
-        public Game()
-        {
-            GameSettings = new GameSettings();
-            Cards = new List<Card>();
-            playerCreaturesInGame = new Dictionary<Player, HashSet<ICreature>>();
-        }
-
-
         public HashSet<ICreature> GetEnemiesOf(Player player)
         {
             return player.Equals(FirstPlayer)
@@ -61,12 +53,20 @@ namespace Art_of_battle
         {
             creature.Position = player.CreaturesSpawnPoint;
             playerCreaturesInGame[player].Add(creature);
+
+            CreaturePlacedOnField?.Invoke(creature);
         }
+
+        public event Action<ICreature> CreaturePlacedOnField;
 
         public void DeleteCreatureFromField(ICreature creature, Player player)
         {
             playerCreaturesInGame[player].Remove(creature);
+
+            CreatureDeletedFromField?.Invoke(creature);
         }
+
+        public event Action<ICreature> CreatureDeletedFromField;
 
         public void ClearField()
         {
@@ -89,6 +89,17 @@ namespace Art_of_battle
                 1000, 
                 new Size(100, 100),
                 Direction.None);
+        }
+
+        public Player GetWinner()
+        {
+            if (!FirstPlayer.Castle.IsAlive())
+                return SecondPlayer;
+
+            if (!SecondPlayer.Castle.IsAlive())
+                return FirstPlayer;
+
+            return null;
         }
 
         public void Start(Player firstPlayer, Player secondPlayer)

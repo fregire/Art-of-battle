@@ -15,7 +15,7 @@ namespace Art_of_battle.Tests
         [Test]
         public void GameDefaultSettings_Test()
         {
-            var game = new Game();
+            var game = new Game(GenerateCards());
 
             Assert.AreEqual(2, game.GameSettings.CardsCountInPlayerHand);
             Assert.AreEqual(5, game.GameSettings.GoldPerTick);
@@ -71,18 +71,33 @@ namespace Art_of_battle.Tests
 
             return game;
         }
+
         [Test]
         public void StartingGame_Test()
         {
             var game = GetInitedAndStartedGame();
 
+            Assert.IsNotEmpty(game.Cards);
             Assert.AreEqual(game.GameSettings.CardsCountInPlayerHand, game.FirstPlayer.Cards.Count());
             Assert.AreEqual(game.GameSettings.CardsCountInPlayerHand, game.SecondPlayer.Cards.Count());
             Assert.AreEqual(GameStage.Started, game.GameStage);
         }
 
+
+        private ICreature GetTestCreature(int hp, int damage, int attackRange, Size size)
+        {
+            return new MeleeCreature(
+                CreatureType.Knight,
+                hp,
+                damage,
+                attackRange,
+                size,
+                Direction.None);
+        }
+
+
         [Test]
-        public void TwoCreaturesAct_Test()
+        public void RightDirectionAttack_Test()
         {
             var game = GetInitedAndStartedGame();
             var testUnitType = new MeleeCreature(
@@ -104,9 +119,59 @@ namespace Art_of_battle.Tests
 
             firstCreature.Act(game.GetEnemiesOf(game.FirstPlayer));
 
-            Assert.AreEqual(10, enemyCreature.Health);
+            Assert.AreEqual(10, enemyCreature.MaxHealth);
             Assert.AreEqual(0, enemyCreature.CurrHealth);
+        }
 
+        [Test]
+        public void LeftDirectionAttack_Test()
+        {
+            var game = GetInitedAndStartedGame();
+            var creature = GetTestCreature(10, 10, 10, new Size(10, 10));
+
+            var creature1 = creature.CreateCreature(game.FirstPlayer);
+            var enemyCreature = creature.CreateCreature(game.SecondPlayer);
+
+            game.PlaceCreatureOnField(creature1, game.FirstPlayer);
+            game.PlaceCreatureOnField(enemyCreature, game.SecondPlayer);
+
+            creature1.Position = new Point(150, 0);
+            enemyCreature.Position = new Point(165, 0);
+
+            enemyCreature.Act(game.GetEnemiesOf(game.SecondPlayer));
+
+            Assert.AreEqual(10, creature1.MaxHealth);
+            Assert.AreEqual(0, creature1.CurrHealth);
+        }
+
+
+        [Test]
+        public void ChooseClosestEnemyAndDontTouchDiedEnemy_Test()
+        {
+            var game = GetInitedAndStartedGame();
+            var creature = GetTestCreature(10, 10, 10, new Size(10, 10));
+
+            var creature1 = creature.CreateCreature(game.FirstPlayer);
+            var creature2 = creature.CreateCreature(game.FirstPlayer);
+            var enemyCreature = creature.CreateCreature(game.SecondPlayer);
+
+            game.PlaceCreatureOnField(creature1, game.FirstPlayer);
+            game.PlaceCreatureOnField(creature2, game.FirstPlayer);
+            game.PlaceCreatureOnField(enemyCreature, game.SecondPlayer);
+
+            creature1.Position = new Point(150, 0);
+            creature2.Position = new Point(151, 0);
+            enemyCreature.Position = new Point(165, 0);
+
+            enemyCreature.Act(game.GetEnemiesOf(game.SecondPlayer));
+
+            Assert.AreEqual(0, creature2.CurrHealth);
+            Assert.AreEqual(10, creature1.CurrHealth);
+
+            enemyCreature.Act(game.GetEnemiesOf(game.SecondPlayer));
+
+            Assert.AreEqual(0, creature2.CurrHealth);
+            Assert.AreEqual(0, creature1.CurrHealth);
         }
     }
 }

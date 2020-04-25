@@ -11,7 +11,7 @@ namespace Art_of_battle.Model.Creatures
         public Point Position { get; set; }
         public int CurrHealth { get; set; }
         public CreatureType CreatureType { get; }
-        public int Health { get; }
+        public int MaxHealth { get; }
         public Size Dimensions { get; }
         public Direction Direction { get; }
         public Building(
@@ -21,7 +21,7 @@ namespace Art_of_battle.Model.Creatures
             Direction direction)
         {
             CreatureType = creatureType;
-            Health = health;
+            MaxHealth = health;
             Dimensions = dimensions;
             CurrHealth = health;
             Direction = direction;
@@ -30,18 +30,19 @@ namespace Art_of_battle.Model.Creatures
         public void AcceptDamage(int damage)
         {
             CurrHealth -= damage;
+            
+            if (CurrHealth <= 0)
+                Died?.Invoke(this);
 
             Damaged?.Invoke(this);
-            //Do smth
-            if (IsDead())
-                return;
         }
 
         public event Action<ICreature> Damaged;
+        public event Action<ICreature> Died;
 
-        private bool IsDead()
+        public bool IsAlive()
         {
-            return CurrHealth <= 0;
+            return CurrHealth > 0;
         }
 
         public void Attack(ICreature creature)
@@ -63,7 +64,7 @@ namespace Art_of_battle.Model.Creatures
         {
             return new Building(
                 CreatureType,
-                Health,
+                MaxHealth,
                 Dimensions,
                 player.CreaturesDirection);
         }
