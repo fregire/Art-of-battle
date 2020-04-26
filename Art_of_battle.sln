@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.29709.97
+VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Art of battle", "Art of battle.csproj", "{C3C66F63-9F88-4BA9-9E69-F06FBFB3BD8E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Art_of_battle", "Art_of_battle.csproj", "{C3C66F63-9F88-4BA9-9E69-F06FBFB3BD8E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +20,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {08110D8B-5D7C-413B-849A-497F78C1132C}
+		SolutionGuid = {848F4345-CC73-4098-9BE7-6F6772199C26}
 	EndGlobalSection
 EndGlobal
