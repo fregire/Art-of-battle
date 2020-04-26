@@ -5,6 +5,9 @@ namespace Art_of_battle.Model
 {
     public class Settings
     {
+        private Size screenSize;
+        private double volume;
+
         public Size ScreenSize
         {
             get { return screenSize; }
@@ -24,9 +27,8 @@ namespace Art_of_battle.Model
                 VolumeChanged?.Invoke(value);
             }
         }
+
         public event Action<Size> ScreenSizeChanged;
         public event Action<double> VolumeChanged;
-        private Size screenSize;
-        private double volume;
     }
 }
