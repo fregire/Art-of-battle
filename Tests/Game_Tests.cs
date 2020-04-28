@@ -62,16 +62,17 @@ namespace Art_of_battle.Tests
         }
 
         [Test]
-        public void StartingGame_Test()
+        public void StartedGame_Test()
         {
-            var game = GetInitedAndStartedGame();
+            var startedGame = GetInitedAndStartedGame();
 
-            Assert.IsNotEmpty(game.Cards);
-            Assert.AreEqual(game.GameSettings.CardsCountInPlayerHand, game.FirstPlayer.Cards.Count());
-            Assert.AreEqual(game.GameSettings.CardsCountInPlayerHand, game.SecondPlayer.Cards.Count());
-            Assert.AreEqual(GameStage.Started, game.Stage);
+            Assert.NotNull(startedGame.FirstPlayer);
+            Assert.NotNull(startedGame.SecondPlayer);
+            Assert.IsNotEmpty(startedGame.Cards);
+            Assert.AreEqual(GameStage.Started, startedGame.Stage);
+            Assert.AreEqual(startedGame.DefaultPlayerCards, startedGame.FirstPlayer.Cards);
+            Assert.AreEqual(startedGame.DefaultPlayerCards, startedGame.SecondPlayer.Cards);
         }
-
 
         private ICreature GetTestCreature(
             int hp, 
@@ -178,7 +179,7 @@ namespace Art_of_battle.Tests
 
         public void CreatureIsRemoved()
         {
-            // expected больше на еденицу из-за замка, который тоже creature
+            // expected больше на еденицу из-за замка, который тоже creature и добавляется при старте игры
             var game = GetInitedAndStartedGame();
             var creature = GetTestCreature(10, 10, 10, new Size(10, 10), null);
             var creature1 = creature.CreateCreature(game.FirstPlayer);
