@@ -83,6 +83,11 @@ namespace Art_of_battle
 
         public event Action<GameStage> StateChanged;
 
+        public HashSet<ICreature> GetPlayerCreaturesInGame(Player player)
+        {
+            return playerCreaturesInGame[player];
+        }
+
         private ICreature CreateCastle(Direction direction)
         {
             return new Building(
