@@ -200,5 +200,12 @@ namespace Art_of_battle.Tests
             game.DeleteCreatureFromField(creature1, game.FirstPlayer);
             Assert.AreEqual(1, game.GetPlayerCreaturesInGame(game.FirstPlayer).Count);
         }
+
+        [Test]
+        public void GetWinner_Test()
+        {
+            
+        }
+
     }
 }
