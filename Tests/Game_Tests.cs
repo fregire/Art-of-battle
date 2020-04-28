@@ -86,7 +86,7 @@ namespace Art_of_battle.Tests
                 Direction.None);
         }
 
-        public void GenerateTestCreaturesForPlayer(int creaturesCount, Game game, Player player)
+        private void GenerateTestCreaturesForPlayer(int creaturesCount, Game game, Player player)
         {
             var testCreature = GetTestCreature(10, 10, 10, new Size(20, 20));
 
