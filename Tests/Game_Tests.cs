@@ -172,6 +172,22 @@ namespace Art_of_battle.Tests
             Assert.AreEqual(0, creature1.CurrHealth);
         }
 
+        [Test]
+
+        public void CreatureIsRemoved()
+        {
+            var game = GetInitedAndStartedGame();
+            var creature = GetTestCreature(10, 10, 10, new Size(10, 10));
+            var creature1 = creature.CreateCreature(game.FirstPlayer);
+            var creature2 = creature.CreateCreature(game.FirstPlayer);
+            game.PlaceCreatureOnField(creature1, game.FirstPlayer);
+            game.PlaceCreatureOnField(creature2, game.FirstPlayer);
+            Assert.AreEqual(3, game.GetPlayerCreaturesInGame(game.FirstPlayer).Count);
+            game.DeleteCreatureFromField(creature2, game.FirstPlayer);
+            Assert.AreEqual(2, game.GetPlayerCreaturesInGame(game.FirstPlayer).Count);
+            game.DeleteCreatureFromField(creature1, game.FirstPlayer);
+            Assert.AreEqual(1, game.GetPlayerCreaturesInGame(game.FirstPlayer).Count);
+        }
 
         [Test]
         public void GetWinner_Test()
@@ -181,6 +197,7 @@ namespace Art_of_battle.Tests
 
 
         }
+
 
     }
 }
