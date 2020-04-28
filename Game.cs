@@ -92,15 +92,17 @@ namespace Art_of_battle
                 Direction.None);
         }
 
-        public Player GetWinner()
+        public bool TryGetWinner(out Player winner)
         {
+            winner = null;
+
             if (!FirstPlayer.Castle.IsAlive())
-                return SecondPlayer;
+                winner = SecondPlayer;
 
             if (!SecondPlayer.Castle.IsAlive())
-                return FirstPlayer;
+                winner = FirstPlayer;
 
-            return null;
+            return winner != null;
         }
 
         public void Start(Player firstPlayer, Player secondPlayer)
