@@ -73,7 +73,12 @@ namespace Art_of_battle.Tests
         }
 
 
-        private ICreature GetTestCreature(int hp, int damage, int attackRange, Size size, Player player)
+        private ICreature GetTestCreature(
+            int hp, 
+            int damage, 
+            int attackRange, 
+            Size size, 
+            Player player = null)
         {
             return new MeleeCreature(
                 CreatureType.Knight,
@@ -202,7 +207,18 @@ namespace Art_of_battle.Tests
         [Test]
         public void GetWinner_Test()
         {
+            var testCreature = GetTestCreature(10, 2000, 10, new Size(20, 20));
             var game = GetInitedAndStartedGame();
+            var enemy = testCreature.CreateCreature(game.SecondPlayer);
+            Player winner;
+
+            game.FirstPlayer.Castle.Position = new Point(0, 0);
+            enemy.Position = new Point(105, 0);
+
+            enemy.Act(game.GetEnemiesOf(game.SecondPlayer));
+
+            Assert.AreEqual(true, game.TryGetWinner(out winner));
+            Assert.AreEqual(game.SecondPlayer, winner);
         }
 
 

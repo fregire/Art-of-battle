@@ -102,10 +102,16 @@ namespace Art_of_battle
             winner = null;
 
             if (!FirstPlayer.Castle.IsAlive())
+            {
                 winner = SecondPlayer;
+                ChangeState(GameStage.Finished);
+            }
 
             if (!SecondPlayer.Castle.IsAlive())
+            {
                 winner = FirstPlayer;
+                ChangeState(GameStage.Finished);
+            }
 
             return winner != null;
         }

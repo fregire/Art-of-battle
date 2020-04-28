@@ -90,7 +90,7 @@ namespace Art_of_battle.Model.Creatures
                     return Position.X + Dimensions.Width + AttackRange >= enemy.Position.X
                         && Position.X <= enemy.Position.X;
                 case Direction.Left:
-                    return Position.X - AttackRange <= enemy.Position.X + Dimensions.Width;
+                    return Position.X - AttackRange <= enemy.Position.X + enemy.Dimensions.Width;
                 default:
                     return false;
             }
