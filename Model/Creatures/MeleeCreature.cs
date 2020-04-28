@@ -84,16 +84,35 @@ namespace Art_of_battle.Model.Creatures
 
         private bool IsEnemyInAttackRange(ICreature enemy)
         {
+            return IsEnemyInFront(enemy) || IsEnemyInBack(enemy);
+        }
+
+        private bool IsEnemyInFront(ICreature enemy)
+        {
             switch (Player.CreaturesDirection)
             {
                 case Direction.Right:
                     return Position.X + Dimensions.Width + AttackRange >= enemy.Position.X
-                        && Position.X <= enemy.Position.X;
+                           && Position.X <= enemy.Position.X;
                 case Direction.Left:
                     return Position.X - AttackRange <= enemy.Position.X + enemy.Dimensions.Width;
                 default:
                     return false;
             }
+        }
+
+        private bool IsEnemyInBack(ICreature enemy)
+        {
+            switch (Player.CreaturesDirection)
+            {
+                case Direction.Left:
+                    return Position.X + Dimensions.Width + AttackRange <= enemy.Position.X;
+                case Direction.Right:
+                    return Position.X - AttackRange >= enemy.Position.X + enemy.Dimensions.Width;
+                default:
+                    return false;
+            }
+
         }
 
         private int GetDistanceToEnemy(ICreature enemy)
