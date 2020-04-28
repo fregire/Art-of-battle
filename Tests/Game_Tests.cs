@@ -12,16 +12,6 @@ namespace Art_of_battle.Tests
     [TestFixture]
     class Game_Tests
     {
-        [Test]
-        public void GameDefaultSettings_Test()
-        {
-            var game = new Game(GenerateCards());
-
-            Assert.AreEqual(2, game.GameSettings.CardsCountInPlayerHand);
-            Assert.AreEqual(5, game.GameSettings.GoldPerTick);
-            Assert.AreEqual(100, game.GameSettings.MaxGoldAmount);
-        }
-
         private List<Card> GenerateCards()
         {
             var orcCard = new Card(
