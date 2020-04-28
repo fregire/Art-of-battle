@@ -17,7 +17,8 @@ namespace Art_of_battle
         public List<Card> DefaultPlayerCards
             => Cards.Take(GameSettings.CardsCountInPlayerHand).ToList();
 
-        public GameStage GameStage { get; }
+        private GameStage gameStage = GameStage.NotStarted;
+        public GameStage Stage => gameStage;
 
         public readonly List<Card> Cards;
 
@@ -28,7 +29,6 @@ namespace Art_of_battle
             GameSettings = settings;
             Cards = cards;
             playerCreaturesInGame = new Dictionary<Player, HashSet<ICreature>>();
-            GameStage = GameStage.NotStarted;
         }
 
         public Game(List<Card> cards)
@@ -36,7 +36,6 @@ namespace Art_of_battle
             GameSettings = new GameSettings();
             Cards = cards;
             playerCreaturesInGame = new Dictionary<Player, HashSet<ICreature>>();
-            GameStage = GameStage.NotStarted;
         }
 
         public HashSet<ICreature> GetEnemiesOf(Player player)
@@ -78,7 +77,7 @@ namespace Art_of_battle
 
         public void ChangeState(GameStage stage)
         {
-            this.GameStage = stage;
+            this.gameStage = stage;
             StateChanged?.Invoke(stage);
         }
 

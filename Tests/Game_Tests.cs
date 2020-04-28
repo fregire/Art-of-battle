@@ -70,7 +70,7 @@ namespace Art_of_battle.Tests
             Assert.IsNotEmpty(game.Cards);
             Assert.AreEqual(game.GameSettings.CardsCountInPlayerHand, game.FirstPlayer.Cards.Count());
             Assert.AreEqual(game.GameSettings.CardsCountInPlayerHand, game.SecondPlayer.Cards.Count());
-            Assert.AreEqual(GameStage.Started, game.GameStage);
+            Assert.AreEqual(GameStage.Started, game.Stage);
         }
 
 
