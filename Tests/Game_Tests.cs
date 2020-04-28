@@ -173,6 +173,7 @@ namespace Art_of_battle.Tests
 
         public void CreatureIsRemoved()
         {
+            // expected больше на еденицу из-за замка, который тоже creature
             var game = GetInitedAndStartedGame();
             var creature = GetTestCreature(10, 10, 10, new Size(10, 10), null);
             var creature1 = creature.CreateCreature(game.FirstPlayer);
@@ -184,6 +185,18 @@ namespace Art_of_battle.Tests
             Assert.AreEqual(2, game.GetPlayerCreaturesInGame(game.FirstPlayer).Count);
             game.DeleteCreatureFromField(creature1);
             Assert.AreEqual(1, game.GetPlayerCreaturesInGame(game.FirstPlayer).Count);
+        }
+
+        [Test]
+
+        public void FieldIsCleanAfterCleaning()
+        {
+            var game = GetInitedAndStartedGame();
+            GenerateTestCreaturesForPlayer(10, game, game.FirstPlayer);
+            GenerateTestCreaturesForPlayer(10, game, game.SecondPlayer);
+            game.ClearField();
+            Assert.AreEqual(0, game.GetPlayerCreaturesInGame(game.FirstPlayer).Count);
+            Assert.AreEqual(0, game.GetPlayerCreaturesInGame(game.SecondPlayer).Count);
         }
 
         [Test]
