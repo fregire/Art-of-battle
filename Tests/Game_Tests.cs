@@ -91,7 +91,7 @@ namespace Art_of_battle.Tests
             var testCreature = GetTestCreature(10, 10, 10, new Size(20, 20));
 
             for(var i = 0; i < creaturesCount; i++)
-                game.PlaceCreatureOnField(testCreature, player);
+                game.PlaceCreatureOnField(testCreature.CreateCreature(player), player);
         }
 
         [Test]
