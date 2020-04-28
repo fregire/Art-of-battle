@@ -86,14 +86,6 @@ namespace Art_of_battle.Tests
                 Direction.None);
         }
 
-        private void GenerateTestCreaturesForPlayer(int creaturesCount, Game game, Player player)
-        {
-            var gm = GetInitedAndStartedGame();
-            var testCreature = GetTestCreature(10, 10, 10, new Size(10, 10));
-
-            for (var i = 0; i < creaturesCount; i++)
-                gm.PlaceCreatureOnField(testCreature.CreateCreature(player), player);
-        }
 
         [Test]
         public void RightDirectionAttack_Test()
@@ -172,5 +164,6 @@ namespace Art_of_battle.Tests
             Assert.AreEqual(0, creature2.CurrHealth);
             Assert.AreEqual(0, creature1.CurrHealth);
         }
+
     }
 }
