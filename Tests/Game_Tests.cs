@@ -21,8 +21,7 @@ namespace Art_of_battle.Tests
                     100,
                     20,
                     50,
-                    new Size(50, 50),
-                    Direction.None),
+                    new Size(50, 50)),
                 15,
                 20
             );
@@ -33,8 +32,7 @@ namespace Art_of_battle.Tests
                     100,
                     50,
                     10,
-                    new Size(200, 300),
-                    Direction.None
+                    new Size(200, 300)
                 ),
                 25,
                 15
@@ -75,7 +73,7 @@ namespace Art_of_battle.Tests
         }
 
 
-        private ICreature GetTestCreature(int hp, int damage, int attackRange, Size size)
+        private ICreature GetTestCreature(int hp, int damage, int attackRange, Size size, Player player)
         {
             return new MeleeCreature(
                 CreatureType.Knight,
@@ -83,15 +81,15 @@ namespace Art_of_battle.Tests
                 damage,
                 attackRange,
                 size,
-                Direction.None);
+                player);
         }
 
         private void GenerateTestCreaturesForPlayer(int creaturesCount, Game game, Player player)
         {
-            var testCreature = GetTestCreature(10, 10, 10, new Size(20, 20));
+            var testCreature = GetTestCreature(10, 10, 10, new Size(20, 20), player);
 
             for(var i = 0; i < creaturesCount; i++)
-                game.PlaceCreatureOnField(testCreature.CreateCreature(player), player);
+                game.PlaceCreatureOnField(testCreature.CreateCreature(player));
         }
 
         [Test]
@@ -103,14 +101,13 @@ namespace Art_of_battle.Tests
                 10,
                 10,
                 1,
-                new Size(1, 1),
-                Direction.None);
+                new Size(1, 1));
 
             var firstCreature = testUnitType.CreateCreature(game.FirstPlayer);
             var enemyCreature = testUnitType.CreateCreature(game.SecondPlayer);
 
-            game.PlaceCreatureOnField(firstCreature, game.FirstPlayer);
-            game.PlaceCreatureOnField(enemyCreature, game.SecondPlayer);
+            game.PlaceCreatureOnField(firstCreature);
+            game.PlaceCreatureOnField(enemyCreature);
 
             firstCreature.Position = new Point(0, 0);
             enemyCreature.Position = new Point(1, 1);
@@ -125,13 +122,13 @@ namespace Art_of_battle.Tests
         public void LeftDirectionAttack_Test()
         {
             var game = GetInitedAndStartedGame();
-            var creature = GetTestCreature(10, 10, 10, new Size(10, 10));
+            var creature = GetTestCreature(10, 10, 10, new Size(10, 10), null);
 
             var creature1 = creature.CreateCreature(game.FirstPlayer);
             var enemyCreature = creature.CreateCreature(game.SecondPlayer);
 
-            game.PlaceCreatureOnField(creature1, game.FirstPlayer);
-            game.PlaceCreatureOnField(enemyCreature, game.SecondPlayer);
+            game.PlaceCreatureOnField(creature1);
+            game.PlaceCreatureOnField(enemyCreature);
 
             creature1.Position = new Point(150, 0);
             enemyCreature.Position = new Point(165, 0);
@@ -147,15 +144,15 @@ namespace Art_of_battle.Tests
         public void ChooseClosestEnemyAndDontTouchDiedEnemy_Test()
         {
             var game = GetInitedAndStartedGame();
-            var creature = GetTestCreature(10, 10, 10, new Size(10, 10));
+            var creature = GetTestCreature(10, 10, 10, new Size(10, 10), null);
 
             var creature1 = creature.CreateCreature(game.FirstPlayer);
             var creature2 = creature.CreateCreature(game.FirstPlayer);
             var enemyCreature = creature.CreateCreature(game.SecondPlayer);
 
-            game.PlaceCreatureOnField(creature1, game.FirstPlayer);
-            game.PlaceCreatureOnField(creature2, game.FirstPlayer);
-            game.PlaceCreatureOnField(enemyCreature, game.SecondPlayer);
+            game.PlaceCreatureOnField(creature1);
+            game.PlaceCreatureOnField(creature2);
+            game.PlaceCreatureOnField(enemyCreature);
 
             creature1.Position = new Point(150, 0);
             creature2.Position = new Point(151, 0);
@@ -177,15 +174,15 @@ namespace Art_of_battle.Tests
         public void CreatureIsRemoved()
         {
             var game = GetInitedAndStartedGame();
-            var creature = GetTestCreature(10, 10, 10, new Size(10, 10));
+            var creature = GetTestCreature(10, 10, 10, new Size(10, 10), null);
             var creature1 = creature.CreateCreature(game.FirstPlayer);
             var creature2 = creature.CreateCreature(game.FirstPlayer);
-            game.PlaceCreatureOnField(creature1, game.FirstPlayer);
-            game.PlaceCreatureOnField(creature2, game.FirstPlayer);
+            game.PlaceCreatureOnField(creature1);
+            game.PlaceCreatureOnField(creature2);
             Assert.AreEqual(3, game.GetPlayerCreaturesInGame(game.FirstPlayer).Count);
-            game.DeleteCreatureFromField(creature2, game.FirstPlayer);
+            game.DeleteCreatureFromField(creature2);
             Assert.AreEqual(2, game.GetPlayerCreaturesInGame(game.FirstPlayer).Count);
-            game.DeleteCreatureFromField(creature1, game.FirstPlayer);
+            game.DeleteCreatureFromField(creature1);
             Assert.AreEqual(1, game.GetPlayerCreaturesInGame(game.FirstPlayer).Count);
         }
 
@@ -193,9 +190,6 @@ namespace Art_of_battle.Tests
         public void GetWinner_Test()
         {
             var game = GetInitedAndStartedGame();
-
-
-
         }
 
 

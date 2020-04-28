@@ -16,14 +16,14 @@ namespace Art_of_battle.Model.Creatures
         public int Damage { get; }
         public Size Dimensions { get; }
         public int AttackRange { get; }
-        public Direction Direction { get; }
+        public Player Player { get; }
         public MeleeCreature(
             CreatureType creatureType,
             int health, 
             int damage, 
             int attackRange, 
             Size dimensions,
-            Direction direction)
+            Player player = null)
         {
             CreatureType = creatureType;
             MaxHealth = health;
@@ -31,14 +31,15 @@ namespace Art_of_battle.Model.Creatures
             Dimensions = dimensions;
             AttackRange = attackRange;
             CurrHealth = health;
-            Direction = direction;
+            Player = player;
+
         }
 
         public void Move()
         {
             var dPoint = new Point(0, 0);
 
-            switch (Direction)
+            switch (Player.CreaturesDirection)
             {
                 case Direction.Right:
                     dPoint.X = 1;
@@ -83,8 +84,7 @@ namespace Art_of_battle.Model.Creatures
 
         private bool IsEnemyInAttackRange(ICreature enemy)
         {
-            // TODO: Check attackrange from back
-            switch (Direction)
+            switch (Player.CreaturesDirection)
             {
                 case Direction.Right:
                     return Position.X + Dimensions.Width + AttackRange >= enemy.Position.X
@@ -100,7 +100,7 @@ namespace Art_of_battle.Model.Creatures
         {
             var result = 0;
 
-            switch (Direction)
+            switch (Player.CreaturesDirection)
             {
                 case Direction.Right:
                     result = enemy.Position.X - (Position.X + Dimensions.Width);
@@ -155,7 +155,7 @@ namespace Art_of_battle.Model.Creatures
                 Damage,
                 AttackRange,
                 Dimensions,
-                player.CreaturesDirection);
+                player);
         }
     }
 }

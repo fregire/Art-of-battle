@@ -47,22 +47,22 @@ namespace Art_of_battle
 
         public void PlaceCardCreatureOnField(Card card, Player player)
         {
-            PlaceCreatureOnField(card.Creature.CreateCreature(player), player);
+            PlaceCreatureOnField(card.Creature.CreateCreature(player));
         }
 
-        public void PlaceCreatureOnField(ICreature creature, Player player)
+        public void PlaceCreatureOnField(ICreature creature)
         {
-            creature.Position = player.CreaturesSpawnPoint;
-            playerCreaturesInGame[player].Add(creature);
+            creature.Position = creature.Player.CreaturesSpawnPoint;
+            playerCreaturesInGame[creature.Player].Add(creature);
 
             CreaturePlacedOnField?.Invoke(creature);
         }
 
         public event Action<ICreature> CreaturePlacedOnField;
 
-        public void DeleteCreatureFromField(ICreature creature, Player player)
+        public void DeleteCreatureFromField(ICreature creature)
         {
-            playerCreaturesInGame[player].Remove(creature);
+            playerCreaturesInGame[creature.Player].Remove(creature);
 
             CreatureDeletedFromField?.Invoke(creature);
         }
@@ -88,13 +88,13 @@ namespace Art_of_battle
             return playerCreaturesInGame[player];
         }
 
-        private ICreature CreateCastle(Direction direction)
+        private ICreature CreateCastle(Player player)
         {
             return new Building(
                 CreatureType.Castle, 
                 1000, 
                 new Size(100, 100),
-                Direction.None);
+                player);
         }
 
         public bool TryGetWinner(out Player winner)
@@ -129,8 +129,8 @@ namespace Art_of_battle
 
         private void CreateCastlesForPlayers()
         {
-            var firstCastle = CreateCastle(FirstPlayer.CreaturesDirection);
-            var secondCastle = CreateCastle(SecondPlayer.CreaturesDirection);
+            var firstCastle = CreateCastle(FirstPlayer);
+            var secondCastle = CreateCastle(SecondPlayer);
 
             FirstPlayer.Castle = firstCastle;
             SecondPlayer.Castle = secondCastle;

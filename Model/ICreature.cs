@@ -12,6 +12,7 @@ namespace Art_of_battle.Model
         Size Dimensions { get; }
         int MaxHealth { get; }
         int CurrHealth { get; set; }
+        Player Player { get; }
         void Act(HashSet<ICreature> enemies);
         ICreature CreateCreature(Player player);
         void AcceptDamage(int damage);

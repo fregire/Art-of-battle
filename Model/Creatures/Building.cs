@@ -14,17 +14,18 @@ namespace Art_of_battle.Model.Creatures
         public int MaxHealth { get; }
         public Size Dimensions { get; }
         public Direction Direction { get; }
+        public Player Player { get; }
         public Building(
             CreatureType creatureType,
             int health,
             Size dimensions,
-            Direction direction)
+            Player player = null)
         {
             CreatureType = creatureType;
             MaxHealth = health;
             Dimensions = dimensions;
             CurrHealth = health;
-            Direction = direction;
+            Player = player;
         }
 
         public void AcceptDamage(int damage)
@@ -66,7 +67,7 @@ namespace Art_of_battle.Model.Creatures
                 CreatureType,
                 MaxHealth,
                 Dimensions,
-                player.CreaturesDirection);
+                player);
         }
     }
 }
