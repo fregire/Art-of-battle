@@ -7,6 +7,7 @@ using Art_of_battle.Model;
 using Art_of_battle.Model.Creatures;
 using NUnit.Framework;
 
+
 namespace Art_of_battle.Tests
 {
     [TestFixture]
