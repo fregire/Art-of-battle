@@ -112,18 +112,31 @@ namespace Art_of_battle
 
         public void Start(Player firstPlayer, Player secondPlayer)
         {
-            var firstCastle = CreateCastle(firstPlayer.CreaturesDirection);
-            var secondCastle = CreateCastle(secondPlayer.CreaturesDirection);
-
             FirstPlayer = firstPlayer;
-            FirstPlayer.Castle = firstCastle;
             SecondPlayer = secondPlayer;
+
+            CreateCastlesForPlayers();
+            ChangeState(GameStage.Started);
+        }
+
+        public void Start()
+        {
+            if (FirstPlayer is null || SecondPlayer is null)
+                throw new Exception("Not every player inited!");
+
+            Start(FirstPlayer, SecondPlayer);
+        }
+
+        private void CreateCastlesForPlayers()
+        {
+            var firstCastle = CreateCastle(FirstPlayer.CreaturesDirection);
+            var secondCastle = CreateCastle(SecondPlayer.CreaturesDirection);
+
+            FirstPlayer.Castle = firstCastle;
             SecondPlayer.Castle = secondCastle;
 
             playerCreaturesInGame.Add(FirstPlayer, new HashSet<ICreature>() { firstCastle });
             playerCreaturesInGame.Add(SecondPlayer, new HashSet<ICreature>() { secondCastle });
-
-            ChangeState(GameStage.Started);
         }
     }
 }
