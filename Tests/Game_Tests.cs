@@ -172,5 +172,16 @@ namespace Art_of_battle.Tests
             Assert.AreEqual(0, creature1.CurrHealth);
         }
 
+        [Test]
+
+        public void FieldIsCleanAfterCleaning()
+        {
+            var game = GetInitedAndStartedGame();
+            GenerateTestCreaturesForPlayer(10, game, game.FirstPlayer);
+            GenerateTestCreaturesForPlayer(10, game, game.SecondPlayer);
+            game.ClearField();
+
+            Assert.AreEqual(0, game.);
+        }
     }
 }
