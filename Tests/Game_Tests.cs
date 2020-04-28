@@ -172,5 +172,12 @@ namespace Art_of_battle.Tests
             Assert.AreEqual(0, creature1.CurrHealth);
         }
 
+
+        [Test]
+        public void GetWinner_Test()
+        {
+
+        }
+
     }
 }

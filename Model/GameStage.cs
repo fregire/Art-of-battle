@@ -9,7 +9,6 @@ namespace Art_of_battle.Model
     {
         NotStarted,
         Started,
-        Paused,
         Finished
     }
 }
