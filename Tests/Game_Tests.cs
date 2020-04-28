@@ -176,6 +176,9 @@ namespace Art_of_battle.Tests
         [Test]
         public void GetWinner_Test()
         {
+            var game = GetInitedAndStartedGame();
+
+
 
         }
 
