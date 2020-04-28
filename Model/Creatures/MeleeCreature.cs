@@ -106,10 +106,11 @@ namespace Art_of_battle.Model.Creatures
                     result = enemy.Position.X - (Position.X + Dimensions.Width);
                     break;
                 case Direction.Left:
-                    return Position.X - (enemy.Position.X + enemy.Dimensions.Width);
+                    result = Position.X - (enemy.Position.X + enemy.Dimensions.Width);
                     break;
                 default:
-                    return 0;
+                    result = 0;
+                    break;
             }
 
             return Math.Abs(result);
