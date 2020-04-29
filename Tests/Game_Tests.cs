@@ -176,7 +176,6 @@ namespace Art_of_battle.Tests
         }
 
         [Test]
-
         public void CreatureIsRemoved()
         {
             // expected больше на еденицу из-за замка, который тоже creature и добавляется при старте игры

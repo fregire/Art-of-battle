@@ -58,6 +58,9 @@ namespace Art_of_battle
             CreaturePlacedOnField?.Invoke(creature);
         }
 
+
+        //TODO: ACT for game
+
         public event Action<ICreature> CreaturePlacedOnField;
 
         public void DeleteCreatureFromField(ICreature creature)
@@ -114,6 +117,19 @@ namespace Art_of_battle
             }
 
             return winner != null;
+        }
+
+
+        public void Act()
+        {
+            foreach (var e in playerCreaturesInGame)
+            {
+                var player = e.Key;
+                var enemies = GetEnemiesOf(player);
+
+                foreach(var creature in e.Value)
+                    creature.Act(enemies);
+            }
         }
 
         public void Start(Player firstPlayer, Player secondPlayer)
