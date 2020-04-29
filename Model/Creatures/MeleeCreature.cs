@@ -34,6 +34,16 @@ namespace Art_of_battle.Model.Creatures
             Player = player;
 
         }
+        public void Act(HashSet<ICreature> enemies)
+        {
+            ICreature enemy = null;
+            var IsAnyEnemyInAttackRange = TryGetEnemyInAttackRange(enemies, out enemy);
+
+            if (IsAnyEnemyInAttackRange)
+                Attack(enemy);
+            else
+                Move();
+        }
 
         public void Move()
         {
@@ -84,55 +94,22 @@ namespace Art_of_battle.Model.Creatures
 
         private bool IsEnemyInAttackRange(ICreature enemy)
         {
-            return IsEnemyInFront(enemy) || IsEnemyInBack(enemy);
-        }
-
-        private bool IsEnemyInFront(ICreature enemy)
-        {
-            switch (Player.CreaturesDirection)
-            {
-                case Direction.Right:
-                    return Position.X + Dimensions.Width + AttackRange >= enemy.Position.X
-                           && Position.X <= enemy.Position.X;
-                case Direction.Left:
-                    return Position.X - AttackRange <= enemy.Position.X + enemy.Dimensions.Width;
-                default:
-                    return false;
-            }
-        }
-
-        private bool IsEnemyInBack(ICreature enemy)
-        {
-            switch (Player.CreaturesDirection)
-            {
-                case Direction.Left:
-                    return Position.X + Dimensions.Width + AttackRange <= enemy.Position.X;
-                case Direction.Right:
-                    return Position.X - AttackRange >= enemy.Position.X + enemy.Dimensions.Width;
-                default:
-                    return false;
-            }
-
+            return GetDistanceToEnemy(enemy) <= AttackRange;
         }
 
         private int GetDistanceToEnemy(ICreature enemy)
         {
-            var result = 0;
+            var creatureBorders = GetBorders(this);
+            var enemyBorders = GetBorders(enemy);
+            var faceToFaceDist = Math.Abs(enemyBorders.Left - creatureBorders.Right);
+            var backToBackDist = Math.Abs(creatureBorders.Left - enemyBorders.Right);
 
-            switch (Player.CreaturesDirection)
-            {
-                case Direction.Right:
-                    result = enemy.Position.X - (Position.X + Dimensions.Width);
-                    break;
-                case Direction.Left:
-                    result = Position.X - (enemy.Position.X + enemy.Dimensions.Width);
-                    break;
-                default:
-                    result = 0;
-                    break;
-            }
+            return Math.Min(faceToFaceDist, backToBackDist);
+        }
 
-            return Math.Abs(result);
+        private (int Left, int Right) GetBorders(ICreature creature)
+        {
+            return (Left: creature.Position.X, Right: creature.Position.X + creature.Dimensions.Width);
         }
 
         public bool TryGetEnemyInAttackRange(
@@ -153,17 +130,6 @@ namespace Art_of_battle.Model.Creatures
             }
 
             return enemy != null;
-        }
-
-        public void Act(HashSet<ICreature> enemies)
-        {
-            ICreature enemy = null;
-            var IsAnyEnemyInAttackRange = TryGetEnemyInAttackRange(enemies, out enemy);
-
-            if (IsAnyEnemyInAttackRange)
-                Attack(enemy);
-            else
-                Move();
         }
 
         public ICreature CreateCreature(Player player)
