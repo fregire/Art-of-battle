@@ -36,7 +36,8 @@ namespace Art_of_battle.Model.Creatures
         }
         public void Act(HashSet<ICreature> enemies)
         {
-            ICreature enemy = null;
+            ICreature enemy;
+
             var IsAnyEnemyInAttackRange = TryGetEnemyInAttackRange(enemies, out enemy);
 
             if (IsAnyEnemyInAttackRange)

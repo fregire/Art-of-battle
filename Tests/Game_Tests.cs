@@ -221,7 +221,5 @@ namespace Art_of_battle.Tests
             Assert.AreEqual(true, game.TryGetWinner(out winner));
             Assert.AreEqual(game.SecondPlayer, winner);
         }
-
-
     }
 }
