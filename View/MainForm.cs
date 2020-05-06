@@ -6,14 +6,26 @@ using System.Windows.Forms;
 
 namespace Art_of_battle.View
 {
-    public class MainForm : Form
+    public partial class MainForm : Form
     {
+
+
         public MainForm()
         {
-            var button = new Button();
-            button.Text = "Hello, World!";
-            
-            Controls.Add(button);
+            InitializeComponent();
+
+            ShowStartScreen();
+        }
+
+        private void ShowStartScreen()
+        {
+            HideScreens();
+            startControl.Show();
+        }
+
+        private void HideScreens()
+        {
+            startControl.Hide();
         }
     }
 }
