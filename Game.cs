@@ -58,9 +58,6 @@ namespace Art_of_battle
             CreaturePlacedOnField?.Invoke(creature);
         }
 
-
-        //TODO: ACT for game
-
         public event Action<ICreature> CreaturePlacedOnField;
 
         public void DeleteCreatureFromField(ICreature creature)
@@ -85,7 +82,6 @@ namespace Art_of_battle
         }
 
         public event Action<GameStage> StateChanged;
-
         public HashSet<ICreature> GetPlayerCreaturesInGame(Player player)
         {
             return playerCreaturesInGame[player];
@@ -118,7 +114,6 @@ namespace Art_of_battle
 
             return winner != null;
         }
-
 
         public void Act()
         {
