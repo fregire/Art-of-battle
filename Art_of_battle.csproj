@@ -7,7 +7,7 @@
     <ProjectGuid>{C3C66F63-9F88-4BA9-9E69-F06FBFB3BD8E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Art_of_battle</RootNamespace>
-    <AssemblyName>Art of battle</AssemblyName>
+    <AssemblyName>Art_of_battle_proj</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -80,6 +80,11 @@
     <Compile Include="Model\Settings.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Tests\Game_Tests.cs" />
     <Compile Include="View\StartControl.Designer.cs">
       <SubType>UserControl</SubType>
@@ -111,6 +116,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Asset 24.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

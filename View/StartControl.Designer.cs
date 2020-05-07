@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Windows.Forms;
 
@@ -11,6 +12,9 @@ namespace Art_of_battle.View
     {
         private int bottomMarginBtns = 30;
         private int btnHeight = 50;
+        private Button startBtn;
+        private Button settingsBtn;
+        private Button heroesBtn;
 
         private TableLayoutPanel InitBtnsTable()
         {
@@ -33,19 +37,19 @@ namespace Art_of_battle.View
 
             var btnsTable = InitBtnsTable();
             
-            var startBtn = new Button
+            startBtn = new Button
             {
                 Text = "Start",
                 Dock = DockStyle.Fill
             };
 
-            var settingsBtn = new Button
+            settingsBtn = new Button
             {
                 Text = "Settings",
                 Dock = DockStyle.Fill
             };
 
-            var heroesBtn = new Button
+            heroesBtn = new Button
             {
                 Text = "Heroes",
                 Dock = DockStyle.Fill
@@ -79,6 +83,8 @@ namespace Art_of_battle.View
             this.Controls.Add(table);
             this.Name = "StartControl";
             this.ResumeLayout(false);
+
+            this.BackgroundImage = Properties.Resources.Asset_24;
         }
     }
 }

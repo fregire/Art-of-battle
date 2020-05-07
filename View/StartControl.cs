@@ -13,26 +13,7 @@ namespace Art_of_battle.View
         {
             InitializeComponent();
 
-            var startButton = new Button
-            {
-                Text = "Start"
-            };
-
-            var heroesButton = new Button
-            {
-                Text = "Heroes"
-            };
-
-            heroesButton.Location = new Point(0, startButton.Bottom);
-
-            var settingsButton = new Button()
-            {
-                Text = "Settings"
-            };
-
-            settingsButton.Location = new Point(0, heroesButton.Bottom);
-            settingsButton.Click += (Object sender, EventArgs args) => mainForm.ShowSettingsScreen();
-
+            settingsBtn.Click += (Object sender, EventArgs args) => mainForm.ShowSettingsScreen();
         }
     }
 }
