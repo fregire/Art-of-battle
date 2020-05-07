@@ -7,10 +7,12 @@ using System.Windows.Forms;
 
 namespace Art_of_battle.View
 {
-    public class StartControl : UserControl
+    public partial class StartControl : UserControl
     {
-        public StartControl()
+        public StartControl(MainForm mainForm)
         {
+            InitializeComponent();
+
             var startButton = new Button
             {
                 Text = "Start"
@@ -29,10 +31,8 @@ namespace Art_of_battle.View
             };
 
             settingsButton.Location = new Point(0, heroesButton.Bottom);
+            settingsButton.Click += (Object sender, EventArgs args) => mainForm.ShowSettingsScreen();
 
-            Controls.Add(startButton);
-            Controls.Add(heroesButton);
-            Controls.Add(settingsButton);
         }
     }
 }

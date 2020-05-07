@@ -16,15 +16,22 @@ namespace Art_of_battle.View
             ShowStartScreen();
         }
 
-        private void ShowStartScreen()
+        public void ShowStartScreen()
         {
             HideScreens();
             startControl.Show();
         }
 
-        private void HideScreens()
+        public void ShowSettingsScreen()
+        {
+            HideScreens();
+            settingsControl.Show();
+        }
+
+        public void HideScreens()
         {
             startControl.Hide();
+            settingsControl.Hide();
         }
     }
 
