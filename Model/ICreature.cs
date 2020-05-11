@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using Art_of_battle.Model.Creatures;
 
 namespace Art_of_battle.Model
 {
@@ -17,5 +18,6 @@ namespace Art_of_battle.Model
         ICreature CreateCreature(Player player);
         void AcceptDamage(int damage);
         bool IsAlive();
+        CreatureType CreatureType { get; }
     }
 }

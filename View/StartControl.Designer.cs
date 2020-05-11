@@ -84,7 +84,6 @@ namespace Art_of_battle.View
             this.Name = "StartControl";
             this.ResumeLayout(false);
 
-            this.BackgroundImage = Properties.Resources.Asset_24;
         }
     }
 }

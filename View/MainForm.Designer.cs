@@ -9,34 +9,55 @@ namespace Art_of_battle.View
     {
         private StartControl startControl;
         private SettingsControl settingsControl;
+        private HeroesControl heroesControl;
+        private BattleControl battleControl;
+        
 
         private void InitializeComponent()
         {
+            var width = 800;
+            var height = 500;
             startControl = new StartControl(this);
             settingsControl = new SettingsControl();
-            this.SuspendLayout();
+            heroesControl = new HeroesControl(this);
+            battleControl = new BattleControl(this);
+            SuspendLayout();
 
-            this.startControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.startControl.Location = new System.Drawing.Point(0, 0);
-            this.startControl.Name = "startControl";
-            this.startControl.Size = new System.Drawing.Size(800, 600);
-            this.startControl.TabIndex = 2;
+            startControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            startControl.Location = new System.Drawing.Point(0, 0);
+            startControl.Name = "startControl";
+            startControl.Size = new System.Drawing.Size(width, height);
+            startControl.TabIndex = 2;
 
-            this.settingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.settingsControl.Location = new System.Drawing.Point(0, 0);
-            this.settingsControl.Name = "settingsControl";
-            this.settingsControl.Size = new System.Drawing.Size(800, 600);
-            this.settingsControl.TabIndex = 2;
+            settingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            settingsControl.Location = new System.Drawing.Point(0, 0);
+            settingsControl.Name = "settingsControl";
+            settingsControl.Size = new System.Drawing.Size(width, height);
+            settingsControl.TabIndex = 2;
+
+            heroesControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            heroesControl.Location = new System.Drawing.Point(0, 0);
+            heroesControl.Name = "heroesControl";
+            heroesControl.Size = new System.Drawing.Size(width, height);
+            heroesControl.TabIndex = 2;
+
+            battleControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            battleControl.Location = new System.Drawing.Point(0, 0);
+            battleControl.Name = "battleControl";
+            battleControl.Size = new System.Drawing.Size(width, height);
+            battleControl.TabIndex = 2;
 
             // Main Window Settings
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            //this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 600);
-            this.Controls.Add(this.startControl);
-            this.Controls.Add(this.settingsControl);
-            this.Name = "MainForm";
-            this.Text = "Морской бой";
-            this.ResumeLayout(false);
+            AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            //AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(width, height);
+            Controls.Add(startControl);
+            Controls.Add(settingsControl);
+            Controls.Add(heroesControl);
+            Controls.Add(battleControl);
+            Name = "MainForm";
+            Text = "Морской бой";
+            ResumeLayout(false);
         }
     }
 }

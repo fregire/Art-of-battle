@@ -86,6 +86,18 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Tests\Game_Tests.cs" />
+    <Compile Include="View\BattleControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\BattleControl.Designer.cs">
+      <DependentUpon>BattleControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\HeroesControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\HeroesControl.Designer.cs">
+      <DependentUpon>HeroesControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\StartControl.Designer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -96,7 +108,7 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="View\SettingsControl.cs">
-      <SubType>Form</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="View\StartControl.cs">
       <SubType>UserControl</SubType>
@@ -104,7 +116,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Creatures\Castle\" />
-    <Folder Include="Assets\Creatures\Knight\" />
     <Folder Include="Assets\Creatures\Orc\" />
   </ItemGroup>
   <ItemGroup>
@@ -119,10 +130,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Asset 24.png" />
+    <EmbeddedResource Include="View\BattleControl.resx">
+      <DependentUpon>BattleControl.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Creatures\Knight\Knight_01__ATTACK_000.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Image1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

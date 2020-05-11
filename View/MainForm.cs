@@ -4,21 +4,74 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Art_of_battle.Model;
+using Art_of_battle.Model.Creatures;
 
 namespace Art_of_battle.View
 {
     public partial class MainForm : Form
     {
+        public Game Game { get; }
         public MainForm()
         {
-            InitializeComponent();
+            Game = new Game(GetCards());
+            Game.StateChanged += Game_OnStageChanged;
+            var mainPlayer = new Player("Daniil", Direction.Right, Game.DefaultPlayerCards);
+            var secPlayer = new Player("Roman", Direction.Left, Game.DefaultPlayerCards);
 
-            ShowStartScreen();
+            Game.FirstPlayer = mainPlayer;
+            Game.SecondPlayer = secPlayer;
+
+            InitializeComponent();
+        }
+        public void Game_OnStageChanged(GameStage stage)
+        {
+            switch (stage)
+            {
+                case GameStage.Started:
+                    ShowBattleScreen();
+                    break;
+                case GameStage.NotStarted:
+                default:
+                    ShowStartScreen();
+                    break;
+            }
+        }
+
+        public List<Card> GetCards()
+        {
+            var knight = new MeleeCreature(
+                CreatureType.Knight, 
+                200, 
+                10, 
+                10, 
+                new Size(20, 20));
+            var orc = new MeleeCreature(
+                CreatureType.Orc, 
+                200, 
+                10, 
+                10, 
+                new Size(20, 20));
+
+            var test = new MeleeCreature(
+                CreatureType.Castle,
+                200,
+                10,
+                10,
+                new Size(20, 20));
+
+            return new List<Card>
+            {
+                new Card(knight, 10, 10), 
+                new Card(orc, 10, 10),
+                new Card(test, 10, 10)
+            };
         }
 
         public void ShowStartScreen()
         {
             HideScreens();
+            
             startControl.Show();
         }
 
@@ -28,10 +81,23 @@ namespace Art_of_battle.View
             settingsControl.Show();
         }
 
+        public void ShowHeroesScreen()
+        {
+            HideScreens();
+            heroesControl.Show();
+        }
+
+        public void ShowBattleScreen()
+        {
+            HideScreens();
+            battleControl.Show();
+        }
         public void HideScreens()
         {
             startControl.Hide();
             settingsControl.Hide();
+            heroesControl.Hide();
+            battleControl.Hide();
         }
     }
 

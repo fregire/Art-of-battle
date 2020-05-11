@@ -9,11 +9,14 @@ namespace Art_of_battle.View
 {
     public partial class StartControl : UserControl
     {
+        private MainForm mainForm;
         public StartControl(MainForm mainForm)
         {
+            this.mainForm = mainForm;
             InitializeComponent();
 
-            settingsBtn.Click += (Object sender, EventArgs args) => mainForm.ShowSettingsScreen();
+            heroesBtn.Click += (Object sender, EventArgs args) => mainForm.ShowHeroesScreen();
+            startBtn.Click += (Object sender, EventArgs args) => mainForm.Game.Start();
         }
     }
 }
