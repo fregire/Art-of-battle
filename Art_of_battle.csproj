@@ -119,6 +119,10 @@
     <Compile Include="View\StartControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="View\UserCardsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\UserCardsControl.Designer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Creatures\Castle\" />
@@ -151,6 +155,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Image1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\enable-sound.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mainmenubg1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Orc.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Asset 24.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

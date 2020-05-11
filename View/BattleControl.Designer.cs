@@ -12,15 +12,19 @@ namespace Art_of_battle.View
         private void InitializeComponent()
         {
             this.table = new System.Windows.Forms.TableLayoutPanel();
-            this.mainZone = new FieldControl(mainForm);
-            this.cardsZone = new System.Windows.Forms.Panel();
+            this.fieldControl = new FieldControl(mainForm);
+            this.cardsZone = new UserCardsControl(mainForm);
+            var pauseBtn = new Button
+            {
+                Text ="Pause"
+            };
             this.SuspendLayout();
             // 
             // table
             // 
             this.table.ColumnCount = 1;
             this.table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.table.Controls.Add(this.mainZone, 0, 0);
+            this.table.Controls.Add(this.fieldControl, 0, 0);
             this.table.Controls.Add(this.cardsZone, 0, 1);
             this.table.Dock = System.Windows.Forms.DockStyle.Fill;
             this.table.Location = new System.Drawing.Point(0, 0);
@@ -31,13 +35,13 @@ namespace Art_of_battle.View
             this.table.Size = new System.Drawing.Size(797, 387);
             this.table.TabIndex = 0;
             // 
-            // mainZone
+            // fieldControl
             // 
-            this.mainZone.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainZone.Location = new System.Drawing.Point(3, 3);
-            this.mainZone.Name = "mainZone";
-            this.mainZone.Size = new System.Drawing.Size(791, 281);
-            this.mainZone.TabIndex = 0;
+            this.fieldControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fieldControl.Location = new System.Drawing.Point(3, 3);
+            this.fieldControl.Name = "fieldControl";
+            this.fieldControl.Size = new System.Drawing.Size(791, 281);
+            this.fieldControl.TabIndex = 0;
             // 
             // cardsZone
             // 
@@ -49,15 +53,17 @@ namespace Art_of_battle.View
             // 
             // BattleControl
             // 
+            this.Controls.Add(pauseBtn);
             this.Controls.Add(this.table);
             this.Name = "BattleControl";
             this.Size = new System.Drawing.Size(797, 387);
+            pauseBtn.Location = new Point(this.Size.Width - pauseBtn.Size.Width, 0);
             this.ResumeLayout(false);
 
         }
 
         private TableLayoutPanel table;
-        private FieldControl mainZone;
-        private Panel cardsZone;
+        private FieldControl fieldControl;
+        private UserCardsControl cardsZone;
     }
 }

@@ -63,9 +63,49 @@ namespace Art_of_battle.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap Asset_24 {
+            get {
+                object obj = ResourceManager.GetObject("Asset_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap enable_sound {
+            get {
+                object obj = ResourceManager.GetObject("enable_sound", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap Image1 {
             get {
                 object obj = ResourceManager.GetObject("Image1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap mainmenubg1 {
+            get {
+                object obj = ResourceManager.GetObject("mainmenubg1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Orc {
+            get {
+                object obj = ResourceManager.GetObject("Orc", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

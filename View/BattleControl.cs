@@ -16,13 +16,15 @@ namespace Art_of_battle.View
         {
             this.mainForm = mainForm;
             InitializeComponent();
-        }
 
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            //base.OnPaint(e);
-            e.Graphics.DrawLine(new Pen(Color.Black, 5), new Point(0, 0), new Point(50, 50) );
-           
+            timer = new Timer();
+            timer.Interval = 100;
+
+            timer.Tick += (sender, args) =>
+            {
+                fieldControl.Invalidate();
+                cardsZone.Invalidate();
+            };
         }
     }
 }
