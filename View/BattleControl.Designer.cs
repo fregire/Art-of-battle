@@ -12,7 +12,7 @@ namespace Art_of_battle.View
         private void InitializeComponent()
         {
             this.table = new System.Windows.Forms.TableLayoutPanel();
-            this.mainZone = new System.Windows.Forms.Panel();
+            this.mainZone = new FieldControl(mainForm);
             this.cardsZone = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
@@ -57,7 +57,7 @@ namespace Art_of_battle.View
         }
 
         private TableLayoutPanel table;
-        private Panel mainZone;
+        private FieldControl mainZone;
         private Panel cardsZone;
     }
 }

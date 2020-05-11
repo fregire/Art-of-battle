@@ -92,6 +92,12 @@
     <Compile Include="View\BattleControl.Designer.cs">
       <DependentUpon>BattleControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\FieldControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\FieldControl.Designer.cs">
+      <DependentUpon>FieldControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\HeroesControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -135,6 +141,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\BattleControl.resx">
       <DependentUpon>BattleControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\FieldControl.resx">
+      <DependentUpon>FieldControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
