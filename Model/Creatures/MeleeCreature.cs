@@ -53,10 +53,10 @@ namespace Art_of_battle.Model.Creatures
             switch (Player.CreaturesDirection)
             {
                 case Direction.Right:
-                    dPoint.X = 1;
+                    dPoint.X = 10;
                     break;
                 case Direction.Left:
-                    dPoint.X = -1;
+                    dPoint.X = -10;
                     break;
             }
 

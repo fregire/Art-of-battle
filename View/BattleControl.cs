@@ -11,20 +11,25 @@ namespace Art_of_battle.View
     public partial class BattleControl: UserControl
     {
         private MainForm mainForm;
+        private Game game;
         private Timer timer;
         public BattleControl(MainForm mainForm)
         {
             this.mainForm = mainForm;
+            this.game = mainForm.Game;
             InitializeComponent();
 
             timer = new Timer();
             timer.Interval = 100;
 
-            timer.Tick += (sender, args) =>
-            {
-                fieldControl.Invalidate();
-                cardsZone.Invalidate();
-            };
+            timer.Tick += OnTick;
+
+            timer.Start();
+        }
+
+        private void OnTick(Object sender, EventArgs e)
+        {
+            mainForm.Game.Act();
         }
     }
 }

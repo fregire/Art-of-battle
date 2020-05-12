@@ -15,10 +15,5 @@ namespace Art_of_battle.View
 
             InitializeComponent();
         }
-
-        protected override void OnPaint(PaintEventArgs e)
-        {
-
-        }
     }
 }

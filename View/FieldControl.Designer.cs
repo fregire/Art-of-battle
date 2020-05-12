@@ -10,11 +10,14 @@ namespace Art_of_battle.View
     {
         private void InitializeComponent()
         {
-            Dock = DockStyle.Fill;
-            SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // FieldControl
+            // 
+            this.Name = "FieldControl";
+            this.Size = new System.Drawing.Size(772, 387);
+            this.ResumeLayout(false);
 
-
-            ResumeLayout(false);
         }
     }
 }

@@ -63,9 +63,19 @@ namespace Art_of_battle.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap Asset_24 {
+        public static System.Drawing.Bitmap Castle_1 {
             get {
-                object obj = ResourceManager.GetObject("Asset_24", resourceCulture);
+                object obj = ResourceManager.GetObject("Castle_1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Castle_2 {
+            get {
+                object obj = ResourceManager.GetObject("Castle_2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -86,6 +96,26 @@ namespace Art_of_battle.Properties {
         public static System.Drawing.Bitmap Image1 {
             get {
                 object obj = ResourceManager.GetObject("Image1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Image11 {
+            get {
+                object obj = ResourceManager.GetObject("Image11", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Knight {
+            get {
+                object obj = ResourceManager.GetObject("Knight", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

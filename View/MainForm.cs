@@ -14,14 +14,15 @@ namespace Art_of_battle.View
         public Game Game { get; }
         public MainForm()
         {
-            Game = new Game(GetCards());
-            Game.StateChanged += Game_OnStageChanged;
+            DoubleBuffered = true;
+            var cards = GetCards();
+            Game = new Game(cards);
             var mainPlayer = new Player("Daniil", Direction.Right, Game.DefaultPlayerCards);
             var secPlayer = new Player("Roman", Direction.Left, Game.DefaultPlayerCards);
 
             Game.FirstPlayer = mainPlayer;
             Game.SecondPlayer = secPlayer;
-
+            Game.StateChanged += Game_OnStageChanged;
             InitializeComponent();
         }
         public void Game_OnStageChanged(GameStage stage)
@@ -45,13 +46,13 @@ namespace Art_of_battle.View
                 200, 
                 10, 
                 10, 
-                new Size(20, 20));
+                new Size(70, 50));
             var orc = new MeleeCreature(
                 CreatureType.Orc, 
                 200, 
                 10, 
                 10, 
-                new Size(20, 20));
+                new Size(70, 50));
 
             var test = new MeleeCreature(
                 CreatureType.Castle,
@@ -90,14 +91,22 @@ namespace Art_of_battle.View
         public void ShowBattleScreen()
         {
             HideScreens();
+            InitBattleControl();
             battleControl.Show();
+        }
+
+        private void InitBattleControl()
+        {
+            battleControl = new BattleControl(this);
+            battleControl.Dock = DockStyle.Fill;
+            Controls.Add(battleControl);
         }
         public void HideScreens()
         {
             startControl.Hide();
             settingsControl.Hide();
             heroesControl.Hide();
-            battleControl.Hide();
+            battleControl?.Hide();
         }
     }
 

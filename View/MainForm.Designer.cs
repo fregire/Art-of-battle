@@ -20,7 +20,6 @@ namespace Art_of_battle.View
             startControl = new StartControl(this);
             settingsControl = new SettingsControl();
             heroesControl = new HeroesControl(this);
-            battleControl = new BattleControl(this);
             SuspendLayout();
 
             startControl.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -41,12 +40,6 @@ namespace Art_of_battle.View
             heroesControl.Size = new System.Drawing.Size(width, height);
             heroesControl.TabIndex = 2;
 
-            battleControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            battleControl.Location = new System.Drawing.Point(0, 0);
-            battleControl.Name = "battleControl";
-            battleControl.Size = new System.Drawing.Size(width, height);
-            battleControl.TabIndex = 2;
-
             // Main Window Settings
             AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             //AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -54,7 +47,6 @@ namespace Art_of_battle.View
             Controls.Add(startControl);
             Controls.Add(settingsControl);
             Controls.Add(heroesControl);
-            Controls.Add(battleControl);
             Name = "MainForm";
             Text = "Морской бой";
             ResumeLayout(false);

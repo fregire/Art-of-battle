@@ -92,7 +92,7 @@ namespace Art_of_battle
             return new Building(
                 CreatureType.Castle, 
                 1000, 
-                new Size(100, 100),
+                new Size(200, 200),
                 player);
         }
 
@@ -125,12 +125,18 @@ namespace Art_of_battle
                 foreach(var creature in e.Value)
                     creature.Act(enemies);
             }
+
+            Acted?.Invoke();
         }
 
+        public event Action Acted;
         public void Start(Player firstPlayer, Player secondPlayer)
         {
             FirstPlayer = firstPlayer;
             SecondPlayer = secondPlayer;
+
+            playerCreaturesInGame.Add(FirstPlayer, new HashSet<ICreature>());
+            playerCreaturesInGame.Add(SecondPlayer, new HashSet<ICreature>());
 
             CreateCastlesForPlayers();
             ChangeState(GameStage.Started);
@@ -152,8 +158,8 @@ namespace Art_of_battle
             FirstPlayer.Castle = firstCastle;
             SecondPlayer.Castle = secondCastle;
 
-            playerCreaturesInGame.Add(FirstPlayer, new HashSet<ICreature>() { firstCastle });
-            playerCreaturesInGame.Add(SecondPlayer, new HashSet<ICreature>() { secondCastle });
+            playerCreaturesInGame[FirstPlayer].Add(firstCastle);
+            playerCreaturesInGame[SecondPlayer].Add(secondCastle);
         }
     }
 }
