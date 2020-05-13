@@ -13,6 +13,13 @@ namespace Art_of_battle.View
         {
             this.mainForm = mainForm;
             InitializeComponent();
+
+            backBtn.Click += OnBackBtn_Click;
+        }
+
+        private void OnBackBtn_Click(Object sender, EventArgs args)
+        {
+            mainForm.ShowStartScreen();
         }
     }
 }
