@@ -40,7 +40,7 @@ namespace Art_of_battle.Model.Creatures
 
             var IsAnyEnemyInAttackRange = TryGetEnemyInAttackRange(enemies, out enemy);
 
-            if (IsAnyEnemyInAttackRange)
+            if (IsAnyEnemyInAttackRange && enemy.IsAlive())
                 Attack(enemy);
             else
                 Move();
@@ -53,10 +53,10 @@ namespace Art_of_battle.Model.Creatures
             switch (Player.CreaturesDirection)
             {
                 case Direction.Right:
-                    dPoint.X = 10;
+                    dPoint.X = 1;
                     break;
                 case Direction.Left:
-                    dPoint.X = -10;
+                    dPoint.X = -1;
                     break;
             }
 

@@ -26,9 +26,25 @@ namespace Art_of_battle.View
 
             InitCreaturesSpawnPoint();
             InitCastlesPositions();
-
+            SetBackground();
             game.CreaturePlacedOnField += InitCreaturePosition;
             game.Acted += Invalidate;
+
+            game.FirstPlayer.Castle.Died += OnCastleDied;
+            game.SecondPlayer.Castle.Died += OnCastleDied;
+        }
+
+        private void OnCastleDied()
+        {
+            game.ChangeState(GameStage.Finished);
+        }
+
+        private void SetBackground()
+        {
+            var image = Properties.Resources.game_background_3__2;
+            BackgroundImage = image;
+            BackgroundImageLayout = ImageLayout.Stretch;
+            BackColor = Color.Transparent;
         }
 
         private void InitCastlesPositions()
@@ -37,7 +53,7 @@ namespace Art_of_battle.View
             var secondPlayerCastle = game.SecondPlayer.Castle;
 
             // TODO: Why it isnt in the right corner
-            firstPlayerCastle.Position = new Point(-100, Height - firstPlayerCastle.Dimensions.Height);
+            firstPlayerCastle.Position = new Point(-80, Height - firstPlayerCastle.Dimensions.Height);
             secondPlayerCastle.Position = new Point(Width - secondPlayerCastle.Dimensions.Width + 100, Height - secondPlayerCastle.Dimensions.Height);
         }
 
@@ -83,19 +99,11 @@ namespace Art_of_battle.View
         {
             var firstPlayer = game.FirstPlayer;
             var secondPlayer = game.SecondPlayer;
+            var firstPlayerCreatures = game.GetPlayerCreaturesInGame(firstPlayer);
+            var secondPlayerCreatures = game.GetPlayerCreaturesInGame(secondPlayer);
+            var creaturesToDelete = new HashSet<ICreature>();
 
-            foreach (var creature in game.GetPlayerCreaturesInGame(firstPlayer))
-            {
-                if (creature.IsAlive())
-                    g.DrawImage(
-                        GetCreatureImage(creature), 
-                        creature.Position.X,
-                        creature.Position.Y,
-                        creature.Dimensions.Width,
-                        creature.Dimensions.Height);
-            }
-
-            foreach (var creature in game.GetPlayerCreaturesInGame(secondPlayer))
+            foreach (var creature in firstPlayerCreatures)
             {
                 if (creature.IsAlive())
                     g.DrawImage(
@@ -104,9 +112,34 @@ namespace Art_of_battle.View
                         creature.Position.Y,
                         creature.Dimensions.Width,
                         creature.Dimensions.Height);
+                else
+                    creaturesToDelete.Add(creature);
+            }
+
+            foreach (var creature in secondPlayerCreatures)
+            {
+                if (creature.IsAlive())
+                {
+                    var image = GetCreatureImage(creature);
+                    image.RotateFlip(RotateFlipType.RotateNoneFlipX);
+                    g.DrawImage(
+                        image,
+                        creature.Position.X,
+                        creature.Position.Y,
+                        creature.Dimensions.Width,
+                        creature.Dimensions.Height);
+                }
+                else
+                    creaturesToDelete.Add(creature);
+            }
+
+            foreach (var creature in creaturesToDelete)
+            {
+                if (firstPlayerCreatures.Contains(creature)
+                    || secondPlayerCreatures.Contains(creature))
+                    game.DeleteCreatureFromField(creature);
             }
         }
-
 
         private Image GetCreatureImage(ICreature creature)
         {   

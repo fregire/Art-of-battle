@@ -12,6 +12,7 @@ namespace Art_of_battle.View
     {
         private int bottomMarginBtns = 30;
         private int btnHeight = 50;
+        private TableLayoutPanel mainTable;
         private Button startBtn;
         private Button settingsBtn;
         private Button heroesBtn;
@@ -36,7 +37,8 @@ namespace Art_of_battle.View
         {
 
             var btnsTable = InitBtnsTable();
-            
+            btnsTable.BackColor = Color.Transparent;
+
             startBtn = new Button
             {
                 Text = "Start",
@@ -55,35 +57,34 @@ namespace Art_of_battle.View
                 Dock = DockStyle.Fill
             };
 
-            var table = new TableLayoutPanel();
+            mainTable = new TableLayoutPanel();
 
-            table.Dock = DockStyle.Fill;
+            mainTable.Dock = DockStyle.Fill;
             btnsTable.Dock = DockStyle.Fill;
 
-            table.ColumnCount = 3;
-            table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent,50));
-            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300));
-            table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50));
+            mainTable.ColumnCount = 3;
+            mainTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent,50));
+            mainTable.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300));
+            mainTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50));
 
-            table.RowCount = 3;
-            table.RowStyles.Add(new RowStyle(SizeType.Percent, 50));
-            table.RowStyles.Add(new RowStyle(SizeType.Absolute, 300));
-            table.RowStyles.Add(new RowStyle(SizeType.Percent, 50));
+            mainTable.RowCount = 3;
+            mainTable.RowStyles.Add(new RowStyle(SizeType.Percent, 50));
+            mainTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 300));
+            mainTable.RowStyles.Add(new RowStyle(SizeType.Percent, 50));
 
-            table.ResumeLayout(false);
+            mainTable.ResumeLayout(false);
 
             btnsTable.Controls.Add(startBtn, 0, 0);
             btnsTable.Controls.Add(heroesBtn, 0, 2);
             btnsTable.Controls.Add(settingsBtn, 0, 4);
-            table.Controls.Add(btnsTable, 1, 1);
+            mainTable.Controls.Add(btnsTable, 1, 1);
 
-            Controls.Add(table);
+            Controls.Add(mainTable);
 
             this.Dock = DockStyle.Fill;
-            this.Controls.Add(table);
+            this.Controls.Add(mainTable);
             this.Name = "StartControl";
             this.ResumeLayout(false);
-
         }
     }
 }

@@ -63,28 +63,40 @@ namespace Art_of_battle.View
             var panel = new Panel();
             var pictBox = new PictureBox();
             var label = new Label();
-            var creature = card.Creature.CreateCreature(mainForm.Game.FirstPlayer);
 
             label.Text = cost.ToString();
-            label.Width = 20;
+            label.Width = 30;
             pictBox.Image = image;
-            pictBox.Dock = DockStyle.Fill;
-
-            panel.Controls.Add(pictBox);
-            panel.Controls.Add(label);
 
             pictBox.Click += (Object sender, EventArgs args) =>
             {
+                if (card.Cost > mainForm.Game.FirstPlayer.CurrentGold)
+                    return;
+
+                var creature = card.Creature.CreateCreature(mainForm.Game.FirstPlayer);
                 mainForm.Game.PlaceCreatureOnField(creature);
+                mainForm.Game.FirstPlayer.CurrentGold -= card.Cost;
             };
 
-            label.Click += (Object sender, EventArgs args) => {
+            label.Click += (Object sender, EventArgs args) => 
+            {
+                if (card.Cost > mainForm.Game.FirstPlayer.CurrentGold)
+                    return;
+
+                var creature = card.Creature.CreateCreature(mainForm.Game.FirstPlayer);
                 mainForm.Game.PlaceCreatureOnField(creature);
+                mainForm.Game.FirstPlayer.CurrentGold -= card.Cost;
             };
 
-            panel.Dock = DockStyle.Fill;
-            panel.BackColor = Color.Aqua;
+            panel.Margin = new Padding(15, 0, 15, 0);
+
+            panel.Controls.Add(pictBox);
+            panel.Controls.Add(label);
+            pictBox.Left = 10;
+            pictBox.Width = 130;
+            pictBox.Height = panel.Height;
             label.BringToFront();
+
             return panel;
         }
 

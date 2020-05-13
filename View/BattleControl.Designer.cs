@@ -14,9 +14,14 @@ namespace Art_of_battle.View
             this.table = new System.Windows.Forms.TableLayoutPanel();
             this.fieldControl = new FieldControl(mainForm);
             this.cardsZone = new UserCardsControl(mainForm);
-            var pauseBtn = new Button
+            coinsCountLabel = new Label();
+
+            coinsCountLabel.Text = mainForm.Game.FirstPlayer.CurrentGold.ToString();
+            coinsCountLabel.Width = 40;
+            pauseBtn = new Button
             {
-                Text ="Pause"
+                Text ="Pause",
+                Width = 60
             };
             this.SuspendLayout();
             // 
@@ -53,6 +58,7 @@ namespace Art_of_battle.View
             // 
             // BattleControl
             // 
+            this.Controls.Add(coinsCountLabel);
             this.Controls.Add(pauseBtn);
             this.Controls.Add(this.table);
             this.Name = "BattleControl";
@@ -62,6 +68,8 @@ namespace Art_of_battle.View
 
         }
 
+        private Button pauseBtn;
+        private Label coinsCountLabel;
         private TableLayoutPanel table;
         private FieldControl fieldControl;
         private UserCardsControl cardsZone;

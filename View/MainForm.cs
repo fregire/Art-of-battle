@@ -12,25 +12,40 @@ namespace Art_of_battle.View
     public partial class MainForm : Form
     {
         public Game Game { get; }
+        public AI AI;
         public MainForm()
         {
             DoubleBuffered = true;
             var cards = GetCards();
             Game = new Game(cards);
             var mainPlayer = new Player("Daniil", Direction.Right, Game.DefaultPlayerCards);
-            var secPlayer = new Player("Roman", Direction.Left, Game.DefaultPlayerCards);
+            var secPlayer = new Player("AI", Direction.Left, Game.DefaultPlayerCards);
 
+            AI = new AI(Game);
+            mainPlayer.CurrentGold = 100;
+            secPlayer.CurrentGold = 100;
             Game.FirstPlayer = mainPlayer;
             Game.SecondPlayer = secPlayer;
             Game.StateChanged += Game_OnStageChanged;
             InitializeComponent();
+            SetBackgroundImage();
         }
+
+        private void SetBackgroundImage()
+        {
+            BackgroundImage = Properties.Resources.mainmenubg1;
+            BackgroundImageLayout = ImageLayout.Stretch;
+        }
+
         public void Game_OnStageChanged(GameStage stage)
         {
             switch (stage)
             {
                 case GameStage.Started:
                     ShowBattleScreen();
+                    break;
+                case GameStage.Finished:
+                    ShowFinishScreen();
                     break;
                 case GameStage.NotStarted:
                 default:
@@ -101,12 +116,21 @@ namespace Art_of_battle.View
             battleControl.Dock = DockStyle.Fill;
             Controls.Add(battleControl);
         }
+
+        private void ShowFinishScreen()
+        {
+            finishControl = new FinishControl(this);
+            Controls.Add(finishControl);
+            finishControl.Show();
+            finishControl.BringToFront();
+        }
         public void HideScreens()
         {
             startControl.Hide();
             settingsControl.Hide();
             heroesControl.Hide();
             battleControl?.Hide();
+            finishControl?.Hide();
         }
     }
 

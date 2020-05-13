@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using Art_of_battle.Model.Creatures;
 
 namespace Art_of_battle.Model
 {
@@ -10,11 +11,26 @@ namespace Art_of_battle.Model
     {
         public string Name { get; }
         public List<Card> Cards { get; }
-        public int CurrentGold { get; set; }
+        private int currGold;
+
+        public int CurrentGold
+        {
+            get
+            {
+                return currGold;
+            }
+            set
+            {
+                currGold = value;
+                GoldChanged?.Invoke(value);
+            }
+        }
+
+        public event Action<int> GoldChanged;
 
         public Point CreaturesSpawnPoint;
         public Direction CreaturesDirection { get; }
-        public ICreature Castle { get; set; }
+        public Building Castle { get; set; }
 
         public Player(string name, Direction creaturesDirection, List<Card> defaultCards)
         {

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Art_of_battle.Model.Creatures
 {
-    class Building : ICreature
+    public class Building : ICreature
     {
         public Point Position { get; set; }
         public int CurrHealth { get; set; }
@@ -32,13 +32,13 @@ namespace Art_of_battle.Model.Creatures
             CurrHealth -= damage;
             
             if (CurrHealth <= 0)
-                Died?.Invoke(this);
+                Died?.Invoke();
 
             Damaged?.Invoke(this);
         }
 
         public event Action<ICreature> Damaged;
-        public event Action<ICreature> Died;
+        public event Action Died;
 
         public bool IsAlive()
         {

@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Game.cs" />
+    <Compile Include="Model\AI.cs" />
     <Compile Include="Model\Card.cs" />
     <Compile Include="Model\Creatures\Building.cs" />
     <Compile Include="Model\Creatures\MeleeCreature.cs" />
@@ -97,6 +98,12 @@
     </Compile>
     <Compile Include="View\FieldControl.Designer.cs">
       <DependentUpon>FieldControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\FinishControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\FinishControl.Designer.cs">
+      <DependentUpon>FinishControl.cs</DependentUpon>
     </Compile>
     <Compile Include="View\HeroesControl.cs">
       <SubType>UserControl</SubType>
@@ -157,6 +164,8 @@
     <EmbeddedResource Include="Resources\Image1.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Cambria-Bold.ttf" />
+    <None Include="Resources\Cambria.ttf" />
     <None Include="Resources\enable-sound.png" />
   </ItemGroup>
   <ItemGroup>
@@ -173,6 +182,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Knight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MainMenu_btn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\game_background_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\game_background_3. 2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

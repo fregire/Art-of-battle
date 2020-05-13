@@ -48,6 +48,7 @@ namespace Art_of_battle
         public void PlaceCardCreatureOnField(Card card, Player player)
         {
             PlaceCreatureOnField(card.Creature.CreateCreature(player));
+            player.CurrentGold -= card.Cost;
         }
 
         public void PlaceCreatureOnField(ICreature creature)
@@ -87,7 +88,7 @@ namespace Art_of_battle
             return playerCreaturesInGame[player];
         }
 
-        private ICreature CreateCastle(Player player)
+        private Building CreateCastle(Player player)
         {
             return new Building(
                 CreatureType.Castle, 
@@ -96,23 +97,17 @@ namespace Art_of_battle
                 player);
         }
 
-        public bool TryGetWinner(out Player winner)
+        public Player GetWinner()
         {
-            winner = null;
+            Player winner = null;
 
             if (!FirstPlayer.Castle.IsAlive())
-            {
                 winner = SecondPlayer;
-                ChangeState(GameStage.Finished);
-            }
 
             if (!SecondPlayer.Castle.IsAlive())
-            {
                 winner = FirstPlayer;
-                ChangeState(GameStage.Finished);
-            }
 
-            return winner != null;
+            return winner;
         }
 
         public void Act()
@@ -122,8 +117,11 @@ namespace Art_of_battle
                 var player = e.Key;
                 var enemies = GetEnemiesOf(player);
 
-                foreach(var creature in e.Value)
-                    creature.Act(enemies);
+                foreach (var creature in e.Value)
+                {
+                    if (creature.IsAlive())
+                        creature.Act(enemies);
+                }
             }
 
             Acted?.Invoke();

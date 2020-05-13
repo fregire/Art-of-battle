@@ -210,15 +210,13 @@ namespace Art_of_battle.Tests
             var testCreature = GetTestCreature(10, 2000, 10, new Size(20, 20));
             var game = GetInitedAndStartedGame();
             var enemy = testCreature.CreateCreature(game.SecondPlayer);
-            Player winner;
 
             game.FirstPlayer.Castle.Position = new Point(0, 0);
             enemy.Position = new Point(105, 0);
 
-            enemy.Act(game.GetEnemiesOf(game.SecondPlayer));
+            game.Act();
 
-            Assert.AreEqual(true, game.TryGetWinner(out winner));
-            Assert.AreEqual(game.SecondPlayer, winner);
+            Assert.AreEqual(game.SecondPlayer, game.GetWinner());
         }
     }
 }
