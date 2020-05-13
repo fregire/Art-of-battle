@@ -218,5 +218,8 @@ namespace Art_of_battle.Tests
 
             Assert.AreEqual(game.SecondPlayer, game.GetWinner());
         }
+
+
+        //TODO: Интеграционный тест
     }
 }

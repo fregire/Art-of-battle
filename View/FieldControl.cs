@@ -36,6 +36,7 @@ namespace Art_of_battle.View
 
         private void OnCastleDied()
         {
+            //TODO: Move to model
             game.ChangeState(GameStage.Finished);
         }
 
@@ -112,8 +113,6 @@ namespace Art_of_battle.View
                         creature.Position.Y,
                         creature.Dimensions.Width,
                         creature.Dimensions.Height);
-                else
-                    creaturesToDelete.Add(creature);
             }
 
             foreach (var creature in secondPlayerCreatures)
@@ -129,15 +128,6 @@ namespace Art_of_battle.View
                         creature.Dimensions.Width,
                         creature.Dimensions.Height);
                 }
-                else
-                    creaturesToDelete.Add(creature);
-            }
-
-            foreach (var creature in creaturesToDelete)
-            {
-                if (firstPlayerCreatures.Contains(creature)
-                    || secondPlayerCreatures.Contains(creature))
-                    game.DeleteCreatureFromField(creature);
             }
         }
 

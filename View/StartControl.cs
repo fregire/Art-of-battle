@@ -35,6 +35,11 @@ namespace Art_of_battle.View
 
         private void SetBtnBackground(Button btn)
         {
+            btn.TabStop = false;
+            btn.FlatStyle = FlatStyle.Flat;
+            btn.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            btn.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btn.FlatAppearance.BorderSize = 0;
             btn.BackColor = Color.Transparent;
             btn.BackgroundImage = Properties.Resources.MainMenu_btn;
             btn.BackgroundImageLayout = ImageLayout.Stretch;

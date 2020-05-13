@@ -112,6 +112,7 @@ namespace Art_of_battle
 
         public void Act()
         {
+            
             foreach (var e in playerCreaturesInGame)
             {
                 var player = e.Key;
@@ -121,8 +122,12 @@ namespace Art_of_battle
                 {
                     if (creature.IsAlive())
                         creature.Act(enemies);
+                    else
+                        DeleteCreatureFromField(creature);
                 }
             }
+
+            //TODO: Delete dead creatures
 
             Acted?.Invoke();
         }
