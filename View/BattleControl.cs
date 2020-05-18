@@ -20,11 +20,12 @@ namespace Art_of_battle.View
             this.mainForm = mainForm;
             this.game = mainForm.Game;
             var isPaused = false;
+            var fps = 100;
 
             InitializeComponent();
 
             timer = new Timer();
-            timer.Interval = 10;
+            timer.Interval = 1000 / fps;
 
             timer.Tick += OnTick;
             game.FirstPlayer.GoldChanged += OnGoldChanged;

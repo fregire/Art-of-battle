@@ -98,12 +98,15 @@ namespace Art_of_battle.View
             foreach (var creature in firstPlayerCreatures)
             {
                 if (creature.IsAlive())
+                {
                     g.DrawImage(
                         GetCreatureImage(creature),
                         creature.Position.X,
                         creature.Position.Y,
                         creature.Dimensions.Width,
                         creature.Dimensions.Height);
+                    DrawHealthBarForCreature(creature, g);
+                }
             }
 
             foreach (var creature in secondPlayerCreatures)
@@ -118,8 +121,26 @@ namespace Art_of_battle.View
                         creature.Position.Y,
                         creature.Dimensions.Width,
                         creature.Dimensions.Height);
+                    DrawHealthBarForCreature(creature, g);
                 }
             }
+        }
+
+        private void DrawHealthBarForCreature(ICreature creature, Graphics g)
+        {
+            var maxHealth = creature.MaxHealth;
+            var currHealth = creature.CurrHealth;
+            var barWidth = 100;
+            var barHeight = 30;
+            var posX = creature.Position.X + (creature.Dimensions.Width / 2) - (barWidth / 2);
+            var posY = creature.Position.Y - 50;
+            var bgBar = new Rectangle(posX, posY, barWidth, barHeight);
+            var mainBar = new Rectangle(posX, posY, currHealth * barWidth / maxHealth, barHeight);
+
+            g.FillRectangle(Brushes.White, bgBar);
+            g.FillRectangle(Brushes.Red, mainBar);
+            g.DrawRectangle(new Pen(Color.Black, 2), bgBar);
+            g.DrawRectangle(new Pen(Color.Red), mainBar);
         }
 
         private Image GetCreatureImage(ICreature creature)

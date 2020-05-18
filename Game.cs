@@ -110,11 +110,6 @@ namespace Art_of_battle
             return winner;
         }
 
-        private bool IsFinished()
-        {
-            return !FirstPlayer.Castle.IsAlive() || !SecondPlayer.Castle.IsAlive();
-        }
-
         public void Act()
         {
             var creaturesToDelete = new List<ICreature>();
@@ -136,28 +131,18 @@ namespace Art_of_battle
             if (IsFinished())
                 ChangeState(GameStage.Finished);
 
-            //TODO: Delete dead creatures
             foreach (var creature in creaturesToDelete)
                 DeleteCreatureFromField(creature);
 
             Acted?.Invoke();
         }
 
-        public event Action Acted;
-
-        public void AddPlayer(Player player)
+        private bool IsFinished()
         {
-            if (FirstPlayer == null)
-            {
-                FirstPlayer = player;
-                playerCreaturesInGame.Add(FirstPlayer, new HashSet<ICreature>());
-            }
-            else if (SecondPlayer == null)
-            {
-                SecondPlayer = player;
-                playerCreaturesInGame.Add(SecondPlayer, new HashSet<ICreature>());
-            }
+            return !FirstPlayer.Castle.IsAlive() || !SecondPlayer.Castle.IsAlive();
         }
+
+        public event Action Acted;
 
         public void Start(Player firstPlayer, Player secondPlayer)
         {
@@ -174,6 +159,20 @@ namespace Art_of_battle
                 throw new Exception("Not every player inited!");
 
             Start(FirstPlayer, SecondPlayer);
+        }
+
+        public void AddPlayer(Player player)
+        {
+            if (FirstPlayer == null)
+            {
+                FirstPlayer = player;
+                playerCreaturesInGame.Add(FirstPlayer, new HashSet<ICreature>());
+            }
+            else if (SecondPlayer == null)
+            {
+                SecondPlayer = player;
+                playerCreaturesInGame.Add(SecondPlayer, new HashSet<ICreature>());
+            }
         }
 
         private void CreateCastlesForPlayers()

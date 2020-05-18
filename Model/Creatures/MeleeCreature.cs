@@ -36,6 +36,9 @@ namespace Art_of_battle.Model.Creatures
         }
         public void Act(HashSet<ICreature> enemies)
         {
+            if (!IsAlive())
+                return;
+
             ICreature enemy;
 
             var IsAnyEnemyInAttackRange = TryGetEnemyInAttackRange(enemies, out enemy);
@@ -80,7 +83,10 @@ namespace Art_of_battle.Model.Creatures
             CurrHealth -= damage;
 
             if (CurrHealth <= 0)
+            {
+                CurrHealth = 0;
                 Died?.Invoke(this);
+            }
 
             AcceptedDamage?.Invoke(this);
         }
