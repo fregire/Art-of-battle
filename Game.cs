@@ -110,9 +110,15 @@ namespace Art_of_battle
             return winner;
         }
 
+        private bool IsFinished()
+        {
+            return !FirstPlayer.Castle.IsAlive() || !SecondPlayer.Castle.IsAlive();
+        }
+
         public void Act()
         {
-            
+            var creaturesToDelete = new List<ICreature>();
+
             foreach (var e in playerCreaturesInGame)
             {
                 var player = e.Key;
@@ -123,24 +129,41 @@ namespace Art_of_battle
                     if (creature.IsAlive())
                         creature.Act(enemies);
                     else
-                        DeleteCreatureFromField(creature);
+                        creaturesToDelete.Add(creature);
                 }
             }
 
+            if (IsFinished())
+                ChangeState(GameStage.Finished);
+
             //TODO: Delete dead creatures
+            foreach (var creature in creaturesToDelete)
+                DeleteCreatureFromField(creature);
 
             Acted?.Invoke();
         }
 
         public event Action Acted;
+
+        public void AddPlayer(Player player)
+        {
+            if (FirstPlayer == null)
+            {
+                FirstPlayer = player;
+                playerCreaturesInGame.Add(FirstPlayer, new HashSet<ICreature>());
+            }
+            else if (SecondPlayer == null)
+            {
+                SecondPlayer = player;
+                playerCreaturesInGame.Add(SecondPlayer, new HashSet<ICreature>());
+            }
+        }
+
         public void Start(Player firstPlayer, Player secondPlayer)
         {
-            FirstPlayer = firstPlayer;
-            SecondPlayer = secondPlayer;
-
-            playerCreaturesInGame.Add(FirstPlayer, new HashSet<ICreature>());
-            playerCreaturesInGame.Add(SecondPlayer, new HashSet<ICreature>());
-
+            AddPlayer(firstPlayer);
+            AddPlayer(secondPlayer);
+            ClearField();
             CreateCastlesForPlayers();
             ChangeState(GameStage.Started);
         }

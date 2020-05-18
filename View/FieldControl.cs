@@ -29,15 +29,6 @@ namespace Art_of_battle.View
             SetBackground();
             game.CreaturePlacedOnField += InitCreaturePosition;
             game.Acted += Invalidate;
-
-            game.FirstPlayer.Castle.Died += OnCastleDied;
-            game.SecondPlayer.Castle.Died += OnCastleDied;
-        }
-
-        private void OnCastleDied()
-        {
-            //TODO: Move to model
-            game.ChangeState(GameStage.Finished);
         }
 
         private void SetBackground()

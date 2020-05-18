@@ -24,8 +24,8 @@ namespace Art_of_battle.View
             AI = new AI(Game);
             mainPlayer.CurrentGold = 100;
             secPlayer.CurrentGold = 100;
-            Game.FirstPlayer = mainPlayer;
-            Game.SecondPlayer = secPlayer;
+            Game.AddPlayer(mainPlayer);
+            Game.AddPlayer(secPlayer);
             Game.StateChanged += Game_OnStageChanged;
             InitializeComponent();
             SetBackgroundImage();
