@@ -44,7 +44,6 @@ namespace Art_of_battle.View
             var firstPlayerCastle = game.FirstPlayer.Castle;
             var secondPlayerCastle = game.SecondPlayer.Castle;
 
-            // TODO: Why it isnt in the right corner
             firstPlayerCastle.Position = new Point(-80, Height - firstPlayerCastle.Dimensions.Height);
             secondPlayerCastle.Position = new Point(Width - secondPlayerCastle.Dimensions.Width + 100, Height - secondPlayerCastle.Dimensions.Height);
         }
@@ -130,8 +129,8 @@ namespace Art_of_battle.View
         {
             var maxHealth = creature.MaxHealth;
             var currHealth = creature.CurrHealth;
-            var barWidth = 100;
-            var barHeight = 30;
+            var barWidth = 50;
+            var barHeight = 10;
             var posX = creature.Position.X + (creature.Dimensions.Width / 2) - (barWidth / 2);
             var posY = creature.Position.Y - 50;
             var bgBar = new Rectangle(posX, posY, barWidth, barHeight);

@@ -14,35 +14,9 @@ namespace Art_of_battle.View
         {
             this.mainForm = mainForm;
             InitializeComponent();
-            SetBackground();
-            SetBtnsBackground();
             
             heroesBtn.Click += (Object sender, EventArgs args) => mainForm.ShowHeroesScreen();
             startBtn.Click += (Object sender, EventArgs args) => mainForm.Game.Start();
-        }
-
-        private void SetBackground()
-        {
-            BackColor = Color.Transparent;
-        }
-
-        private void SetBtnsBackground()
-        {
-            SetBtnBackground(startBtn);
-            SetBtnBackground(heroesBtn);
-            SetBtnBackground(settingsBtn);
-        }
-
-        private void SetBtnBackground(Button btn)
-        {
-            btn.TabStop = false;
-            btn.FlatStyle = FlatStyle.Flat;
-            btn.FlatAppearance.MouseDownBackColor = Color.Transparent;
-            btn.FlatAppearance.MouseOverBackColor = Color.Transparent;
-            btn.FlatAppearance.BorderSize = 0;
-            btn.BackColor = Color.Transparent;
-            btn.BackgroundImage = Properties.Resources.MainMenu_btn;
-            btn.BackgroundImageLayout = ImageLayout.Stretch;
         }
     }
 }

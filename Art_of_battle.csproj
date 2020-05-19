@@ -120,9 +120,6 @@
     <Compile Include="View\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\SettingsControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="View\StartControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -191,6 +188,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\game_background_3. 2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\menus_bg.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

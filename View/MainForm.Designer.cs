@@ -12,7 +12,6 @@ namespace Art_of_battle.View
     partial class MainForm
     {
         private StartControl startControl;
-        private SettingsControl settingsControl;
         private HeroesControl heroesControl;
         private BattleControl battleControl;
         private FinishControl finishControl;
@@ -23,7 +22,6 @@ namespace Art_of_battle.View
             var width = 800;
             var height = 500;
             startControl = new StartControl(this);
-            settingsControl = new SettingsControl();
             heroesControl = new HeroesControl(this);
             SuspendLayout();
 
@@ -31,11 +29,6 @@ namespace Art_of_battle.View
             startControl.Location = new System.Drawing.Point(0, 0);
             startControl.Name = "startControl";
             startControl.Size = new System.Drawing.Size(width, height);
-
-            settingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            settingsControl.Location = new System.Drawing.Point(0, 0);
-            settingsControl.Name = "settingsControl";
-            settingsControl.Size = new System.Drawing.Size(width, height);
 
             heroesControl.Dock = System.Windows.Forms.DockStyle.Fill;
             heroesControl.Location = new System.Drawing.Point(0, 0);
@@ -47,17 +40,39 @@ namespace Art_of_battle.View
             //AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(width, height);
             Controls.Add(startControl);
-            Controls.Add(settingsControl);
             Controls.Add(heroesControl);
             InitializeFont();
             Name = "MainForm";
             Text = "Морской бой";
+            SetBackgroundImage();
             ResumeLayout(false);
+        }
+
+        private void SetBackgroundImage()
+        {
+            BackgroundImage = Properties.Resources.mainmenubg1;
+            BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void InitializeFont()
         {
             Font = new Font(FontFamily.GenericMonospace, 10);
+        }
+
+        public Button CreateMainButton(string text)
+        {
+            var btn = new Button();
+            btn.Text = text;
+            btn.TabStop = false;
+            btn.FlatStyle = FlatStyle.Flat;
+            btn.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            btn.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btn.FlatAppearance.BorderSize = 0;
+            btn.BackColor = Color.Transparent;
+            btn.BackgroundImage = Properties.Resources.MainMenu_btn;
+            btn.BackgroundImageLayout = ImageLayout.Stretch;
+
+            return btn;
         }
     }
 }

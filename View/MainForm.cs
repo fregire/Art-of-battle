@@ -28,13 +28,6 @@ namespace Art_of_battle.View
             Game.AddPlayer(secPlayer);
             Game.StateChanged += Game_OnStageChanged;
             InitializeComponent();
-            SetBackgroundImage();
-        }
-
-        private void SetBackgroundImage()
-        {
-            BackgroundImage = Properties.Resources.mainmenubg1;
-            BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         public void Game_OnStageChanged(GameStage stage)
@@ -62,6 +55,7 @@ namespace Art_of_battle.View
                 10, 
                 10, 
                 new Size(70, 50));
+
             var orc = new MeleeCreature(
                 CreatureType.Orc, 
                 200, 
@@ -69,18 +63,26 @@ namespace Art_of_battle.View
                 10, 
                 new Size(70, 50));
 
-            var test = new MeleeCreature(
-                CreatureType.Castle,
+            var goblin = new MeleeCreature(
+                CreatureType.Goblin,
                 200,
                 10,
                 10,
-                new Size(20, 20));
+                new Size(70, 50));
+
+            var boxer = new MeleeCreature(
+                CreatureType.Boxer,
+                200,
+                10,
+                10,
+                new Size(70, 50));
 
             return new List<Card>
             {
                 new Card(knight, 10, 10), 
                 new Card(orc, 10, 10),
-                new Card(test, 10, 10)
+                new Card(goblin, 10, 10),
+                new Card(boxer, 10, 23)
             };
         }
 
@@ -89,12 +91,6 @@ namespace Art_of_battle.View
             HideScreens();
             
             startControl.Show();
-        }
-
-        public void ShowSettingsScreen()
-        {
-            HideScreens();
-            settingsControl.Show();
         }
 
         public void ShowHeroesScreen()
@@ -127,7 +123,6 @@ namespace Art_of_battle.View
         public void HideScreens()
         {
             startControl.Hide();
-            settingsControl.Hide();
             heroesControl.Hide();
             battleControl?.Hide();
             finishControl?.Hide();
