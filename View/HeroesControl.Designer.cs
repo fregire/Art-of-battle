@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Art_of_battle.Model;
 using Art_of_battle.Model.Creatures;
 using NUnit.Framework.Constraints;
 
@@ -11,14 +12,27 @@ namespace Art_of_battle.View
 {
     partial class HeroesControl
     {
+        private int choosedCardsCount;
+        private Label warningLabel;
+        private Button backBtn;
+
         private void InitializeComponent()
         {
+            var warningPhrase = "You have to choose";
             var table = new TableLayoutPanel();
             var heroesTable = GetInitializedHeroesTable();
             var cards = mainForm.Game.Cards;
             var paddingValue = 15;
-            var backBtn = mainForm.CreateMainButton("Back");
+            backBtn = mainForm.CreateMainButton("Back");
+            warningLabel = new Label();
 
+            warningLabel.Text = String.Format(
+                "***{0} {1} cards to play", 
+                warningPhrase,
+                mainForm.Game.GameSettings.CardsCountInPlayerHand);
+            warningLabel.Location = new Point(10, 10);
+            warningLabel.Size = new Size(400, 50);
+            warningLabel.Visible = false;
             backBtn.Size = new Size(150, 50);
 
             table.ColumnCount = 3;
@@ -40,6 +54,8 @@ namespace Art_of_battle.View
             table.Controls.Add(heroesTable, 1, 1);
             table.Controls.Add(backBtn, 1, 2);
             Controls.Add(table);
+            Controls.Add(warningLabel);
+            warningLabel.BringToFront();
             backBtn.Anchor = AnchorStyles.None;
             backBtn.Click += OnBackBtnClick;
 
@@ -47,24 +63,6 @@ namespace Art_of_battle.View
             this.Name = "HeroesControl";
             SetControlBackground();
             this.ResumeLayout(false);
-        }
-
-        private void OnBackBtnClick(Object sender, EventArgs args)
-        {
-            mainForm.ShowStartScreen();
-        }
-
-        private void SetControlBackground()
-        {
-            this.BackgroundImage = mainForm.BackgroundImage;
-            this.BackgroundImageLayout = mainForm.BackgroundImageLayout;
-            this.BackColor = Color.Transparent;
-        }
-
-        private void SetHeroestableBg(TableLayoutPanel heroesTable)
-        {
-            heroesTable.BackgroundImage = Properties.Resources.menus_bg;
-            heroesTable.BackgroundImageLayout = ImageLayout.Stretch;
         }
 
         private void AddCards(TableLayoutPanel heroesTable)
@@ -88,12 +86,61 @@ namespace Art_of_battle.View
                 if (i < mainForm.Game.GameSettings.CardsCountInPlayerHand)
                     checkbox.Checked = true;
 
+                checkbox.CheckedChanged += (sender, args) => { OnCheckboxChecked((CheckBox) sender, card); };
                 group.Controls.Add(placeholder);
                 group.Controls.Add(checkbox);
-
                 heroesTable.Controls.Add(group, i, 0);
+
+            }
+
+            choosedCardsCount = mainForm.Game.GameSettings.CardsCountInPlayerHand;
+        }
+
+        private void OnCheckboxChecked(CheckBox checkbox, Card card)
+        {
+            var player = mainForm.Game.FirstPlayer;
+
+            if (checkbox.Checked)
+            {
+                choosedCardsCount++;
+                player.Cards.Add(card);
+            }
+            else
+            {
+                choosedCardsCount--;
+                player.Cards.Remove(card);
+            }
+
+            if (choosedCardsCount != mainForm.Game.GameSettings.CardsCountInPlayerHand)
+            {
+                warningLabel.Visible = true;
+                backBtn.Enabled = false;
+            }
+            else
+            {
+                warningLabel.Visible = false;
+                backBtn.Enabled = true;
             }
         }
+
+        private void OnBackBtnClick(Object sender, EventArgs args)
+        {
+            mainForm.ShowStartScreen();
+        }
+
+        private void SetControlBackground()
+        {
+            this.BackgroundImage = mainForm.BackgroundImage;
+            this.BackgroundImageLayout = mainForm.BackgroundImageLayout;
+            this.BackColor = Color.Transparent;
+        }
+
+        private void SetHeroestableBg(TableLayoutPanel heroesTable)
+        {
+            heroesTable.BackgroundImage = Properties.Resources.menus_bg;
+            heroesTable.BackgroundImageLayout = ImageLayout.Stretch;
+        }
+
 
         private TableLayoutPanel GetInitializedHeroesTable()
         {
@@ -111,6 +158,15 @@ namespace Art_of_battle.View
                 heroesTable.RowStyles.Add(new RowStyle(SizeType.Absolute, 100));
 
             return heroesTable;
+        }
+    }
+
+    class ChooseCardEventArgs : EventArgs
+    {
+        public Card Card { get; }
+        public ChooseCardEventArgs(Card card)
+        {
+            this.Card = card;
         }
     }
 }
