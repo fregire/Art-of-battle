@@ -133,6 +133,16 @@ namespace Art_of_battle.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap Goblin {
+            get {
+                object obj = ResourceManager.GetObject("Goblin", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap Image1 {
             get {
                 object obj = ResourceManager.GetObject("Image1", resourceCulture);
@@ -196,6 +206,16 @@ namespace Art_of_battle.Properties {
         public static System.Drawing.Bitmap Orc {
             get {
                 object obj = ResourceManager.GetObject("Orc", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Troll {
+            get {
+                object obj = ResourceManager.GetObject("Troll", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

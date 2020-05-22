@@ -38,16 +38,23 @@ namespace Art_of_battle.View
 
         private TableLayoutPanel GetCardsTable()
         {
+            var game = mainForm.Game;
             var table = new TableLayoutPanel();
-            var cards = mainForm.Game.FirstPlayer.Cards;
+            var cards = game.FirstPlayer.Cards;
+            var columnsCount = game.GameSettings.CardsCountInPlayerHand;
+            
             cardsOnPanel = cards.Select(card => CreateCard(card)).ToList();
 
             table.RowCount = 1;
             table.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
 
-            table.ColumnCount = 2;
-            table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50));
-            table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50));
+            table.ColumnCount = mainForm.Game.GameSettings.CardsCountInPlayerHand;
+
+            for (var i = 0; i < columnsCount; i++)
+                table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100 / columnsCount));
+
+            for(var i = 0; i < columnsCount; i++)
+                table.Controls.Add(cardsOnPanel[i], i, 0);
 
             table.Controls.Add(cardsOnPanel[0], 0, 0);
             table.Controls.Add(cardsOnPanel[1], 1, 0);
@@ -102,15 +109,7 @@ namespace Art_of_battle.View
 
         private Image GetCardImage(Card card)
         {
-            switch (card.Creature.CreatureType)
-            {
-                case CreatureType.Orc:
-                    return Properties.Resources.Orc;
-                case CreatureType.Knight:
-                    return Properties.Resources.Knight;
-                default:
-                    return Properties.Resources.Image1;
-            }
+            return mainForm.GetCreatureImage(card.Creature.CreatureType);
         }
     }
 }

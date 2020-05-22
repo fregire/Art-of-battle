@@ -10,7 +10,7 @@ namespace Art_of_battle.Model.Creatures
         Orc,
         Knight,
         Goblin,
-        Boxer,
+        Troll,
         Castle
     }
 }

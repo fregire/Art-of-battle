@@ -192,5 +192,17 @@
   <ItemGroup>
     <None Include="Resources\menus_bg.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Troll_03_1_IDLE_001.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Troll_02_1_IDLE_000.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Knight_01__IDLE_000.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Troll_01_1_IDLE_000.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -146,16 +146,12 @@ namespace Art_of_battle.View
         {   
             switch (creature.CreatureType)
             {
-                case CreatureType.Orc:
-                    return Properties.Resources.Orc;
                 case CreatureType.Castle:
                     return creature.Player.CreaturesDirection == Direction.Right
                         ? Properties.Resources.Castle_2
                         : Properties.Resources.Castle_1;
-                case CreatureType.Knight:
-                    return Properties.Resources.Knight;
                 default:
-                    return Properties.Resources.Image1;
+                    return mainForm.GetCreatureImage(creature.CreatureType);
             }
         }
 

@@ -15,9 +15,12 @@ namespace Art_of_battle.View
         public AI AI;
         public MainForm()
         {
+            var gameSettings = new GameSettings();
+            gameSettings.CardsCountInPlayerHand = 4;
             DoubleBuffered = true;
             var cards = GetCards();
             Game = new Game(cards);
+            Game.GameSettings = gameSettings;
             var mainPlayer = new Player("Daniil", Direction.Right, Game.DefaultPlayerCards);
             var secPlayer = new Player("AI", Direction.Left, Game.DefaultPlayerCards);
 
@@ -70,8 +73,8 @@ namespace Art_of_battle.View
                 10,
                 new Size(70, 50));
 
-            var boxer = new MeleeCreature(
-                CreatureType.Boxer,
+            var troll = new MeleeCreature(
+                CreatureType.Troll,
                 200,
                 10,
                 10,
@@ -82,7 +85,7 @@ namespace Art_of_battle.View
                 new Card(knight, 10, 10), 
                 new Card(orc, 10, 10),
                 new Card(goblin, 10, 10),
-                new Card(boxer, 10, 23)
+                new Card(troll, 10, 23)
             };
         }
 
@@ -126,6 +129,23 @@ namespace Art_of_battle.View
             heroesControl.Hide();
             battleControl?.Hide();
             finishControl?.Hide();
+        }
+
+        public Image GetCreatureImage(CreatureType creatureType)
+        {
+            switch (creatureType)
+            {
+                case CreatureType.Knight:
+                    return Properties.Resources.Knight;
+                case CreatureType.Troll:
+                    return Properties.Resources.Troll;
+                case CreatureType.Goblin:
+                    return Properties.Resources.Goblin;
+                case CreatureType.Orc:
+                    return Properties.Resources.Orc;
+                default:
+                    return null;
+            }
         }
     }
 
