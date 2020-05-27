@@ -52,14 +52,15 @@ namespace Art_of_battle.Model.Creatures
         public void Move()
         {
             var dPoint = new Point(0, 0);
+            var distance = 1;
 
             switch (Player.CreaturesDirection)
             {
                 case Direction.Right:
-                    dPoint.X = 1;
+                    dPoint.X = distance;
                     break;
                 case Direction.Left:
-                    dPoint.X = -1;
+                    dPoint.X = -distance;
                     break;
             }
 

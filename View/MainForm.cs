@@ -6,6 +6,8 @@ using System.Text;
 using System.Windows.Forms;
 using Art_of_battle.Model;
 using Art_of_battle.Model.Creatures;
+using Art_of_battle.Properties;
+using SpriteLibrary;
 
 namespace Art_of_battle.View
 {
@@ -13,10 +15,14 @@ namespace Art_of_battle.View
     {
         public Game Game { get; }
         public AI AI;
+        public bool debug;
+        public bool debug2;
+
         public MainForm()
         {
+            DoubleBuffered = true;
             var gameSettings = new GameSettings();
-            gameSettings.CardsCountInPlayerHand = 4;
+            gameSettings.CardsCountInPlayerHand = 1;
             DoubleBuffered = true;
             var cards = GetCards();
             Game = new Game(cards);
@@ -30,7 +36,12 @@ namespace Art_of_battle.View
             Game.AddPlayer(mainPlayer);
             Game.AddPlayer(secPlayer);
             Game.StateChanged += Game_OnStageChanged;
+
             InitializeComponent();
+
+            battleControl = new BattleControl(this);
+            battleControl.Dock = DockStyle.Fill;
+            Controls.Add(battleControl);
         }
 
         public void Game_OnStageChanged(GameStage stage)
@@ -57,7 +68,7 @@ namespace Art_of_battle.View
                 200, 
                 10, 
                 10, 
-                new Size(70, 50));
+                new Size(150, 150));
 
             var orc = new MeleeCreature(
                 CreatureType.Orc, 
@@ -105,19 +116,15 @@ namespace Art_of_battle.View
         public void ShowBattleScreen()
         {
             HideScreens();
-            InitBattleControl();
             battleControl.Show();
-        }
-
-        private void InitBattleControl()
-        {
-            battleControl = new BattleControl(this);
-            battleControl.Dock = DockStyle.Fill;
-            Controls.Add(battleControl);
+            battleControl.Start();
         }
 
         private void ShowFinishScreen()
         {
+            battleControl.Stop();
+            battleControl.Hide();
+
             finishControl = new FinishControl(this);
             Controls.Add(finishControl);
             finishControl.Show();

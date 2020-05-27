@@ -19,6 +19,7 @@ namespace Art_of_battle.View
 
         private void InitializeComponent()
         {
+            DoubleBuffered = true;
             var width = 800;
             var height = 500;
             startControl = new StartControl(this);
@@ -41,6 +42,8 @@ namespace Art_of_battle.View
             ClientSize = new System.Drawing.Size(width, height);
             Controls.Add(startControl);
             Controls.Add(heroesControl);
+            Margin = Padding.Empty;
+            Padding = Padding.Empty;
             InitializeFont();
             Name = "MainForm";
             Text = "Морской бой";

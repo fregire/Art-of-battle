@@ -103,6 +103,16 @@ namespace Art_of_battle.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap creature_sprites {
+            get {
+                object obj = ResourceManager.GetObject("creature_sprites", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap enable_sound {
             get {
                 object obj = ResourceManager.GetObject("enable_sound", resourceCulture);
@@ -166,6 +176,36 @@ namespace Art_of_battle.Properties {
         public static System.Drawing.Bitmap Knight {
             get {
                 object obj = ResourceManager.GetObject("Knight", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Knight_attacking {
+            get {
+                object obj = ResourceManager.GetObject("Knight_attacking", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Knight_moving {
+            get {
+                object obj = ResourceManager.GetObject("Knight_moving", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Knight1 {
+            get {
+                object obj = ResourceManager.GetObject("Knight1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

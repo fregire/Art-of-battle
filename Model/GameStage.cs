@@ -7,6 +7,7 @@ namespace Art_of_battle.Model
 {
     public enum GameStage
     {
+        BeforeStart,
         NotStarted,
         Started,
         Finished

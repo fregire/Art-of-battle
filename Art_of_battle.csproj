@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\NUnit.3.12.0\build\NUnit.props" Condition="Exists('packages\NUnit.3.12.0\build\NUnit.props')" />
+  <Import Project="..\..\..\SpriteLibrary-1-0-6\packages\NUnit.3.12.0\build\NUnit.props" Condition="Exists('..\..\..\SpriteLibrary-1-0-6\packages\NUnit.3.12.0\build\NUnit.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -8,7 +10,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Art_of_battle</RootNamespace>
     <AssemblyName>Art_of_battle_proj</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
@@ -28,6 +30,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -38,6 +41,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -47,16 +51,24 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework, Version=3.12.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>packages\NUnit.3.12.0\lib\net45\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SpriteLibrary">
+      <HintPath>..\..\..\SpriteLibrary-1-0-6\SpriteLibrary\bin\Debug\SpriteLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>packages\System.ValueTuple.4.5.0\lib\portable-net40+sl4+win8+wp8\System.ValueTuple.dll</HintPath>
+      <HintPath>packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
@@ -68,6 +80,7 @@
   <ItemGroup>
     <Compile Include="Game.cs" />
     <Compile Include="Model\AI.cs" />
+    <Compile Include="Model\CreatureAnimation.cs" />
     <Compile Include="Model\Card.cs" />
     <Compile Include="Model\Creatures\Building.cs" />
     <Compile Include="Model\Creatures\MeleeCreature.cs" />
@@ -92,12 +105,6 @@
     </Compile>
     <Compile Include="View\BattleControl.Designer.cs">
       <DependentUpon>BattleControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="View\FieldControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="View\FieldControl.Designer.cs">
-      <DependentUpon>FieldControl.cs</DependentUpon>
     </Compile>
     <Compile Include="View\FinishControl.cs">
       <SubType>UserControl</SubType>
@@ -140,7 +147,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -150,9 +157,6 @@
     <EmbeddedResource Include="View\BattleControl.resx">
       <DependentUpon>BattleControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\FieldControl.resx">
-      <DependentUpon>FieldControl.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Creatures\Knight\Knight_01__ATTACK_000.png" />
@@ -161,6 +165,7 @@
     <EmbeddedResource Include="Resources\Image1.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Resources\Cambria-Bold.ttf" />
     <None Include="Resources\Cambria.ttf" />
     <None Include="Resources\enable-sound.png" />
@@ -176,9 +181,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Asset 24.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Knight.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\MainMenu_btn.png" />
@@ -204,5 +206,24 @@
   <ItemGroup>
     <None Include="Resources\Troll_01_1_IDLE_000.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\creature_sprites.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Knight_moving.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Knight_attacking.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Knight.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\SpriteLibrary-1-0-6\packages\NUnit.3.12.0\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\SpriteLibrary-1-0-6\packages\NUnit.3.12.0\build\NUnit.props'))" />
+    <Error Condition="!Exists('packages\NUnit.3.12.0\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\NUnit.3.12.0\build\NUnit.props'))" />
+  </Target>
 </Project>

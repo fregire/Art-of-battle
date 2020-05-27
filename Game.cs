@@ -93,7 +93,7 @@ namespace Art_of_battle
             return new Building(
                 CreatureType.Castle, 
                 1000, 
-                new Size(200, 200),
+                new Size(500, 500),
                 player);
         }
 
@@ -183,8 +183,8 @@ namespace Art_of_battle
             FirstPlayer.Castle = firstCastle;
             SecondPlayer.Castle = secondCastle;
 
-            playerCreaturesInGame[FirstPlayer].Add(firstCastle);
-            playerCreaturesInGame[SecondPlayer].Add(secondCastle);
+            PlaceCreatureOnField(firstCastle);
+            PlaceCreatureOnField(secondCastle);
         }
     }
 }

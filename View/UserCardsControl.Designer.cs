@@ -14,13 +14,19 @@ namespace Art_of_battle.View
         private List<Panel> cardsOnPanel;
         private void InitializeComponent()
         {
+            SuspendLayout();
+
+            InitComponent();
+
+            ResumeLayout(false);
+        }
+
+        private void InitComponent()
+        {
             var cardsCount = mainForm.Game.FirstPlayer.Cards.Count;
             var table = new TableLayoutPanel();
             var cardsTable = GetCardsTable();
-
-            SuspendLayout();
             cardsTable.Dock = DockStyle.Fill;
-            Dock = DockStyle.Fill;
             table.Dock = DockStyle.Fill;
 
             table.RowCount = 1;
@@ -33,7 +39,6 @@ namespace Art_of_battle.View
 
             table.Controls.Add(cardsTable, 1, 0);
             Controls.Add(table);
-            ResumeLayout(false);
         }
 
         private TableLayoutPanel GetCardsTable()
@@ -46,7 +51,7 @@ namespace Art_of_battle.View
             cardsOnPanel = cards.Select(card => CreateCard(card)).ToList();
 
             table.RowCount = 1;
-            table.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
+            table.RowStyles.Add(new RowStyle(SizeType.Percent, 150));
 
             table.ColumnCount = mainForm.Game.GameSettings.CardsCountInPlayerHand;
 
@@ -55,9 +60,6 @@ namespace Art_of_battle.View
 
             for(var i = 0; i < columnsCount; i++)
                 table.Controls.Add(cardsOnPanel[i], i, 0);
-
-            table.Controls.Add(cardsOnPanel[0], 0, 0);
-            table.Controls.Add(cardsOnPanel[1], 1, 0);
 
             return table;
         }
@@ -68,24 +70,13 @@ namespace Art_of_battle.View
             var creatureType = card.Creature.CreatureType;
             var image = new Bitmap(GetCardImage(card), 120, 80);
             var panel = new Panel();
-            var pictBox = new PictureBox();
             var label = new Label();
 
             label.Text = cost.ToString();
             label.Width = 30;
-            pictBox.Image = image;
+            panel.Height = 150;
 
-            pictBox.Click += (Object sender, EventArgs args) =>
-            {
-                if (card.Cost > mainForm.Game.FirstPlayer.CurrentGold)
-                    return;
-
-                var creature = card.Creature.CreateCreature(mainForm.Game.FirstPlayer);
-                mainForm.Game.PlaceCreatureOnField(creature);
-                mainForm.Game.FirstPlayer.CurrentGold -= card.Cost;
-            };
-
-            label.Click += (Object sender, EventArgs args) => 
+            panel.Click += (Object sender, EventArgs args) => 
             {
                 if (card.Cost > mainForm.Game.FirstPlayer.CurrentGold)
                     return;
@@ -96,12 +87,9 @@ namespace Art_of_battle.View
             };
 
             panel.Margin = new Padding(15, 0, 15, 0);
-
-            panel.Controls.Add(pictBox);
+            panel.BackgroundImage = image;
+            panel.BackgroundImageLayout = ImageLayout.Center;
             panel.Controls.Add(label);
-            pictBox.Left = 10;
-            pictBox.Width = 130;
-            pictBox.Height = panel.Height;
             label.BringToFront();
 
             return panel;
