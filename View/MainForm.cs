@@ -36,12 +36,7 @@ namespace Art_of_battle.View
             Game.AddPlayer(mainPlayer);
             Game.AddPlayer(secPlayer);
             Game.StateChanged += Game_OnStageChanged;
-
             InitializeComponent();
-
-            battleControl = new BattleControl(this);
-            battleControl.Dock = DockStyle.Fill;
-            Controls.Add(battleControl);
         }
 
         public void Game_OnStageChanged(GameStage stage)
@@ -103,7 +98,6 @@ namespace Art_of_battle.View
         public void ShowStartScreen()
         {
             HideScreens();
-            
             startControl.Show();
         }
 
@@ -123,7 +117,7 @@ namespace Art_of_battle.View
         private void ShowFinishScreen()
         {
             battleControl.Stop();
-            battleControl.Hide();
+            HideScreens();
 
             finishControl = new FinishControl(this);
             Controls.Add(finishControl);
@@ -134,7 +128,7 @@ namespace Art_of_battle.View
         {
             startControl.Hide();
             heroesControl.Hide();
-            battleControl?.Hide();
+            battleControl.Hide();
             finishControl?.Hide();
         }
 
@@ -154,37 +148,5 @@ namespace Art_of_battle.View
                     return null;
             }
         }
-    }
-
-    public class OptionsForm : Form
-    {
-        public OptionsForm()
-        {
-            var backToMainMenuFromOptions = new Button
-            {
-                Text = "Назад"
-            };
-            Controls.Add(backToMainMenuFromOptions);
-
-            var soundTextBox = new TextBox
-            {
-                Location = new Point(),//set x set y
-                Size = new Size()//set x set y
-            };
-            var soundTrackBar = new TrackBar
-            {
-                Minimum = 0,
-                Maximum = 100,
-                TickFrequency = 1
-            };
-            Controls.AddRange(new Control[] { soundTextBox, soundTrackBar });
-            soundTrackBar.Scroll += new EventHandler(SoundTrackBarScroll);
-
-            void SoundTrackBarScroll(object sender, EventArgs e)
-            {
-                soundTextBox.Text = "" + soundTrackBar.Value;
-            }
-        }
-
     }
 }

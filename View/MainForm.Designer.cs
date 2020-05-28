@@ -19,12 +19,20 @@ namespace Art_of_battle.View
 
         private void InitializeComponent()
         {
+            SuspendLayout();
+
+            Init();
+
+            ResumeLayout(false);
+        }
+
+        private void Init()
+        {
             DoubleBuffered = true;
             var width = 800;
             var height = 500;
             startControl = new StartControl(this);
             heroesControl = new HeroesControl(this);
-            SuspendLayout();
 
             startControl.Dock = System.Windows.Forms.DockStyle.Fill;
             startControl.Location = new System.Drawing.Point(0, 0);
@@ -48,7 +56,10 @@ namespace Art_of_battle.View
             Name = "MainForm";
             Text = "Морской бой";
             SetBackgroundImage();
-            ResumeLayout(false);
+
+            battleControl = new BattleControl(this);
+            Controls.Add(battleControl);
+            battleControl.Dock = DockStyle.Fill;
         }
 
         private void SetBackgroundImage()

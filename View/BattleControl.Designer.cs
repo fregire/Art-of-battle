@@ -14,12 +14,12 @@ namespace Art_of_battle.View
 
             this.SuspendLayout();
 
-            InitComponent();
+            Init();
 
             this.ResumeLayout(false);
         }
 
-        private void InitComponent()
+        private void Init()
         {
             this.table = new System.Windows.Forms.TableLayoutPanel();
             this.cardsZone = new UserCardsControl(mainForm);

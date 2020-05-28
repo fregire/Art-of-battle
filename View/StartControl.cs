@@ -14,7 +14,6 @@ namespace Art_of_battle.View
         {
             this.mainForm = mainForm;
             InitializeComponent();
-            
             heroesBtn.Click += (Object sender, EventArgs args) => mainForm.ShowHeroesScreen();
             startBtn.Click += (Object sender, EventArgs args) => mainForm.Game.Start();
         }

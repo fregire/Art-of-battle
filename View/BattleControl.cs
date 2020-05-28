@@ -33,7 +33,8 @@ namespace Art_of_battle.View
 
         public void Start()
         {
-            spriteController = new SpriteController(fieldArea, OnTick);
+            spriteController = new SpriteController(fieldArea);
+            spriteController.DoTick += OnTick;
             spriteController.ChangeTickInterval(10);
             spriteController.DestroyAllSprites();
 
@@ -81,6 +82,7 @@ namespace Art_of_battle.View
 
         public void Stop()
         {
+            spriteController.DoTick -= OnTick;
             ClearSprites();
             spriteController = null;
 
@@ -90,9 +92,7 @@ namespace Art_of_battle.View
 
         private void ClearSprites()
         {
-            foreach (Sprite sprite in spriteController.SpritesThatHaveBeenDrawn())
-                sprite.Destroy();
-
+            spriteController.DestroyAllSprites();
             creaturesInGame.Clear();
         }
 
