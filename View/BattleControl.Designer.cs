@@ -22,8 +22,10 @@ namespace Art_of_battle.View
         private void Init()
         {
             this.table = new System.Windows.Forms.TableLayoutPanel();
-            this.cardsZone = new UserCardsControl(mainForm);
+            this.cardsZone = new UserCardsControl(mainForm, this);
             this.fieldArea = new PictureBox();
+            this.goldControl = new Label() { Text = mainForm.Game.FirstPlayer.CurrentGold.ToString() };
+            InitGoldControl();
             coinsCountLabel = new Label();
 
             this.Margin = Padding.Empty;
@@ -32,6 +34,7 @@ namespace Art_of_battle.View
             this.Size = new System.Drawing.Size(797, 387);
             mainForm.Resize += SetComponentsSizes;
             SetComponentsSizes(null, null);
+            fieldArea.Controls.Add(goldControl);
             Controls.Add(fieldArea);
             Controls.Add(cardsZone);
         }
@@ -44,10 +47,17 @@ namespace Art_of_battle.View
             cardsZone.Size = new Size(mainForm.Width, cardsZoneHeight);
         }
 
+        private void InitGoldControl()
+        {
+            goldControl.Location = new Point(0, 0);
+            goldControl.Size = new Size(50, 30);
+        }
+
         private Button pauseBtn;
         private Label coinsCountLabel;
         private TableLayoutPanel table;
         private PictureBox fieldArea;
         private UserCardsControl cardsZone;
+        private Label goldControl;
     }
 }

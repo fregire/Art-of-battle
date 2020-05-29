@@ -45,10 +45,20 @@ namespace Art_of_battle
                 : playerCreaturesInGame[FirstPlayer];
         }
 
-        public void PlaceCardCreatureOnField(Card card, Player player)
+        public bool PlaceCardCreatureOnField(Card card, Player player)
         {
-            PlaceCreatureOnField(card.Creature.CreateCreature(player));
-            player.CurrentGold -= card.Cost;
+            var isEnoughGold = player.CurrentGold >= card.Cost;
+
+            if (isEnoughGold)
+            {
+                player.CurrentGold -= card.Cost;
+                PlaceCreatureOnField(card.Creature.CreateCreature(player));
+
+                return true;
+            }
+            else
+                return false;
+
         }
 
         public void PlaceCreatureOnField(ICreature creature)

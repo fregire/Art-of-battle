@@ -88,7 +88,7 @@ namespace Art_of_battle.View
 
             return new List<Card>
             {
-                new Card(knight, 10, 10), 
+                new Card(knight, 10, 1000), 
                 new Card(orc, 10, 10),
                 new Card(goblin, 10, 10),
                 new Card(troll, 10, 23)

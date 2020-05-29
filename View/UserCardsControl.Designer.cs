@@ -66,6 +66,7 @@ namespace Art_of_battle.View
 
         private Panel CreateCard(Card card)
         {
+            var game = mainForm.Game;
             var cost = card.Cost;
             var creatureType = card.Creature.CreatureType;
             var image = new Bitmap(GetCardImage(card), 120, 80);
@@ -76,14 +77,20 @@ namespace Art_of_battle.View
             label.Width = 30;
             panel.Height = 150;
 
-            panel.Click += (Object sender, EventArgs args) => 
+            panel.Click += (Object sender, EventArgs args) =>
             {
-                if (card.Cost > mainForm.Game.FirstPlayer.CurrentGold)
-                    return;
+                bool isEnoughGold;
+                var isEnoughTime = battleControl.TimeElapsedSinceStart - card.TimeElapsed >= card.TimeReloadInMs || card.TimeElapsed == 0;
 
-                var creature = card.Creature.CreateCreature(mainForm.Game.FirstPlayer);
-                mainForm.Game.PlaceCreatureOnField(creature);
-                mainForm.Game.FirstPlayer.CurrentGold -= card.Cost;
+                if (isEnoughTime)
+                {
+                    isEnoughGold = game.PlaceCardCreatureOnField(card, game.FirstPlayer);
+
+                    if (isEnoughGold)
+                        card.TimeElapsed = battleControl.TimeElapsedSinceStart;
+                }
+                
+                //Do smth if not isEnoughGold
             };
 
             panel.Margin = new Padding(15, 0, 15, 0);

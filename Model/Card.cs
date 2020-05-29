@@ -10,13 +10,14 @@ namespace Art_of_battle.Model
     {
         public ICreature Creature { get; }
         public int Cost { get; }
-        public int TimeReload { get; }
+        public int TimeReloadInMs { get; }
+        public int TimeElapsed { get; set; }
 
-        public Card(ICreature creature, int cost, int timeReload)
+        public Card(ICreature creature, int cost, int timeReloadInMs)
         {
             Creature = creature;
             Cost = cost;
-            TimeReload = timeReload;
+            TimeReloadInMs = timeReloadInMs;
         }
     }
 }

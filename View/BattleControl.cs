@@ -19,6 +19,8 @@ namespace Art_of_battle.View
         private Game game;
         private SpriteController spriteController;
         private Dictionary<ICreature, Sprite> creaturesInGame = new Dictionary<ICreature, Sprite>();
+        private int tickIntervalInMs = 10;
+        public int TimeElapsedSinceStart;
 
         public BattleControl(MainForm mainForm)
         {
@@ -35,7 +37,7 @@ namespace Art_of_battle.View
         {
             spriteController = new SpriteController(fieldArea);
             spriteController.DoTick += OnTick;
-            spriteController.ChangeTickInterval(10);
+            spriteController.ChangeTickInterval(tickIntervalInMs);
             spriteController.DestroyAllSprites();
 
             LoadSprites();
@@ -61,6 +63,9 @@ namespace Art_of_battle.View
         public void CreatureCardPlaced(ICreature creature)
         {
             creaturesInGame.Add(creature, GetCreatureSprite(creature));
+
+            //GoldControl
+            goldControl.Text = mainForm.Game.FirstPlayer.CurrentGold.ToString();
         }
 
         private void LoadSprites()
@@ -100,6 +105,8 @@ namespace Art_of_battle.View
         {
             if (game.Stage != GameStage.Started)
                 return;
+
+            TimeElapsedSinceStart += tickIntervalInMs;
 
             mainForm.Game.Act();
 
