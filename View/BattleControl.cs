@@ -21,20 +21,18 @@ namespace Art_of_battle.View
         private Dictionary<ICreature, Sprite> creaturesInGame = new Dictionary<ICreature, Sprite>();
         private int tickIntervalInMs = 10;
         public int TimeElapsedSinceStart;
+        public bool Paused;
 
         public BattleControl(MainForm mainForm)
         {
             this.mainForm = mainForm;
             this.game = mainForm.Game;
             InitializeComponent();
-
-            fieldArea.BackgroundImage = Resources.game_background_3__2;
-            fieldArea.BackgroundImageLayout = ImageLayout.Stretch;
-            fieldArea.Parent = mainForm;
         }
 
         public void Start()
         {
+            fieldArea.BackgroundImage = mainForm.GetLevelImage(game.CurrentLevel);
             spriteController = new SpriteController(fieldArea);
             spriteController.DoTick += OnTick;
             spriteController.ChangeTickInterval(tickIntervalInMs);
@@ -49,6 +47,34 @@ namespace Art_of_battle.View
 
             game.CreaturePlacedOnField += CreatureCardPlaced;
             game.CreatureDeletedFromField += CreatureDeleted;
+        }
+
+        public void Pause()
+        {
+            spriteController.Pause();
+            spriteController.DoTick -= OnTick;
+            game.CreaturePlacedOnField -= CreatureCardPlaced;
+            game.CreatureDeletedFromField -= CreatureDeleted;
+            Paused = true;
+        }
+
+        public void UnPause()
+        {
+            spriteController.UnPause();
+            spriteController.DoTick += OnTick;
+            game.CreaturePlacedOnField += CreatureCardPlaced;
+            game.CreatureDeletedFromField += CreatureDeleted;
+            Paused = false;
+        }
+
+        public void Stop()
+        {
+            spriteController.DoTick -= OnTick;
+            ClearSprites();
+            spriteController = null;
+
+            game.CreaturePlacedOnField -= CreatureCardPlaced;
+            game.CreatureDeletedFromField -= CreatureDeleted;
         }
 
         public void CreatureDeleted(ICreature creature)
@@ -83,16 +109,6 @@ namespace Art_of_battle.View
 
             var secondPlayerCastle = new Sprite(spriteController, secondPlayerCastleImage, secondPlayerCastleImage.Width, secondPlayerCastleImage.Height);
             secondPlayerCastle.SetName("SecondPlayerCastle");
-        }
-
-        public void Stop()
-        {
-            spriteController.DoTick -= OnTick;
-            ClearSprites();
-            spriteController = null;
-
-            game.CreaturePlacedOnField -= CreatureCardPlaced;
-            game.CreatureDeletedFromField -= CreatureDeleted;
         }
 
         private void ClearSprites()

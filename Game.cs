@@ -14,22 +14,26 @@ namespace Art_of_battle
         public Player FirstPlayer { get; set; }
         public Player SecondPlayer { get; set; }
         public GameSettings GameSettings { get; set; }
+        public List<Level> Levels { get; set; }
+        public Level CurrentLevel { get; set; }
 
         private GameStage gameStage = GameStage.NotStarted;
         public GameStage Stage => gameStage;
 
         private readonly Dictionary<Player, HashSet<ICreature>> playerCreaturesInGame;
 
-        public Game(GameSettings settings)
+        public Game(GameSettings settings, List<Level> lvls)
         {
             GameSettings = settings;
             playerCreaturesInGame = new Dictionary<Player, HashSet<ICreature>>();
+            Levels = lvls;
         }
 
-        public Game(List<Card> cards)
+        public Game(List<Card> cards, List<Level> lvls)
         {
             GameSettings = new GameSettings();
             playerCreaturesInGame = new Dictionary<Player, HashSet<ICreature>>();
+            Levels = lvls;
         }
 
         public HashSet<ICreature> GetEnemiesOf(Player player)
@@ -148,21 +152,22 @@ namespace Art_of_battle
 
         public event Action Acted;
 
-        public void Start(Player firstPlayer, Player secondPlayer)
+        public void Start(Player firstPlayer, Player secondPlayer, Level lvl)
         {
             AddPlayer(firstPlayer);
             AddPlayer(secondPlayer);
             ClearField();
             CreateCastlesForPlayers();
+            CurrentLevel = lvl;
             ChangeState(GameStage.Started);
         }
 
-        public void Start()
+        public void Start(Level lvl)
         {
             if (FirstPlayer is null || SecondPlayer is null)
                 throw new Exception("Not every player inited!");
 
-            Start(FirstPlayer, SecondPlayer);
+            Start(FirstPlayer, SecondPlayer, lvl);
         }
 
         public void AddPlayer(Player player)

@@ -44,7 +44,7 @@ namespace Art_of_battle.Tests
         private Game GetInitedAndStartedGame()
         {
             var cards = GenerateCards();
-            var game = new Game(cards);
+            var game = new Game(cards, new List<Level> {new Level(LevelName.Forest, 10, 10, 1)});
 
             var firstPlayer = new Player(
                 "Daniil",
@@ -56,7 +56,7 @@ namespace Art_of_battle.Tests
                 Direction.Left,
                 GenerateCards());
 
-            game.Start(firstPlayer, secondPlayer);
+            game.Start(firstPlayer, secondPlayer, new Level(LevelName.Forest, 10, 20, 1));
 
             return game;
         }

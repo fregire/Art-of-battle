@@ -25,6 +25,7 @@ namespace Art_of_battle.View
             this.table = new System.Windows.Forms.TableLayoutPanel();
             this.cardsZone = new UserCardsControl(mainForm, this);
             this.fieldArea = new PictureBox();
+            this.pauseBtn = GetPauseBtn();
             coinsCountLabel = new Label();
 
             this.Margin = Padding.Empty;
@@ -32,8 +33,15 @@ namespace Art_of_battle.View
             this.Name = "BattleControl";
             this.Size = new System.Drawing.Size(797, 387);
             mainForm.Resize += SetComponentsSizes;
+            pauseBtn.Click += OnPauseBtnClick;
             SetComponentsSizes(null, null);
+
+            pauseBtn.Location = new Point(fieldArea.Right - pauseBtn.Width - 20, 0);
+            fieldArea.Controls.Add(pauseBtn);
             fieldArea.Controls.Add(GetInitedGoldControl());
+            fieldArea.BackgroundImageLayout = ImageLayout.Stretch;
+            fieldArea.Parent = mainForm;
+
             Controls.Add(fieldArea);
             Controls.Add(cardsZone);
         }
@@ -44,6 +52,26 @@ namespace Art_of_battle.View
             fieldArea.Size = new Size(mainForm.Width, mainForm.Height - cardsZoneHeight);
             cardsZone.Location = new Point(0, fieldArea.Bottom);
             cardsZone.Size = new Size(mainForm.Width, cardsZoneHeight);
+        }
+
+        private Button GetPauseBtn()
+        {
+            var button = new Button
+            {
+                BackgroundImage = Resources.Pause,
+                BackgroundImageLayout = ImageLayout.Stretch,
+                Size = new Size(30, 30)
+            };
+
+            return button;
+        }
+
+        private void OnPauseBtnClick(Object sender, EventArgs args)
+        {
+            if (Paused)
+                UnPause();
+            else
+                Pause();
         }
 
         private Panel GetInitedGoldControl()

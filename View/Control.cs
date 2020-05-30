@@ -14,6 +14,7 @@ namespace Art_of_battle.View
         protected MainForm mainForm;
         protected Panel contentZone;
         protected TableLayoutPanel mainTable;
+        protected int paddingValue = 15;
         public Control(MainForm mainForm)
         {
             this.mainForm = mainForm;
@@ -31,9 +32,11 @@ namespace Art_of_battle.View
 
         private void Init()
         {
+            var paddingValue = 15;
             mainTable = GetMainTable(new Size(500, 400));
             mainTable.BackColor = Color.Transparent;
             contentZone = new Panel();
+            contentZone.Padding = new Padding(paddingValue, paddingValue, paddingValue, paddingValue);
 
             mainTable.Controls.Add(contentZone, 1, 1);
             contentZone.Dock = DockStyle.Fill;

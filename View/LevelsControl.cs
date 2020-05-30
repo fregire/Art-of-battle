@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Art_of_battle.Model;
 using Art_of_battle.Properties;
 
 namespace Art_of_battle.View
@@ -15,6 +16,7 @@ namespace Art_of_battle.View
         {
             SetBackground();
             AddBackButton();
+            CreateLvlsNamePlates(mainForm.Game.Levels);
         }
     }
 }

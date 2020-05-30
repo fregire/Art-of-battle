@@ -8,6 +8,7 @@ namespace Art_of_battle.Model
 {
     public enum LevelName
     {
-        Forest
+        Forest,
+        Mountains
     }
 }

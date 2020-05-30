@@ -21,12 +21,11 @@ namespace Art_of_battle.View
         public MainForm()
         {
             var cards = GetMainPlayerCards();
-            Game = new Game(cards);
+            var lvls = GetGameLevels();
+            Game = new Game(cards, lvls);
             DoubleBuffered = true;
             InitalizeGame();
             InitializeComponent();
-
-            ShowLevelsScreen();
         }
 
         private void InitalizeGame()
@@ -62,6 +61,14 @@ namespace Art_of_battle.View
             }
         }
 
+        public List<Level> GetGameLevels()
+        {
+            return new List<Level>
+            {
+                new Level(LevelName.Forest, 10, 20, 1),
+                new Level(LevelName.Mountains, 10, 34, 1)
+            };
+        }
         public List<Card> GetMainPlayerCards()
         {
             var knight = new MeleeCreature(
@@ -149,6 +156,18 @@ namespace Art_of_battle.View
                 default:
                     return null;
             }
+        }
+
+        public Image GetLevelImage(Level lvl)
+        {
+            switch (lvl.LevelName)
+            {
+                case LevelName.Forest:
+                    return Resources.game_background_3__2;
+                default:
+                    return Resources.game_background_2;
+            }
+
         }
     }
 }
