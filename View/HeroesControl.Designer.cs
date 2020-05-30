@@ -159,13 +159,4 @@ namespace Art_of_battle.View
             return heroesTable;
         }
     }
-
-    class ChooseCardEventArgs : EventArgs
-    {
-        public Card Card { get; }
-        public ChooseCardEventArgs(Card card)
-        {
-            this.Card = card;
-        }
-    }
 }

@@ -109,6 +109,9 @@
     <Compile Include="View\BattleControl.Designer.cs">
       <DependentUpon>BattleControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Control.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="View\FinishControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -121,6 +124,13 @@
     <Compile Include="View\HeroesControl.Designer.cs">
       <DependentUpon>HeroesControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\LevelsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\LevelsControl.Designer.cs">
+      <DependentUpon>LevelsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\MenuControl.cs" />
     <Compile Include="View\StartControl.Designer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -223,6 +233,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Sword.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LevelsTitle.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

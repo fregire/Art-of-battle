@@ -15,6 +15,7 @@ namespace Art_of_battle.View
         private HeroesControl heroesControl;
         private BattleControl battleControl;
         private FinishControl finishControl;
+        private LevelsControl levelsControl;
         
 
         private void InitializeComponent()
@@ -33,6 +34,12 @@ namespace Art_of_battle.View
             var height = 500;
             startControl = new StartControl(this);
             heroesControl = new HeroesControl(this);
+            levelsControl = new LevelsControl(this);
+
+            levelsControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            levelsControl.Location = new System.Drawing.Point(0, 0);
+            levelsControl.Name = "levelsControl";
+            levelsControl.Size = new System.Drawing.Size(width, height);
 
             startControl.Dock = System.Windows.Forms.DockStyle.Fill;
             startControl.Location = new System.Drawing.Point(0, 0);
@@ -50,10 +57,11 @@ namespace Art_of_battle.View
             ClientSize = new System.Drawing.Size(width, height);
             Controls.Add(startControl);
             Controls.Add(heroesControl);
+            Controls.Add(levelsControl);
             Margin = Padding.Empty;
             Padding = Padding.Empty;
             InitializeFont();
-            Name = "MainForm";
+            Name = "mainForm";
             Text = "Морской бой";
             SetBackgroundImage();
 

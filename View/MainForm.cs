@@ -20,12 +20,19 @@ namespace Art_of_battle.View
 
         public MainForm()
         {
-            DoubleBuffered = true;
-            var gameSettings = new GameSettings();
-            gameSettings.CardsCountInPlayerHand = 1;
-            DoubleBuffered = true;
             var cards = GetMainPlayerCards();
             Game = new Game(cards);
+            DoubleBuffered = true;
+            InitalizeGame();
+            InitializeComponent();
+
+            ShowLevelsScreen();
+        }
+
+        private void InitalizeGame()
+        {
+            var gameSettings = new GameSettings();
+            gameSettings.CardsCountInPlayerHand = 1;
             Game.GameSettings = gameSettings;
             var mainPlayer = new Player("Daniil", Direction.Right, GetMainPlayerCards());
             var secPlayer = new Player("AI", Direction.Left, GetAICards());
@@ -36,7 +43,6 @@ namespace Art_of_battle.View
             Game.AddPlayer(mainPlayer);
             Game.AddPlayer(secPlayer);
             Game.StateChanged += Game_OnStageChanged;
-            InitializeComponent();
         }
 
         public void Game_OnStageChanged(GameStage stage)
@@ -102,6 +108,12 @@ namespace Art_of_battle.View
             battleControl.Start();
         }
 
+        public void ShowLevelsScreen()
+        {
+            HideScreens();
+            levelsControl.Show();
+        }
+
         private void ShowFinishScreen()
         {
             battleControl.Stop();
@@ -116,6 +128,8 @@ namespace Art_of_battle.View
         {
             startControl.Hide();
             heroesControl.Hide();
+            battleControl.Hide();
+            levelsControl.Hide();
             battleControl.Hide();
             finishControl?.Hide();
         }
