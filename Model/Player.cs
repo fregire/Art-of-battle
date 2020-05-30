@@ -13,17 +13,17 @@ namespace Art_of_battle.Model
         public int GameGoldAmount { get; set; }
         public string Name { get; }
         public List<Card> Cards { get; }
-        private int currGold;
+        private int battleGoldAmount;
 
-        public int CurrentGold
+        public int BattleGoldAmount
         {
             get
             {
-                return currGold;
+                return battleGoldAmount;
             }
             set
             {
-                currGold = value;
+                battleGoldAmount = value;
                 GoldChanged?.Invoke(value);
             }
         }
@@ -34,11 +34,16 @@ namespace Art_of_battle.Model
         public Direction CreaturesDirection { get; }
         public Building Castle { get; set; }
 
-        public Player(string name, Direction creaturesDirection, List<Card> cards)
+        public Player(
+            string name, 
+            Direction creaturesDirection,
+            List<Card> cards, 
+            Dictionary<int, int> playerLevelsInfo)
         {
             Name = name;
             Cards = cards;
             CreaturesDirection = creaturesDirection;
+            PlayerLevelInfo = new PlayerLevel(playerLevelsInfo);
         }
     }
 }

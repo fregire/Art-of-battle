@@ -11,7 +11,7 @@ namespace Art_of_battle.Model
         public int CurrentExperienceAmount { get; set; }
 
         public int CurrentLevel => RequiredExperienceForEachLevel
-                    .FirstOrDefault(pair => CurrentExperienceAmount >= pair.Value).Key;
+                    .FirstOrDefault(pair => CurrentExperienceAmount < pair.Value).Key - 1;
 
         public Dictionary<int, int> RequiredExperienceForEachLevel;
 

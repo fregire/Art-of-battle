@@ -77,6 +77,17 @@ namespace Art_of_battle.View
             game.CreatureDeletedFromField -= CreatureDeleted;
         }
 
+        public void ShowPausedControl()
+        {
+            pausedControl.Show();
+            pausedControl.BringToFront();
+        }
+
+        public void HidePausedControl()
+        {
+            pausedControl.Hide();
+        }
+
         public void CreatureDeleted(ICreature creature)
         {
             if (creaturesInGame.ContainsKey(creature))
@@ -91,7 +102,7 @@ namespace Art_of_battle.View
             creaturesInGame.Add(creature, GetCreatureSprite(creature));
 
             //GoldControl
-            goldText.Text = mainForm.Game.FirstPlayer.CurrentGold.ToString();
+            goldText.Text = mainForm.Game.FirstPlayer.BattleGoldAmount.ToString();
         }
 
         private void LoadSprites()

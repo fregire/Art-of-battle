@@ -6,13 +6,14 @@ using System.Windows.Forms;
 
 namespace Art_of_battle.View
 {
-    public partial class HeroesControl : UserControl
+    public partial class HeroesControl : Control
     {
         private MainForm mainForm;
-        public HeroesControl(MainForm mainForm)
+        public HeroesControl(MainForm mainForm) : base(mainForm)
         {
             this.mainForm = mainForm;
-            InitializeComponent();
+            SetBackground();
+            InitContentZone();
         }
 
     }

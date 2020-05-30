@@ -6,6 +6,7 @@ using System.Text;
 using System.Windows.Forms;
 using Art_of_battle.Model;
 using Art_of_battle.Model.Creatures;
+using Art_of_battle.Properties;
 using NUnit.Framework.Constraints;
 
 namespace Art_of_battle.View
@@ -16,52 +17,48 @@ namespace Art_of_battle.View
         private Label warningLabel;
         private Button backBtn;
 
-        private void InitializeComponent()
+        private void SetBackground()
         {
-            var warningPhrase = "You have to choose";
-            var table = new TableLayoutPanel();
+            BackgroundImage = Resources.mainmenubg1;
+            BackgroundImageLayout = ImageLayout.Stretch;
+            contentZone.BackgroundImage = Resources.menus_bg;
+            contentZone.BackgroundImageLayout = ImageLayout.Stretch;
+        }
+
+        private void InitContentZone()
+        {
             var heroesTable = GetInitializedHeroesTable();
             var paddingValue = 15;
             backBtn = mainForm.CreateMainButton("Back");
+            InitWarningLabel();
+
+            heroesTable.Dock = DockStyle.Fill;
+            heroesTable.Padding = new Padding(paddingValue);
+            AddCards(heroesTable);
+
+            Controls.Add(warningLabel);
+            warningLabel.BringToFront();
+
+            backBtn.Size = new Size(150, 50);
+            backBtn.Anchor = AnchorStyles.None;
+            backBtn.Click += OnBackBtnClick;
+
+            contentZone.Controls.Add(heroesTable);
+            mainTable.Controls.Add(backBtn, 1, 2);
+        }
+
+        public void InitWarningLabel()
+        {
+            var warningPhrase = "You have to choose";
             warningLabel = new Label();
 
             warningLabel.Text = String.Format(
-                "***{0} {1} cards to play", 
+                "***{0} {1} cards to play",
                 warningPhrase,
                 mainForm.Game.GameSettings.CardsCountInPlayerHand);
             warningLabel.Location = new Point(10, 10);
             warningLabel.Size = new Size(400, 50);
             warningLabel.Visible = false;
-            backBtn.Size = new Size(150, 50);
-
-            table.ColumnCount = 3;
-            table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50));
-            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 500));
-            table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50));
-
-            table.RowCount = 3;
-            table.RowStyles.Add(new RowStyle(SizeType.Percent, 50));
-            table.RowStyles.Add(new RowStyle(SizeType.Absolute, 400));
-            table.RowStyles.Add(new RowStyle(SizeType.Percent, 50));
-
-            heroesTable.Padding = new Padding(paddingValue, paddingValue, paddingValue, paddingValue);
-            SetHeroestableBg(heroesTable);
-            AddCards(heroesTable);
-            table.Dock = DockStyle.Fill;
-            heroesTable.Dock = DockStyle.Fill;
-
-            table.Controls.Add(heroesTable, 1, 1);
-            table.Controls.Add(backBtn, 1, 2);
-            Controls.Add(table);
-            Controls.Add(warningLabel);
-            warningLabel.BringToFront();
-            backBtn.Anchor = AnchorStyles.None;
-            backBtn.Click += OnBackBtnClick;
-
-            this.Dock = DockStyle.Fill;
-            this.Name = "HeroesControl";
-            SetControlBackground();
-            this.ResumeLayout(false);
         }
 
         private void AddCards(TableLayoutPanel heroesTable)
@@ -126,20 +123,6 @@ namespace Art_of_battle.View
         {
             mainForm.ShowStartScreen();
         }
-
-        private void SetControlBackground()
-        {
-            this.BackgroundImage = mainForm.BackgroundImage;
-            this.BackgroundImageLayout = mainForm.BackgroundImageLayout;
-            this.BackColor = Color.Transparent;
-        }
-
-        private void SetHeroestableBg(TableLayoutPanel heroesTable)
-        {
-            heroesTable.BackgroundImage = Properties.Resources.menus_bg;
-            heroesTable.BackgroundImageLayout = ImageLayout.Stretch;
-        }
-
 
         private TableLayoutPanel GetInitializedHeroesTable()
         {

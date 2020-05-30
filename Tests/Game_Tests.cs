@@ -49,12 +49,14 @@ namespace Art_of_battle.Tests
             var firstPlayer = new Player(
                 "Daniil",
                 Direction.Right,
-                GenerateCards());
+                GenerateCards(),
+                new Dictionary<int, int>());
 
             var secondPlayer = new Player(
                 "Roman",
                 Direction.Left,
-                GenerateCards());
+                GenerateCards(),
+                new Dictionary<int, int>());
 
             game.Start(firstPlayer, secondPlayer, new Level(LevelName.Forest, 10, 20, 1));
 

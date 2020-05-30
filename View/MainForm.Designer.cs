@@ -16,6 +16,7 @@ namespace Art_of_battle.View
         private BattleControl battleControl;
         private FinishControl finishControl;
         private LevelsControl levelsControl;
+        private PausedControl pausedControl;
         
 
         private void InitializeComponent()
@@ -58,6 +59,7 @@ namespace Art_of_battle.View
             Controls.Add(startControl);
             Controls.Add(heroesControl);
             Controls.Add(levelsControl);
+            Controls.Add(pausedControl);
             Margin = Padding.Empty;
             Padding = Padding.Empty;
             InitializeFont();

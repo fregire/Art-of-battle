@@ -131,6 +131,12 @@
       <DependentUpon>LevelsControl.cs</DependentUpon>
     </Compile>
     <Compile Include="View\MenuControl.cs" />
+    <Compile Include="View\PausedControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\PausedControl.Designer.cs">
+      <DependentUpon>PausedControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\StartControl.Designer.cs">
       <SubType>UserControl</SubType>
     </Compile>

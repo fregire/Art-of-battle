@@ -45,11 +45,11 @@ namespace Art_of_battle
 
         public bool PlaceCardCreatureOnField(Card card, Player player)
         {
-            var isEnoughGold = player.CurrentGold >= card.Cost;
+            var isEnoughGold = player.BattleGoldAmount >= card.Cost;
 
             if (isEnoughGold)
             {
-                player.CurrentGold -= card.Cost;
+                player.BattleGoldAmount -= card.Cost;
                 PlaceCreatureOnField(card.Creature.CreateCreature(player));
 
                 return true;
@@ -137,7 +137,13 @@ namespace Art_of_battle
             }
 
             if (IsFinished())
+            {
+                var winner = GetWinner();
+                winner.GameGoldAmount += CurrentLevel.ReceivedGoldAmount;
+                winner.PlayerLevelInfo.CurrentExperienceAmount += CurrentLevel.ReceivedExperienceAmount;
+
                 ChangeState(GameStage.Finished);
+            }
 
             foreach (var creature in creaturesToDelete)
                 DeleteCreatureFromField(creature);
@@ -159,6 +165,8 @@ namespace Art_of_battle
             ClearField();
             CreateCastlesForPlayers();
             CurrentLevel = lvl;
+            FirstPlayer.BattleGoldAmount = GameSettings.GoldAmountPerPlayer;
+            SecondPlayer.BattleGoldAmount = GameSettings.GoldAmountPerPlayer;
             ChangeState(GameStage.Started);
         }
 

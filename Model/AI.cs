@@ -16,7 +16,7 @@ namespace Art_of_battle.Model
         public void Act()
         {
             var cardToPlace = game.SecondPlayer.Cards.First();
-            if (cardToPlace.Cost < game.SecondPlayer.CurrentGold)
+            if (cardToPlace.Cost < game.SecondPlayer.BattleGoldAmount)
                 game.PlaceCardCreatureOnField(cardToPlace, game.SecondPlayer);
         }
     }

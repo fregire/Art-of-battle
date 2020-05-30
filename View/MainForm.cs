@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using Art_of_battle.Model;
 using Art_of_battle.Model.Creatures;
@@ -26,6 +27,7 @@ namespace Art_of_battle.View
             DoubleBuffered = true;
             InitalizeGame();
             InitializeComponent();
+
         }
 
         private void InitalizeGame()
@@ -33,12 +35,12 @@ namespace Art_of_battle.View
             var gameSettings = new GameSettings();
             gameSettings.CardsCountInPlayerHand = 1;
             Game.GameSettings = gameSettings;
-            var mainPlayer = new Player("Daniil", Direction.Right, GetMainPlayerCards());
-            var secPlayer = new Player("AI", Direction.Left, GetAICards());
+            var mainPlayer = new Player("Daniil", Direction.Right, GetMainPlayerCards(), gameSettings.PlayerLevelsInfo);
+            var secPlayer = new Player("AI", Direction.Left, GetAICards(), gameSettings.PlayerLevelsInfo);
 
             AI = new AI(Game);
-            mainPlayer.CurrentGold = 100;
-            secPlayer.CurrentGold = 100;
+            mainPlayer.BattleGoldAmount = 100;
+            secPlayer.BattleGoldAmount = 100;
             Game.AddPlayer(mainPlayer);
             Game.AddPlayer(secPlayer);
             Game.StateChanged += Game_OnStageChanged;

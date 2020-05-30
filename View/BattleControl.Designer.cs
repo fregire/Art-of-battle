@@ -10,6 +10,13 @@ namespace Art_of_battle.View
 {
     partial class BattleControl
     {
+        private Button pauseBtn;
+        private Label coinsCountLabel;
+        private TableLayoutPanel table;
+        private PictureBox fieldArea;
+        private UserCardsControl cardsZone;
+        private Label goldText;
+        private PausedControl pausedControl;
         private void InitializeComponent()
         {
 
@@ -25,9 +32,11 @@ namespace Art_of_battle.View
             this.table = new System.Windows.Forms.TableLayoutPanel();
             this.cardsZone = new UserCardsControl(mainForm, this);
             this.fieldArea = new PictureBox();
+            this.pausedControl = new PausedControl(mainForm, this);
             this.pauseBtn = GetPauseBtn();
             coinsCountLabel = new Label();
 
+            this.BackColor = Color.Transparent;
             this.Margin = Padding.Empty;
             this.Padding = Padding.Empty;
             this.Name = "BattleControl";
@@ -41,9 +50,11 @@ namespace Art_of_battle.View
             fieldArea.Controls.Add(GetInitedGoldControl());
             fieldArea.BackgroundImageLayout = ImageLayout.Stretch;
             fieldArea.Parent = mainForm;
+            cardsZone.BackColor = Color.Green;
 
             Controls.Add(fieldArea);
             Controls.Add(cardsZone);
+            Controls.Add(pausedControl);
         }
 
         private void SetComponentsSizes(Object sender, EventArgs args)
@@ -68,10 +79,8 @@ namespace Art_of_battle.View
 
         private void OnPauseBtnClick(Object sender, EventArgs args)
         {
-            if (Paused)
-                UnPause();
-            else
-                Pause();
+            ShowPausedControl();
+            Pause();
         }
 
         private Panel GetInitedGoldControl()
@@ -87,7 +96,7 @@ namespace Art_of_battle.View
             {
                 Size = new Size(30, 30),
                 Location = new Point(0, 0),
-                Text = mainForm.Game.FirstPlayer.CurrentGold.ToString()
+                Text = mainForm.Game.FirstPlayer.BattleGoldAmount.ToString()
             };
 
             var goldIcon = new PictureBox
@@ -104,12 +113,5 @@ namespace Art_of_battle.View
 
             return goldControl;
         }
-
-        private Button pauseBtn;
-        private Label coinsCountLabel;
-        private TableLayoutPanel table;
-        private PictureBox fieldArea;
-        private UserCardsControl cardsZone;
-        private Label goldText;
     }
 }
