@@ -49,12 +49,12 @@ namespace Art_of_battle.Tests
             var firstPlayer = new Player(
                 "Daniil",
                 Direction.Right,
-                game.DefaultPlayerCards);
+                GenerateCards());
 
             var secondPlayer = new Player(
                 "Roman",
                 Direction.Left,
-                game.DefaultPlayerCards);
+                GenerateCards());
 
             game.Start(firstPlayer, secondPlayer);
 
@@ -68,10 +68,6 @@ namespace Art_of_battle.Tests
 
             Assert.NotNull(startedGame.FirstPlayer);
             Assert.NotNull(startedGame.SecondPlayer);
-            Assert.IsNotEmpty(startedGame.Cards);
-            Assert.AreEqual(GameStage.Started, startedGame.Stage);
-            Assert.AreEqual(startedGame.DefaultPlayerCards, startedGame.FirstPlayer.Cards);
-            Assert.AreEqual(startedGame.DefaultPlayerCards, startedGame.SecondPlayer.Cards);
         }
 
         private ICreature GetTestCreature(

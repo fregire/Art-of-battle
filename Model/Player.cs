@@ -9,6 +9,8 @@ namespace Art_of_battle.Model
 {
     public class Player
     {
+        public PlayerLevel PlayerLevelInfo { get; set; }
+        public int GameGoldAmount { get; set; }
         public string Name { get; }
         public List<Card> Cards { get; }
         private int currGold;
@@ -32,10 +34,10 @@ namespace Art_of_battle.Model
         public Direction CreaturesDirection { get; }
         public Building Castle { get; set; }
 
-        public Player(string name, Direction creaturesDirection, List<Card> defaultCards)
+        public Player(string name, Direction creaturesDirection, List<Card> cards)
         {
             Name = name;
-            Cards = defaultCards;
+            Cards = cards;
             CreaturesDirection = creaturesDirection;
         }
     }

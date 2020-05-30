@@ -65,7 +65,7 @@ namespace Art_of_battle.View
             creaturesInGame.Add(creature, GetCreatureSprite(creature));
 
             //GoldControl
-            goldControl.Text = mainForm.Game.FirstPlayer.CurrentGold.ToString();
+            goldText.Text = mainForm.Game.FirstPlayer.CurrentGold.ToString();
         }
 
         private void LoadSprites()

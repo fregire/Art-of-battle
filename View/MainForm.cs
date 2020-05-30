@@ -24,11 +24,11 @@ namespace Art_of_battle.View
             var gameSettings = new GameSettings();
             gameSettings.CardsCountInPlayerHand = 1;
             DoubleBuffered = true;
-            var cards = GetCards();
+            var cards = GetMainPlayerCards();
             Game = new Game(cards);
             Game.GameSettings = gameSettings;
-            var mainPlayer = new Player("Daniil", Direction.Right, Game.DefaultPlayerCards);
-            var secPlayer = new Player("AI", Direction.Left, Game.DefaultPlayerCards);
+            var mainPlayer = new Player("Daniil", Direction.Right, GetMainPlayerCards());
+            var secPlayer = new Player("AI", Direction.Left, GetAICards());
 
             AI = new AI(Game);
             mainPlayer.CurrentGold = 100;
@@ -56,7 +56,7 @@ namespace Art_of_battle.View
             }
         }
 
-        public List<Card> GetCards()
+        public List<Card> GetMainPlayerCards()
         {
             var knight = new MeleeCreature(
                 CreatureType.Knight, 
@@ -65,34 +65,22 @@ namespace Art_of_battle.View
                 10, 
                 new Size(150, 150));
 
-            var orc = new MeleeCreature(
-                CreatureType.Orc, 
-                200, 
-                10, 
-                10, 
-                new Size(70, 50));
-
-            var goblin = new MeleeCreature(
-                CreatureType.Goblin,
-                200,
-                10,
-                10,
-                new Size(70, 50));
-
-            var troll = new MeleeCreature(
-                CreatureType.Troll,
-                200,
-                10,
-                10,
-                new Size(70, 50));
-
             return new List<Card>
             {
-                new Card(knight, 10, 1000), 
-                new Card(orc, 10, 10),
-                new Card(goblin, 10, 10),
-                new Card(troll, 10, 23)
+                new Card(knight, 10, 1000)
             };
+        }
+
+        public List<Card> GetAICards()
+        {
+            var orc = new MeleeCreature(
+                CreatureType.Orc,
+                200, 
+                10,
+                10,
+                new Size(150, 150));
+
+            return new List<Card>() { new Card(orc, 10, 1000) };
         }
 
         public void ShowStartScreen()

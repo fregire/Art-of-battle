@@ -14,27 +14,21 @@ namespace Art_of_battle
         public Player FirstPlayer { get; set; }
         public Player SecondPlayer { get; set; }
         public GameSettings GameSettings { get; set; }
-        public List<Card> DefaultPlayerCards
-            => Cards.Take(GameSettings.CardsCountInPlayerHand).ToList();
 
         private GameStage gameStage = GameStage.NotStarted;
         public GameStage Stage => gameStage;
 
-        public readonly List<Card> Cards;
-
         private readonly Dictionary<Player, HashSet<ICreature>> playerCreaturesInGame;
 
-        public Game(GameSettings settings, List<Card> cards)
+        public Game(GameSettings settings)
         {
             GameSettings = settings;
-            Cards = cards;
             playerCreaturesInGame = new Dictionary<Player, HashSet<ICreature>>();
         }
 
         public Game(List<Card> cards)
         {
             GameSettings = new GameSettings();
-            Cards = cards;
             playerCreaturesInGame = new Dictionary<Player, HashSet<ICreature>>();
         }
 

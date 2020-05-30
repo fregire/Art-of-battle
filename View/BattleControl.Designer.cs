@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Art_of_battle.Properties;
 
 namespace Art_of_battle.View
 {
@@ -24,8 +25,6 @@ namespace Art_of_battle.View
             this.table = new System.Windows.Forms.TableLayoutPanel();
             this.cardsZone = new UserCardsControl(mainForm, this);
             this.fieldArea = new PictureBox();
-            this.goldControl = new Label() { Text = mainForm.Game.FirstPlayer.CurrentGold.ToString() };
-            InitGoldControl();
             coinsCountLabel = new Label();
 
             this.Margin = Padding.Empty;
@@ -34,7 +33,7 @@ namespace Art_of_battle.View
             this.Size = new System.Drawing.Size(797, 387);
             mainForm.Resize += SetComponentsSizes;
             SetComponentsSizes(null, null);
-            fieldArea.Controls.Add(goldControl);
+            fieldArea.Controls.Add(GetInitedGoldControl());
             Controls.Add(fieldArea);
             Controls.Add(cardsZone);
         }
@@ -47,10 +46,35 @@ namespace Art_of_battle.View
             cardsZone.Size = new Size(mainForm.Width, cardsZoneHeight);
         }
 
-        private void InitGoldControl()
+        private Panel GetInitedGoldControl()
         {
-            goldControl.Location = new Point(0, 0);
-            goldControl.Size = new Size(50, 30);
+            var goldControl = new Panel
+            {
+                Location = new Point(0, 0),
+                Size = new Size(100, 30),
+                BackColor = Color.Transparent
+            };
+
+            goldText = new Label
+            {
+                Size = new Size(30, 30),
+                Location = new Point(0, 0),
+                Text = mainForm.Game.FirstPlayer.CurrentGold.ToString()
+            };
+
+            var goldIcon = new PictureBox
+            {
+                BackgroundImage = Resources.Sword,
+                Size = new Size(30, 30),
+                BackgroundImageLayout = ImageLayout.Stretch
+            };
+
+            goldControl.Controls.Add(goldText);
+            goldControl.Controls.Add(goldIcon);
+
+            goldIcon.Location = new Point(goldText.Right, 0);
+
+            return goldControl;
         }
 
         private Button pauseBtn;
@@ -58,6 +82,6 @@ namespace Art_of_battle.View
         private TableLayoutPanel table;
         private PictureBox fieldArea;
         private UserCardsControl cardsZone;
-        private Label goldControl;
+        private Label goldText;
     }
 }

@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="Game.cs" />
     <Compile Include="Model\AI.cs" />
+    <Compile Include="Model\Level\LevelName.cs" />
     <Compile Include="Model\CreatureAnimation.cs" />
     <Compile Include="Model\Card.cs" />
     <Compile Include="Model\Creatures\Building.cs" />
@@ -89,8 +90,10 @@
     <Compile Include="Model\GameStage.cs" />
     <Compile Include="Model\ICreature.cs" />
     <Compile Include="Model\GoldInfo.cs" />
+    <Compile Include="Model\Level\Level.cs" />
     <Compile Include="Model\Player.cs" />
     <Compile Include="Model\GameSettings.cs" />
+    <Compile Include="Model\Level\PlayerLevel.cs" />
     <Compile Include="Model\Settings.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -217,6 +220,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Knight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sword.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

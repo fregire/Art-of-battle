@@ -21,7 +21,6 @@ namespace Art_of_battle.View
             var warningPhrase = "You have to choose";
             var table = new TableLayoutPanel();
             var heroesTable = GetInitializedHeroesTable();
-            var cards = mainForm.Game.Cards;
             var paddingValue = 15;
             backBtn = mainForm.CreateMainButton("Back");
             warningLabel = new Label();
@@ -67,9 +66,9 @@ namespace Art_of_battle.View
 
         private void AddCards(TableLayoutPanel heroesTable)
         {
-            var cards = mainForm.Game.Cards;
+            var cards = mainForm.Game.FirstPlayer.Cards;
 
-            for (var i = 0; i < mainForm.Game.Cards.Count; i++)
+            for (var i = 0; i < cards.Count; i++)
             {
                 var card = cards[i];
 
@@ -145,7 +144,7 @@ namespace Art_of_battle.View
         private TableLayoutPanel GetInitializedHeroesTable()
         {
             var heroesTable = new TableLayoutPanel();
-            var cardsCount = mainForm.Game.Cards.Count;
+            var cardsCount = mainForm.Game.FirstPlayer.Cards.Count;
 
             heroesTable.ColumnCount = 4;
             heroesTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25));
