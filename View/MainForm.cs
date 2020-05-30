@@ -44,6 +44,7 @@ namespace Art_of_battle.View
             Game.AddPlayer(mainPlayer);
             Game.AddPlayer(secPlayer);
             Game.StateChanged += Game_OnStageChanged;
+
         }
 
         public void Game_OnStageChanged(GameStage stage)

@@ -181,9 +181,9 @@ namespace Art_of_battle.View
         {
             var spriteName = GetSpriteName(creature);
             var sprite = spriteController.DuplicateSprite(GetSpriteName(creature));
-            sprite.AutomaticallyMoves = false;
+            sprite.AutomaticallyMoves = true;
             sprite.SetSize(creature.Dimensions);
-            sprite.MovementSpeed = 0;
+            sprite.MovementSpeed = 5;
 
             if (creature.CreatureType != CreatureType.Castle)
                 InitCreaturePosition(creature);

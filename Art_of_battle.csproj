@@ -137,6 +137,7 @@
     <Compile Include="View\PausedControl.Designer.cs">
       <DependentUpon>PausedControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\SpriteData.cs" />
     <Compile Include="View\StartControl.Designer.cs">
       <SubType>UserControl</SubType>
     </Compile>

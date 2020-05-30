@@ -15,6 +15,7 @@ namespace Art_of_battle.Model
         int CurrHealth { get; set; }
         Player Player { get; }
         void Act(HashSet<ICreature> enemies);
+        void Attack(ICreature enemy);
         ICreature CreateCreature(Player player);
         void AcceptDamage(int damage);
         bool IsAlive();

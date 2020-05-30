@@ -176,7 +176,7 @@ namespace Art_of_battle.Tests
         [Test]
         public void CreatureIsRemoved()
         {
-            // expected больше на еденицу из-за замка, который тоже creature и добавляется при старте игры
+            // expected больше на еденицу из-за замка, который тоже Creature и добавляется при старте игры
             var game = GetInitedAndStartedGame();
             var creature = GetTestCreature(10, 10, 10, new Size(10, 10), null);
             var creature1 = creature.CreateCreature(game.FirstPlayer);
