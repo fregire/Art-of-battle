@@ -203,5 +203,11 @@ namespace Art_of_battle
             PlaceCreatureOnField(firstCastle);
             PlaceCreatureOnField(secondCastle);
         }
+
+        public void Stop()
+        {
+            ClearField();
+            ChangeState(GameStage.NotStarted);
+        }
     }
 }

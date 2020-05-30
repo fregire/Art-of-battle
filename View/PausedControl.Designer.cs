@@ -51,6 +51,20 @@ namespace Art_of_battle.View
                 battleControl.UnPause();
             };
 
+            againBtn.Click += (sender, args) =>
+            {
+                battleControl.Stop();
+                battleControl.HidePausedControl();
+                mainForm.Game.Start(mainForm.Game.CurrentLevel);
+            };
+
+            backToMainMenuBtn.Click += (sender, args) =>
+            {
+                battleControl.Stop();
+                battleControl.HidePausedControl();
+                mainForm.Game.Stop();
+            };
+
             contentZone.Controls.Add(continueBtn);
             contentZone.Controls.Add(againBtn);
             contentZone.Controls.Add(backToMainMenuBtn);
