@@ -223,9 +223,8 @@ namespace Art_of_battle.View
         {
             var spriteName = GetSpriteName(creature);
             var sprite = spriteController.DuplicateSprite(GetSpriteName(creature));
-            sprite.AutomaticallyMoves = true;
+            sprite.AutomaticallyMoves = false;
             sprite.SetSize(creature.Dimensions);
-            sprite.MovementSpeed = 5;
 
             if (creature.CreatureType != CreatureType.Castle)
                 InitCreaturePosition(creature);
@@ -234,7 +233,6 @@ namespace Art_of_battle.View
                 sprite.MirrorHorizontally = true;
 
             sprite.PutBaseImageLocation(creature.Position);
-
             return sprite;
         }
 

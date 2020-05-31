@@ -9,6 +9,11 @@ namespace Art_of_battle.View
 {
     public class SpriteData : SpriteLibrary.SpritePayload
     {
-        public ICreature creature;
+        public ICreature Creature;
+
+        public SpriteData(ICreature creature)
+        {
+            Creature = creature;
+        }
     }
 }

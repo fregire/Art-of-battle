@@ -44,7 +44,6 @@ namespace Art_of_battle.View
             Game.AddPlayer(mainPlayer);
             Game.AddPlayer(secPlayer);
             Game.StateChanged += Game_OnStageChanged;
-
         }
 
         public void Game_OnStageChanged(GameStage stage)
@@ -81,18 +80,21 @@ namespace Art_of_battle.View
                 10, 
                 10, 
                 new Size(150, 150));
+
             var orc = new MeleeCreature(
                 CreatureType.Orc,
                 200,
                 10,
                 10,
-                new Size(150, 150));
+                new Size(200, 200));
+
             var troll = new MeleeCreature(
                 CreatureType.Troll,
                 200,
                 10,
                 10,
-                new Size(150, 150));
+                new Size(200, 200));
+
             var darkKnight = new MeleeCreature(
                 CreatureType.DarkKnight,
                 200,
@@ -105,7 +107,7 @@ namespace Art_of_battle.View
                 200,
                 10,
                 10,
-                new Size(150, 150));
+                new Size(200, 200));
 
             var goldKnight = new MeleeCreature(
                 CreatureType.GoldKnight,
