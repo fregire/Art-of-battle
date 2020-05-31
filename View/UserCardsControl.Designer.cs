@@ -12,6 +12,7 @@ namespace Art_of_battle.View
     partial class UserCardsControl : UserControl
     {
         private List<Panel> cardsOnPanel;
+        private TableLayoutPanel cardsTable;
         private void InitializeComponent()
         {
             SuspendLayout();
@@ -25,7 +26,7 @@ namespace Art_of_battle.View
         {
             var cardsCount = mainForm.Game.FirstPlayer.Cards.Count;
             var table = new TableLayoutPanel();
-            var cardsTable = GetCardsTable();
+            cardsTable = GetCardsTable();
             cardsTable.Dock = DockStyle.Fill;
             table.Dock = DockStyle.Fill;
 
@@ -45,10 +46,10 @@ namespace Art_of_battle.View
         {
             var game = mainForm.Game;
             var table = new TableLayoutPanel();
-            var cards = game.FirstPlayer.Cards;
+            var cards = game.FirstPlayer.ChoosedCardsForGame;
             var columnsCount = game.GameSettings.CardsCountInPlayerHand;
             
-            cardsOnPanel = cards.Select(card => CreateCard(card)).ToList();
+            cardsOnPanel = cards.Select(card => CreateCardPanel(card)).ToList();
 
             table.RowCount = 1;
             table.RowStyles.Add(new RowStyle(SizeType.Percent, 150));
@@ -58,13 +59,31 @@ namespace Art_of_battle.View
             for (var i = 0; i < columnsCount; i++)
                 table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100 / columnsCount));
 
-            for(var i = 0; i < columnsCount; i++)
+            for (var i = 0; i < columnsCount; i++)
                 table.Controls.Add(cardsOnPanel[i], i, 0);
 
             return table;
         }
 
-        private Panel CreateCard(Card card)
+        public void RefreshCardsForGame()
+        {
+            var playerCards = mainForm.Game.FirstPlayer.ChoosedCardsForGame;
+
+            foreach (var cardPanel in cardsOnPanel)
+                cardsTable.Controls.Remove(cardPanel);
+
+            cardsOnPanel.Clear();
+            for (var i = 0; i < playerCards.Count; i++)
+            {
+                var cardPanel = CreateCardPanel(playerCards[i]);
+                cardsTable.Controls.Add(cardPanel, i, 0);
+                cardsOnPanel.Add(cardPanel);
+            }
+
+            cardsTable.Invalidate();
+        }
+
+        private Panel CreateCardPanel(Card card)
         {
             var game = mainForm.Game;
             var cost = card.Cost;
@@ -80,7 +99,8 @@ namespace Art_of_battle.View
             panel.Click += (Object sender, EventArgs args) =>
             {
                 bool isEnoughGold;
-                var isEnoughTime = battleControl.TimeElapsedSinceStart - card.TimeElapsed >= card.TimeReloadInMs || card.TimeElapsed == 0;
+                var isEnoughTime = battleControl.TimeElapsedSinceStart - card.TimeElapsed >= card.TimeReloadInMs 
+                                   || card.TimeElapsed == 0;
 
                 if (isEnoughTime)
                 {

@@ -23,7 +23,7 @@ namespace Art_of_battle.View
         {
             var cards = GetMainPlayerCards();
             var lvls = GetGameLevels();
-            Game = new Game(cards, lvls);
+            Game = new Game(lvls);
             DoubleBuffered = true;
             InitalizeGame();
             InitializeComponent();
@@ -33,7 +33,7 @@ namespace Art_of_battle.View
         private void InitalizeGame()
         {
             var gameSettings = new GameSettings();
-            gameSettings.CardsCountInPlayerHand = 1;
+            gameSettings.CardsCountInPlayerHand = 4;
             Game.GameSettings = gameSettings;
             var mainPlayer = new Player("Daniil", Direction.Right, GetMainPlayerCards(), gameSettings.PlayerLevelsInfo);
             var secPlayer = new Player("AI", Direction.Left, GetAICards(), gameSettings.PlayerLevelsInfo);
@@ -81,17 +81,54 @@ namespace Art_of_battle.View
                 10, 
                 10, 
                 new Size(150, 150));
+            var orc = new MeleeCreature(
+                CreatureType.Orc,
+                200,
+                10,
+                10,
+                new Size(150, 150));
+            var troll = new MeleeCreature(
+                CreatureType.Troll,
+                200,
+                10,
+                10,
+                new Size(150, 150));
+            var darkKnight = new MeleeCreature(
+                CreatureType.DarkKnight,
+                200,
+                10,
+                10,
+                new Size(150, 150));
+
+            var goblin = new MeleeCreature(
+                CreatureType.Goblin,
+                200,
+                10,
+                10,
+                new Size(150, 150));
+
+            var goldKnight = new MeleeCreature(
+                CreatureType.GoldKnight,
+                200,
+                10,
+                10,
+                new Size(150, 150));
 
             return new List<Card>
             {
-                new Card(knight, 10, 1000)
+                new Card(knight, 10, 1000),
+                new Card(orc, 10, 1000),
+                new Card(troll, 10, 1000),
+                new Card(darkKnight, 10, 1000),
+                new Card(goldKnight, 10, 1000),
+                new Card(goblin, 10, 1000),
             };
         }
 
         public List<Card> GetAICards()
         {
             var orc = new MeleeCreature(
-                CreatureType.Orc,
+                CreatureType.Knight,
                 200, 
                 10,
                 10,
@@ -134,14 +171,18 @@ namespace Art_of_battle.View
         {
             switch (creatureType)
             {
-                case CreatureType.Knight:
-                    return Properties.Resources.Knight;
-                case CreatureType.Troll:
-                    return Properties.Resources.Troll;
                 case CreatureType.Goblin:
-                    return Properties.Resources.Goblin;
+                    return Resources.GoblinPreview;
+                case CreatureType.GoldKnight:
+                    return Resources.GoldKnightPreview;
+                case CreatureType.DarkKnight:
+                    return Resources.DarkKnightPreview;
+                case CreatureType.Knight:
+                    return Properties.Resources.KnightPreview;
+                case CreatureType.Troll:
+                    return Properties.Resources.TrollPreview;
                 case CreatureType.Orc:
-                    return Properties.Resources.Orc;
+                    return Properties.Resources.OrcPreview;
                 default:
                     return null;
             }

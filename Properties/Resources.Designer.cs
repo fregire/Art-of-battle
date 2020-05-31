@@ -133,6 +133,26 @@ namespace Art_of_battle.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap DarkKnightPreview {
+            get {
+                object obj = ResourceManager.GetObject("DarkKnightPreview", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap DarkKnightSprite {
+            get {
+                object obj = ResourceManager.GetObject("DarkKnightSprite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap enable_sound {
             get {
                 object obj = ResourceManager.GetObject("enable_sound", resourceCulture);
@@ -166,6 +186,46 @@ namespace Art_of_battle.Properties {
         public static System.Drawing.Bitmap Goblin {
             get {
                 object obj = ResourceManager.GetObject("Goblin", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap GoblinPreview {
+            get {
+                object obj = ResourceManager.GetObject("GoblinPreview", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap GoblinSprite {
+            get {
+                object obj = ResourceManager.GetObject("GoblinSprite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap GoldKnightPreview {
+            get {
+                object obj = ResourceManager.GetObject("GoldKnightPreview", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap GoldKnightSprite {
+            get {
+                object obj = ResourceManager.GetObject("GoldKnightSprite", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -213,9 +273,9 @@ namespace Art_of_battle.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap Knight_moving {
+        public static System.Drawing.Bitmap KnightPreview {
             get {
-                object obj = ResourceManager.GetObject("Knight_moving", resourceCulture);
+                object obj = ResourceManager.GetObject("KnightPreview", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -223,9 +283,9 @@ namespace Art_of_battle.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap Knight1 {
+        public static System.Drawing.Bitmap KnightSprite {
             get {
-                object obj = ResourceManager.GetObject("Knight1", resourceCulture);
+                object obj = ResourceManager.GetObject("KnightSprite", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -273,9 +333,39 @@ namespace Art_of_battle.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap MovingKnight {
+            get {
+                object obj = ResourceManager.GetObject("MovingKnight", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap Orc {
             get {
                 object obj = ResourceManager.GetObject("Orc", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap OrcPreview {
+            get {
+                object obj = ResourceManager.GetObject("OrcPreview", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap OrcSprite {
+            get {
+                object obj = ResourceManager.GetObject("OrcSprite", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -336,6 +426,26 @@ namespace Art_of_battle.Properties {
         public static System.Drawing.Bitmap Troll {
             get {
                 object obj = ResourceManager.GetObject("Troll", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap TrollPreview {
+            get {
+                object obj = ResourceManager.GetObject("TrollPreview", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap TrollSprite {
+            get {
+                object obj = ResourceManager.GetObject("TrollSprite", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

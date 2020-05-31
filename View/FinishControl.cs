@@ -73,7 +73,7 @@ namespace Art_of_battle.View
                 TextAlign = ContentAlignment.MiddleCenter
             };
 
-            Controls.Add(gameOverLabel);
+            contentZone.Controls.Add(gameOverLabel);
         }
 
         private void AddButtons()

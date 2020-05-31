@@ -31,16 +31,9 @@ namespace Art_of_battle.View
             InitializeComponent();
         }
 
-        private void ShowBattleBeginsImage()
-        {
-            var sprite = spriteController.DuplicateSprite("BattleBegins");
-            sprite.AutomaticallyMoves = false;
-            sprite.PutBaseImageLocation(sprite.GetSize.Width, sprite.GetSize.Height + 200);
-            Pause();
-        }
-
         public void Start()
         {
+            cardsZone.RefreshCardsForGame();
             fieldArea.BackgroundImage = mainForm.GetLevelImage(game.CurrentLevel);
             spriteController = new SpriteController(fieldArea);
             spriteController.DestroyAllSprites();
@@ -57,6 +50,11 @@ namespace Art_of_battle.View
 
             game.CreaturePlacedOnField += CreatureCardPlaced;
             game.CreatureDeletedFromField += CreatureDeleted;
+        }
+
+        public void RefreshCards()
+        {
+            cardsZone.RefreshCardsForGame();
         }
 
         public void Pause()
@@ -117,24 +115,45 @@ namespace Art_of_battle.View
 
         private void LoadSprites()
         {
-            var knightImage = Resources.Knight1;
+            var knightImage = Resources.KnightSprite;
+            var darkKnightImage = Resources.DarkKnightSprite;
+            var orcImage = Resources.OrcSprite;
+            var trollImage = Resources.TrollSprite;
+            var goldKnightImage = Resources.GoldKnightSprite;
+            var goblinImage = Resources.GoblinSprite;
             var firstPlayerCastleImage = Resources.Castle_1;
             var secondPlayerCastleImage = Resources.Castle_2;
             var battleBeginsImage = Resources.BattleBegins;
 
-            var knight = new Sprite(new Point(0, 0), spriteController, knightImage, 165, 124, 200, 3);
+            var knight = new Sprite(new Point(0, 0), spriteController, knightImage, 228, 181 , 200, 3);
+            knight.AddAnimation(new Point(0, 181), knightImage, 210, 210, 200, 3);
             knight.SetName("Knight");
-            knight.AddAnimation(new Point(0, 124), knightImage, 193, 124, 200, 2);
+
+            var darkKnight = new Sprite(new Point(0, 0), spriteController, darkKnightImage, 251, 181, 200, 3);
+            darkKnight.AddAnimation(new Point(0, 181), darkKnightImage, 275, 181, 200, 3);
+            darkKnight.SetName("DarkKnight");
+
+            var orc = new Sprite(new Point(0, 0), spriteController, orcImage, 309, 188, 200, 3);
+            orc.AddAnimation(new Point(0, 188), orcImage, 293, 303, 200, 3);
+            orc.SetName("Orc");
+
+            var troll = new Sprite(new Point(0, 0), spriteController, trollImage, 317, 193, 200, 3);
+            troll.AddAnimation(new Point(0, 193), trollImage, 297, 302, 200, 3);
+            troll.SetName("Troll");
+
+            var goblin = new Sprite(new Point(0, 0), spriteController, goblinImage, 315, 193, 200, 3);
+            goblin.AddAnimation(new Point(0, 193), goblinImage, 307, 293, 200, 3);
+            goblin.SetName("Goblin");
+
+            var goldKnight = new Sprite(new Point(0, 0), spriteController, goldKnightImage, 219, 176, 200, 3);
+            goldKnight.AddAnimation(new Point(0, 193), goldKnightImage, 209, 176, 200, 3);
+            goldKnight.SetName("GoldKnight");
 
             var firstPlayerCastle = new Sprite(spriteController, firstPlayerCastleImage, firstPlayerCastleImage.Width, firstPlayerCastleImage.Height);
             firstPlayerCastle.SetName("FirstPlayerCastle");
 
             var secondPlayerCastle = new Sprite(spriteController, secondPlayerCastleImage, secondPlayerCastleImage.Width, secondPlayerCastleImage.Height);
             secondPlayerCastle.SetName("SecondPlayerCastle");
-
-            var battleBegins = new Sprite(spriteController, battleBeginsImage, battleBeginsImage.Width,
-                battleBeginsImage.Height);
-            battleBegins.SetName("BattleBegins");
         }
 
         private void ClearSprites()
@@ -151,6 +170,7 @@ namespace Art_of_battle.View
             TimeElapsedSinceStart += tickIntervalInMs;
 
             mainForm.Game.Act();
+            mainForm.AI.Act(TimeElapsedSinceStart);
 
             var firstPlayerCreatures = game.GetPlayerCreaturesInGame(game.FirstPlayer);
             var secondPlayerCreatures = game.GetPlayerCreaturesInGame(game.SecondPlayer);

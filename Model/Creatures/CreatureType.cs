@@ -9,6 +9,8 @@ namespace Art_of_battle.Model.Creatures
     {
         Orc,
         Knight,
+        DarkKnight,
+        GoldKnight,
         Goblin,
         Troll,
         Castle

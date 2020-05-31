@@ -64,6 +64,7 @@ namespace Art_of_battle.View
         private void AddCards(TableLayoutPanel heroesTable)
         {
             var cards = mainForm.Game.FirstPlayer.Cards;
+            var player = mainForm.Game.FirstPlayer;
 
             for (var i = 0; i < cards.Count; i++)
             {
@@ -91,7 +92,10 @@ namespace Art_of_battle.View
                 creatureName.TextAlign = ContentAlignment.MiddleCenter;
 
                 if (i < mainForm.Game.GameSettings.CardsCountInPlayerHand)
+                {
                     checkbox.Checked = true;
+                    player.ChoosedCardsForGame.Add(cards[i]);
+                }
 
                 checkbox.CheckedChanged += (sender, args) => { OnCheckboxChecked((CheckBox) sender, card); };
 
@@ -101,7 +105,6 @@ namespace Art_of_battle.View
                 group.Controls.Add(checkbox);
                 group.Controls.Add(picture);
                 heroesTable.Controls.Add(group, i, 0);
-
             }
 
             choosedCardsCount = mainForm.Game.GameSettings.CardsCountInPlayerHand;
@@ -119,12 +122,12 @@ namespace Art_of_battle.View
             if (checkbox.Checked)
             {
                 choosedCardsCount++;
-                player.Cards.Add(card);
+                player.ChoosedCardsForGame.Add(card);
             }
             else
             {
                 choosedCardsCount--;
-                player.Cards.Remove(card);
+                player.ChoosedCardsForGame.Remove(card);
             }
 
             if (choosedCardsCount != mainForm.Game.GameSettings.CardsCountInPlayerHand)

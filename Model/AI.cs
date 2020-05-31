@@ -13,11 +13,19 @@ namespace Art_of_battle.Model
             this.game = game;
         }
 
-        public void Act()
+        public void Act(int timeElapsedSinceStart)
         {
             var cardToPlace = game.SecondPlayer.Cards.First();
-            if (cardToPlace.Cost < game.SecondPlayer.BattleGoldAmount)
-                game.PlaceCardCreatureOnField(cardToPlace, game.SecondPlayer);
+            var isEnoughTime = cardToPlace.TimeElapsed == 0 ||
+                               timeElapsedSinceStart - cardToPlace.TimeElapsed > cardToPlace.TimeReloadInMs;
+
+            if (isEnoughTime)
+            {
+                var isEnoughGold = game.PlaceCardCreatureOnField(cardToPlace, game.SecondPlayer);
+
+                if (isEnoughGold)
+                    cardToPlace.TimeElapsed = timeElapsedSinceStart;
+            }
         }
     }
 }

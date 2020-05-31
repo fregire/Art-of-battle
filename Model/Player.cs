@@ -13,6 +13,7 @@ namespace Art_of_battle.Model
         public int GameGoldAmount { get; set; }
         public string Name { get; }
         public List<Card> Cards { get; }
+        public List<Card> ChoosedCardsForGame { get; set; }
         private int battleGoldAmount;
 
         public int BattleGoldAmount
@@ -44,6 +45,7 @@ namespace Art_of_battle.Model
             Cards = cards;
             CreaturesDirection = creaturesDirection;
             PlayerLevelInfo = new PlayerLevel(playerLevelsInfo);
+            ChoosedCardsForGame = new List<Card>();
         }
     }
 }

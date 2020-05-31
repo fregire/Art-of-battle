@@ -29,7 +29,7 @@ namespace Art_of_battle
             Levels = lvls;
         }
 
-        public Game(List<Card> cards, List<Level> lvls)
+        public Game(List<Level> lvls)
         {
             GameSettings = new GameSettings();
             playerCreaturesInGame = new Dictionary<Player, HashSet<ICreature>>();

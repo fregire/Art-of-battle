@@ -262,6 +262,48 @@
   <ItemGroup>
     <None Include="Resources\BattleBegins.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Knight_moving_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MovingKnight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DarkKnightPreview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DarkKnightSprite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\KnightPreview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\KnightSprite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OrcPreview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OrcSprite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TrollPreview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TrollSprite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GoblinPreview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GoblinSprite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GoldKnightPreview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GoldKnightSprite.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
