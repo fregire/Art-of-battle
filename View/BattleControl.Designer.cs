@@ -19,7 +19,6 @@ namespace Art_of_battle.View
         private PausedControl pausedControl;
         private void InitializeComponent()
         {
-
             this.SuspendLayout();
 
             Init();
@@ -87,16 +86,17 @@ namespace Art_of_battle.View
         {
             var goldControl = new Panel
             {
-                Location = new Point(0, 0),
+                Location = new Point(0, 5),
                 Size = new Size(100, 30),
                 BackColor = Color.Transparent
             };
 
             goldText = new Label
             {
-                Size = new Size(30, 30),
-                Location = new Point(0, 0),
-                Text = mainForm.Game.FirstPlayer.BattleGoldAmount.ToString()
+                Size = new Size(45, 30),
+                Location = new Point(2, 3),
+                Text = mainForm.Game.FirstPlayer.BattleGoldAmount.ToString(),
+                Font = new Font(mainForm.Font.Name, 14)
             };
 
             var goldIcon = new PictureBox

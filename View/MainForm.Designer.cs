@@ -4,8 +4,10 @@ using System.Drawing;
 using System.Drawing.Text;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
+using Art_of_battle.Properties;
 
 namespace Art_of_battle.View
 {
@@ -78,9 +80,19 @@ namespace Art_of_battle.View
             BackgroundImageLayout = ImageLayout.Stretch;
         }
 
+        public FontFamily GetMainFontFamily()
+        {
+            PrivateFontCollection fontCollection = new PrivateFontCollection();
+            var path = Application.StartupPath;
+            fontCollection.AddFontFile(path + "\\Cambria-Bold.ttf");
+            FontFamily family = fontCollection.Families[0];
+
+            return family;
+        }
         private void InitializeFont()
         {
-            Font = new Font(FontFamily.GenericMonospace, 10);
+            Font = new Font(GetMainFontFamily(), 30);
+            ForeColor = Color.White;
         }
 
         public Button CreateMainButton(string text)

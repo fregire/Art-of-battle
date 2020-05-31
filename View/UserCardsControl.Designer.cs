@@ -69,13 +69,13 @@ namespace Art_of_battle.View
             var game = mainForm.Game;
             var cost = card.Cost;
             var creatureType = card.Creature.CreatureType;
-            var image = new Bitmap(GetCardImage(card), 120, 80);
+            var image = new Bitmap(GetCardImage(card), 100, 80);
             var panel = new Panel();
             var label = new Label();
 
             label.Text = cost.ToString();
             label.Width = 30;
-            panel.Height = 150;
+            panel.Height = 100;
 
             panel.Click += (Object sender, EventArgs args) =>
             {

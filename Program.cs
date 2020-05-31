@@ -14,7 +14,7 @@ namespace Art_of_battle
         static void Main(string[] args)
         {
             Application.EnableVisualStyles();
-            //Application.SetCompatibleTextRenderingDefault(false);
+            Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
         }
     }

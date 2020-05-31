@@ -25,6 +25,7 @@ namespace Art_of_battle.View
             backBtn = mainForm.CreateMainButton("Back");
             backBtn.Size = new Size(150, 50);
             backBtn.Anchor = AnchorStyles.None;
+            backBtn.Font = new Font(mainForm.Font.Name, 12);
 
             backBtn.Click += OnBackBtnClick;
 
@@ -59,7 +60,7 @@ namespace Art_of_battle.View
                 BackgroundImage = Resources.Panel,
                 BackgroundImageLayout = ImageLayout.Stretch,
                 Width = contentZone.Width - paddingValue * 2,
-                Height = 95
+                Height = 120
             };
 
             if (lvl.IsLocked)
@@ -76,26 +77,30 @@ namespace Art_of_battle.View
 
             var lvlPicture = new PictureBox
             {
-                Image = new Bitmap(mainForm.GetLevelImage(lvl), new Size(100, 65)),
-                Location = new Point(50, 15)
+                Image = new Bitmap(mainForm.GetLevelImage(lvl), new Size(120, 85)),
+                Location = new Point(30, 15)
             };
             var lvlLabel = new Label
             {
-                Size = new Size(70, 20),
+                Size = new Size(100, 30),
                 Text = lvl.LevelName.ToString(),
-                Location = new Point(lvlPicture.Right + paddingValue, lvlPicture.Top)
+                Font = new Font(mainForm.Font.Name, 16)
             };
+
             var lvlExp = GetLvlPanelInfo(lvl.ReceivedExperienceAmount.ToString(),  Resources.Star);
             var lvlGold = GetLvlPanelInfo(lvl.ReceivedGoldAmount.ToString(), Resources.Coin);
 
             var startButton = GetStartButton();
-            startButton.Location = new Point(panel.Width - 100, panel.Height - 74);
+            startButton.Location = new Point(
+                panel.Width - startButton.Width - lvlPicture.Left, 
+                (panel.Height - startButton.Height) / 2);
             startButton.FlatAppearance.MouseDownBackColor = Color.Transparent;
             startButton.FlatAppearance.MouseOverBackColor = Color.Transparent;
             startButton.FlatAppearance.BorderSize = 0;
             startButton.Click += (sender, args) => OnStartButtonClick(lvl);
 
             lvlPicture.Size = lvlPicture.Image.Size;
+            lvlLabel.Location = new Point(lvlPicture.Right + paddingValue, paddingValue);
             lvlExp.Location = new Point(lvlPicture.Right + paddingValue, lvlLabel.Bottom);
             lvlGold.Location = new Point(lvlExp.Left, lvlExp.Bottom + 5);
 
@@ -115,8 +120,8 @@ namespace Art_of_battle.View
 
         private Panel GetLvlPanelInfo(string infoName, Image icon)
         {
-            var elem = new Panel { Size = new Size(100, 20)};
-            var iconSize = new Size(20, 20);
+            var elem = new Panel { Size = new Size(120, 25)};
+            var iconSize = new Size(25, 25);
 
             elem.Controls.Add(new PictureBox
             {
@@ -126,7 +131,8 @@ namespace Art_of_battle.View
             elem.Controls.Add(new Label
             {
                 Text = infoName,
-                Location = new Point(iconSize.Width + 5, 3)
+                Location = new Point(iconSize.Width + 2, 5),
+                Font = new Font(mainForm.Font.Name, 12)
             });
 
             return elem;
@@ -134,10 +140,11 @@ namespace Art_of_battle.View
 
         private Button GetStartButton()
         {
+            var startButtonSize = new Size(70, 70);
             var startButton = new Button
             {
-                Size = new Size(50, 50),
-                BackgroundImage = new Bitmap(Resources.PlayButton, 50, 50),
+                Size = startButtonSize,
+                BackgroundImage = new Bitmap(Resources.PlayButton, startButtonSize),
                 FlatStyle = FlatStyle.Flat,
                 BackColor = Color.Transparent
             };

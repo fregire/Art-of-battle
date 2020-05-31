@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using Art_of_battle.Model;
 using Art_of_battle.Model.Creatures;
@@ -30,17 +31,26 @@ namespace Art_of_battle.View
             InitializeComponent();
         }
 
+        private void ShowBattleBeginsImage()
+        {
+            var sprite = spriteController.DuplicateSprite("BattleBegins");
+            sprite.AutomaticallyMoves = false;
+            sprite.PutBaseImageLocation(sprite.GetSize.Width, sprite.GetSize.Height + 200);
+            Pause();
+        }
+
         public void Start()
         {
             fieldArea.BackgroundImage = mainForm.GetLevelImage(game.CurrentLevel);
             spriteController = new SpriteController(fieldArea);
-            spriteController.DoTick += OnTick;
-            spriteController.ChangeTickInterval(tickIntervalInMs);
             spriteController.DestroyAllSprites();
 
             LoadSprites();
             InitCastlesPositions();
             InitCreaturesSpawnPoint();
+
+            spriteController.DoTick += OnTick;
+            spriteController.ChangeTickInterval(tickIntervalInMs);
 
             CreatureCardPlaced(game.FirstPlayer.Castle);
             CreatureCardPlaced(game.SecondPlayer.Castle);
@@ -110,6 +120,7 @@ namespace Art_of_battle.View
             var knightImage = Resources.Knight1;
             var firstPlayerCastleImage = Resources.Castle_1;
             var secondPlayerCastleImage = Resources.Castle_2;
+            var battleBeginsImage = Resources.BattleBegins;
 
             var knight = new Sprite(new Point(0, 0), spriteController, knightImage, 165, 124, 200, 3);
             knight.SetName("Knight");
@@ -120,6 +131,10 @@ namespace Art_of_battle.View
 
             var secondPlayerCastle = new Sprite(spriteController, secondPlayerCastleImage, secondPlayerCastleImage.Width, secondPlayerCastleImage.Height);
             secondPlayerCastle.SetName("SecondPlayerCastle");
+
+            var battleBegins = new Sprite(spriteController, battleBeginsImage, battleBeginsImage.Width,
+                battleBeginsImage.Height);
+            battleBegins.SetName("BattleBegins");
         }
 
         private void ClearSprites()

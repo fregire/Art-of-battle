@@ -29,6 +29,7 @@ namespace Art_of_battle.View
 
         private void CreateButtons()
         {
+            var buttonsFontSize = 10;
             var padding = 15;
             var btnHeight = 70;
             var btnWidth = 400;

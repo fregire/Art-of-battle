@@ -22,8 +22,8 @@ namespace Art_of_battle.View
 
             var btnsTable = InitBtnsTable();
             btnsTable.BackColor = Color.Transparent;
-            startBtn = mainForm.CreateMainButton("Start");
-            heroesBtn = mainForm.CreateMainButton("Heroes");
+            startBtn = mainForm.CreateMainButton("Начать");
+            heroesBtn = mainForm.CreateMainButton("Герои");
             mainTable = new TableLayoutPanel();
 
             mainTable.Dock = DockStyle.Fill;

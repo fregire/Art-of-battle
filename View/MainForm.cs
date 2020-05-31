@@ -72,6 +72,7 @@ namespace Art_of_battle.View
                 new Level(LevelName.Mountains, 10, 34, 1)
             };
         }
+
         public List<Card> GetMainPlayerCards()
         {
             var knight = new MeleeCreature(
@@ -101,47 +102,32 @@ namespace Art_of_battle.View
 
         public void ShowStartScreen()
         {
-            HideScreens();
-            startControl.Show();
+            startControl.BringToFront();
         }
 
         public void ShowHeroesScreen()
         {
-            HideScreens();
-            heroesControl.Show();
+            heroesControl.BringToFront();
         }
 
         public void ShowBattleScreen()
         {
-            HideScreens();
-            battleControl.Show();
+            battleControl.BringToFront();
             battleControl.Start();
         }
 
         public void ShowLevelsScreen()
         {
-            HideScreens();
-            levelsControl.Show();
+            levelsControl.BringToFront();
         }
 
         private void ShowFinishScreen()
         {
             battleControl.Stop();
-            HideScreens();
 
             finishControl = new FinishControl(this);
             Controls.Add(finishControl);
-            finishControl.Show();
             finishControl.BringToFront();
-        }
-        public void HideScreens()
-        {
-            startControl.Hide();
-            heroesControl.Hide();
-            battleControl.Hide();
-            levelsControl.Hide();
-            battleControl.Hide();
-            finishControl?.Hide();
         }
 
         public Image GetCreatureImage(CreatureType creatureType)

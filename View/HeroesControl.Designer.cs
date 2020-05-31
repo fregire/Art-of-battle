@@ -68,28 +68,48 @@ namespace Art_of_battle.View
             for (var i = 0; i < cards.Count; i++)
             {
                 var card = cards[i];
+                var pictureSize = new Size(110, 80);
 
                 if (card.Creature.CreatureType == CreatureType.Castle)
                     continue;
 
                 var group = new Panel();
-                var placeholder = new Label();
+                group.Height = 150;
+                var creatureName = new Label();
+                creatureName.Font = new Font(mainForm.Font.Name, 12);
                 var checkbox = new CheckBox();
-                checkbox.Dock = DockStyle.Top;
-                placeholder.Text = cards[i].Creature.CreatureType.ToString();
-                placeholder.Dock = DockStyle.Top;
+                var picture = new PictureBox
+                {
+                    Location = new Point(0, checkbox.Bottom),
+                    Image = new Bitmap(mainForm.GetCreatureImage(card.Creature.CreatureType), pictureSize),
+                    Size = pictureSize
+                };
+
+                checkbox.BackColor = Color.Transparent;
+                creatureName.Text = cards[i].Creature.CreatureType.ToString();
+                creatureName.Location = new Point(0, picture.Bottom);
+                creatureName.TextAlign = ContentAlignment.MiddleCenter;
 
                 if (i < mainForm.Game.GameSettings.CardsCountInPlayerHand)
                     checkbox.Checked = true;
 
                 checkbox.CheckedChanged += (sender, args) => { OnCheckboxChecked((CheckBox) sender, card); };
-                group.Controls.Add(placeholder);
+
+                creatureName.Click += (sender, args) => OnCardClicked(checkbox);
+                picture.Click += (sender, args) => OnCardClicked(checkbox);
+                group.Controls.Add(creatureName);
                 group.Controls.Add(checkbox);
+                group.Controls.Add(picture);
                 heroesTable.Controls.Add(group, i, 0);
 
             }
 
             choosedCardsCount = mainForm.Game.GameSettings.CardsCountInPlayerHand;
+        }
+
+        private void OnCardClicked(CheckBox checkBox)
+        {
+            checkBox.Checked = !checkBox.Checked;
         }
 
         private void OnCheckboxChecked(CheckBox checkbox, Card card)
@@ -129,11 +149,10 @@ namespace Art_of_battle.View
             var heroesTable = new TableLayoutPanel();
             var cardsCount = mainForm.Game.FirstPlayer.Cards.Count;
 
-            heroesTable.ColumnCount = 4;
-            heroesTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25));
-            heroesTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25));
-            heroesTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25));
-            heroesTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25));
+            heroesTable.ColumnCount = 3;
+            heroesTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33));
+            heroesTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33));
+            heroesTable.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33));
 
             heroesTable.RowCount = cardsCount / 4 + 1;
             for (var i = 0; i < heroesTable.RowCount; i++)
