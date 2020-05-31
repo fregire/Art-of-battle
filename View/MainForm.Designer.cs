@@ -99,7 +99,7 @@ namespace Art_of_battle.View
         }
         private void InitializeFont()
         {
-            Font = new Font(GetMainFontFamily(), 30);
+            Font = new Font(FontFamily.GenericSansSerif, 30);
             ForeColor = Color.White;
         }
 
