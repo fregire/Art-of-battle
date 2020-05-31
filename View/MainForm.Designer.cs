@@ -23,11 +23,11 @@ namespace Art_of_battle.View
 
         private void InitializeComponent()
         {
-            SuspendLayout();
+            //SuspendLayout();
 
             Init();
 
-            ResumeLayout(false);
+            //ResumeLayout(false);
         }
 
         private void Init()
@@ -68,9 +68,10 @@ namespace Art_of_battle.View
             SetBackgroundImage();
 
             battleControl = new BattleControl(this);
-            Controls.Add(battleControl);
             battleControl.Dock = DockStyle.Fill;
+            Controls.Add(battleControl);
 
+            WindowState = FormWindowState.Maximized;
             InitGameInfo();
         }
 
@@ -114,6 +115,7 @@ namespace Art_of_battle.View
             btn.BackColor = Color.Transparent;
             btn.BackgroundImage = Properties.Resources.MainMenu_btn;
             btn.BackgroundImageLayout = ImageLayout.Stretch;
+            btn.Cursor = Cursors.Hand;
 
             btn.MouseEnter += (sender, args) => btn.ForeColor = Color.LightGreen;
             btn.MouseLeave += (sender, args) => btn.ForeColor = Color.White;

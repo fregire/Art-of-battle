@@ -16,11 +16,11 @@ namespace Art_of_battle.View
         private TableLayoutPanel cardsTable;
         private void InitializeComponent()
         {
-            SuspendLayout();
+            //SuspendLayout();
 
             InitComponent();
 
-            ResumeLayout(false);
+            //ResumeLayout(false);
         }
 
         private void InitComponent()
@@ -41,6 +41,7 @@ namespace Art_of_battle.View
 
             table.Controls.Add(cardsTable, 1, 0);
             Controls.Add(table);
+
             Font = new Font(mainForm.Font.Name, 12);
         }
 
@@ -122,6 +123,7 @@ namespace Art_of_battle.View
             panel.BackgroundImage = image;
             panel.BackgroundImageLayout = ImageLayout.Center;
             panel.Controls.Add(goldInfo);
+            panel.Cursor = Cursors.Hand;
 
             return panel;
         }
@@ -135,6 +137,7 @@ namespace Art_of_battle.View
                 SizeMode = PictureBoxSizeMode.CenterImage,
                 Size = iconSize
             };
+
             var label = new Label
             {
                 Text = textInfo,

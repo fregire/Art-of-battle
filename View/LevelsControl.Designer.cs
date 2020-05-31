@@ -97,6 +97,7 @@ namespace Art_of_battle.View
             startButton.FlatAppearance.MouseDownBackColor = Color.Transparent;
             startButton.FlatAppearance.MouseOverBackColor = Color.Transparent;
             startButton.FlatAppearance.BorderSize = 0;
+            startButton.Cursor = Cursors.Hand;
 
             startButton.Click += (sender, args) => OnStartButtonClick(lvl);
 
