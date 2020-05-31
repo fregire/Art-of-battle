@@ -19,6 +19,7 @@ namespace Art_of_battle.Model
         ICreature CreateCreature(Player player);
         void AcceptDamage(int damage);
         bool IsAlive();
+        int Damage { get; }
         CreatureType CreatureType { get; }
     }
 }

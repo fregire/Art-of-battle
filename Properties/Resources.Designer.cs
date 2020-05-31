@@ -183,6 +183,26 @@ namespace Art_of_battle.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap GameLogo {
+            get {
+                object obj = ResourceManager.GetObject("GameLogo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        public static System.Drawing.Icon GameLogo1 {
+            get {
+                object obj = ResourceManager.GetObject("GameLogo1", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap Goblin {
             get {
                 object obj = ResourceManager.GetObject("Goblin", resourceCulture);
@@ -233,6 +253,26 @@ namespace Art_of_battle.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap Hammer {
+            get {
+                object obj = ResourceManager.GetObject("Hammer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Heart {
+            get {
+                object obj = ResourceManager.GetObject("Heart", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap Image1 {
             get {
                 object obj = ResourceManager.GetObject("Image1", resourceCulture);
@@ -246,6 +286,16 @@ namespace Art_of_battle.Properties {
         public static System.Drawing.Bitmap Image11 {
             get {
                 object obj = ResourceManager.GetObject("Image11", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap InfoIcon {
+            get {
+                object obj = ResourceManager.GetObject("InfoIcon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -396,6 +446,16 @@ namespace Art_of_battle.Properties {
         public static System.Drawing.Bitmap PlayButton {
             get {
                 object obj = ResourceManager.GetObject("PlayButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap PlayButton_hover {
+            get {
+                object obj = ResourceManager.GetObject("PlayButton_hover", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

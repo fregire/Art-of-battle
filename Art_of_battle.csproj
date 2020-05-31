@@ -304,6 +304,24 @@
   <ItemGroup>
     <None Include="Resources\GoldKnightSprite.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GameLogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GameLogo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PlayButton_hover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Hammer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Heart.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\InfoIcon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

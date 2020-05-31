@@ -60,7 +60,6 @@ namespace Art_of_battle.View
         public void Pause()
         {
             spriteController.Pause();
-            spriteController.DoTick -= OnTick;
             game.CreaturePlacedOnField -= CreatureCardPlaced;
             game.CreatureDeletedFromField -= CreatureDeleted;
             Paused = true;
@@ -69,7 +68,6 @@ namespace Art_of_battle.View
         public void UnPause()
         {
             spriteController.UnPause();
-            spriteController.DoTick += OnTick;
             game.CreaturePlacedOnField += CreatureCardPlaced;
             game.CreatureDeletedFromField += CreatureDeleted;
             Paused = false;
@@ -83,6 +81,9 @@ namespace Art_of_battle.View
 
             game.CreaturePlacedOnField -= CreatureCardPlaced;
             game.CreatureDeletedFromField -= CreatureDeleted;
+
+            game.FirstPlayer.ChoosedCardsForGame.ForEach(card => card.TimeElapsed = 0);
+            game.SecondPlayer.ChoosedCardsForGame.ForEach(card => card.TimeElapsed = 0);
         }
 
         public void ShowPausedControl()
@@ -146,7 +147,7 @@ namespace Art_of_battle.View
             goblin.SetName("Goblin");
 
             var goldKnight = new Sprite(new Point(0, 0), spriteController, goldKnightImage, 219, 176, 200, 3);
-            goldKnight.AddAnimation(new Point(0, 193), goldKnightImage, 209, 176, 200, 3);
+            goldKnight.AddAnimation(new Point(0, 176), goldKnightImage, 209, 176, 200, 3);
             goldKnight.SetName("GoldKnight");
 
             var firstPlayerCastle = new Sprite(spriteController, firstPlayerCastleImage, firstPlayerCastleImage.Width, firstPlayerCastleImage.Height);
@@ -168,6 +169,12 @@ namespace Art_of_battle.View
                 return;
 
             TimeElapsedSinceStart += tickIntervalInMs;
+
+            if (TimeElapsedSinceStart % game.GameSettings.TimeReceivingCoinsInMs == 0)
+            {
+                mainForm.Game.FirstPlayer.BattleGoldAmount += 5;
+                mainForm.Game.SecondPlayer.BattleGoldAmount += 5;
+            }
 
             mainForm.Game.Act();
             mainForm.AI.Act(TimeElapsedSinceStart);

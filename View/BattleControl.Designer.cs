@@ -62,6 +62,7 @@ namespace Art_of_battle.View
             fieldArea.Size = new Size(mainForm.Width, mainForm.Height - cardsZoneHeight);
             cardsZone.Location = new Point(0, fieldArea.Bottom);
             cardsZone.Size = new Size(mainForm.Width, cardsZoneHeight);
+            pauseBtn.Location = new Point(fieldArea.Right - pauseBtn.Width - 20, 0);
         }
 
         private Button GetPauseBtn()

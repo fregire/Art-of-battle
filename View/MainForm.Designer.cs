@@ -65,13 +65,20 @@ namespace Art_of_battle.View
             Margin = Padding.Empty;
             Padding = Padding.Empty;
             InitializeFont();
-            Name = "mainForm";
-            Text = "Морской бой";
             SetBackgroundImage();
 
             battleControl = new BattleControl(this);
             Controls.Add(battleControl);
             battleControl.Dock = DockStyle.Fill;
+
+            InitGameInfo();
+        }
+
+        private void InitGameInfo()
+        {
+            Name = "mainForm";
+            Text = "Art of Battle";
+            Icon = new Icon(Application.StartupPath + "\\GameLogo.ico");
         }
 
         private void SetBackgroundImage()
@@ -107,6 +114,9 @@ namespace Art_of_battle.View
             btn.BackColor = Color.Transparent;
             btn.BackgroundImage = Properties.Resources.MainMenu_btn;
             btn.BackgroundImageLayout = ImageLayout.Stretch;
+
+            btn.MouseEnter += (sender, args) => btn.ForeColor = Color.LightGreen;
+            btn.MouseLeave += (sender, args) => btn.ForeColor = Color.White;
 
             return btn;
         }

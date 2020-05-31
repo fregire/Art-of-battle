@@ -22,7 +22,7 @@ namespace Art_of_battle.View
 
         private void AddBackButton()
         {
-            backBtn = mainForm.CreateMainButton("Back");
+            backBtn = mainForm.CreateMainButton("Назад");
             backBtn.Size = new Size(150, 50);
             backBtn.Anchor = AnchorStyles.None;
             backBtn.Font = new Font(mainForm.Font.Name, 12);
@@ -97,7 +97,20 @@ namespace Art_of_battle.View
             startButton.FlatAppearance.MouseDownBackColor = Color.Transparent;
             startButton.FlatAppearance.MouseOverBackColor = Color.Transparent;
             startButton.FlatAppearance.BorderSize = 0;
+
             startButton.Click += (sender, args) => OnStartButtonClick(lvl);
+
+            startButton.MouseEnter += (sender, args) =>
+            {
+                startButton.BackgroundImageLayout = ImageLayout.Stretch;
+                startButton.BackgroundImage = Resources.PlayButton_hover;
+            };
+
+            startButton.MouseLeave += (sender, args) =>
+            {
+                startButton.BackgroundImageLayout = ImageLayout.Stretch;
+                startButton.BackgroundImage = Resources.PlayButton;
+            };
 
             lvlPicture.Size = lvlPicture.Image.Size;
             lvlLabel.Location = new Point(lvlPicture.Right + paddingValue, paddingValue);

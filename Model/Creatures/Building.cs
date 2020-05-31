@@ -14,6 +14,7 @@ namespace Art_of_battle.Model.Creatures
         public int MaxHealth { get; }
         public Size Dimensions { get; }
         public Player Player { get; }
+        public int Damage { get; }
         public Building(
             CreatureType creatureType,
             int health,

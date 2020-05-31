@@ -6,6 +6,7 @@ using System.Text;
 using System.Windows.Forms;
 using Art_of_battle.Model;
 using Art_of_battle.Model.Creatures;
+using Art_of_battle.Properties;
 
 namespace Art_of_battle.View
 {
@@ -40,6 +41,7 @@ namespace Art_of_battle.View
 
             table.Controls.Add(cardsTable, 1, 0);
             Controls.Add(table);
+            Font = new Font(mainForm.Font.Name, 12);
         }
 
         private TableLayoutPanel GetCardsTable()
@@ -90,11 +92,14 @@ namespace Art_of_battle.View
             var creatureType = card.Creature.CreatureType;
             var image = new Bitmap(GetCardImage(card), 100, 80);
             var panel = new Panel();
-            var label = new Label();
+            var goldInfo = GetCardInfoPanel(
+                card.Cost.ToString(),
+                Resources.Sword
+            );
 
-            label.Text = cost.ToString();
-            label.Width = 30;
-            panel.Height = 100;
+            goldInfo.Size = new Size(50, 20);
+            goldInfo.BackColor = Color.Transparent;
+            panel.Height = 120;
 
             panel.Click += (Object sender, EventArgs args) =>
             {
@@ -116,10 +121,34 @@ namespace Art_of_battle.View
             panel.Margin = new Padding(15, 0, 15, 0);
             panel.BackgroundImage = image;
             panel.BackgroundImageLayout = ImageLayout.Center;
-            panel.Controls.Add(label);
-            label.BringToFront();
+            panel.Controls.Add(goldInfo);
 
             return panel;
+        }
+
+        private Panel GetCardInfoPanel(string textInfo, Image icon)
+        {
+            var iconSize = new Size(20, 20);
+            var iconControl = new PictureBox
+            {
+                Image = new Bitmap(icon, iconSize),
+                SizeMode = PictureBoxSizeMode.CenterImage,
+                Size = iconSize
+            };
+            var label = new Label
+            {
+                Text = textInfo,
+                BackColor = Color.Transparent,
+                Location = new Point(iconControl.Right, 0)
+            };
+
+            var panel = new Panel();
+
+            panel.Controls.Add(label);
+            panel.Controls.Add(iconControl);
+
+            return panel;
+
         }
 
         private Image GetCardImage(Card card)
