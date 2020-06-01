@@ -274,7 +274,7 @@ namespace Art_of_battle.View
             var firstCastleRightX = firstPlayer.Castle.Position.X 
                                     + firstPlayer.Castle.Dimensions.Width;
             var secondCastleLeftX = secondPlayer.Castle.Position.X;
-            var distanceToCastle = 10;
+            var distanceToCastle = -10;
 
             firstPlayer.CreaturesSpawnPoint = new Point(
                 firstCastleRightX + distanceToCastle, spriteController.BackgroundImage.Height - bottomMargin);

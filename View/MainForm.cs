@@ -44,10 +44,12 @@ namespace Art_of_battle.View
             var gameSettings = new GameSettings();
             gameSettings.CardsCountInPlayerHand = 4;
             Game.GameSettings = gameSettings;
+            var AIChoosedCards = GetAICards();
             var mainPlayer = new Player("Daniil", Direction.Right, GetMainPlayerCards(), gameSettings.PlayerLevelsInfo);
-            var secPlayer = new Player("AI", Direction.Left, GetAICards(), gameSettings.PlayerLevelsInfo);
-
+            var secPlayer = new Player("AI", Direction.Left, AIChoosedCards, gameSettings.PlayerLevelsInfo);
+            secPlayer.ChoosedCardsForGame = AIChoosedCards;
             AI = new AI(Game);
+            
             mainPlayer.BattleGoldAmount = 100;
             secPlayer.BattleGoldAmount = 100;
             Game.AddPlayer(mainPlayer);
@@ -77,7 +79,7 @@ namespace Art_of_battle.View
             return new List<Level>
             {
                 new Level(LevelName.Forest, 10, 20, 1),
-                new Level(LevelName.Mountains, 10, 34, 1)
+                new Level(LevelName.Mountains, 20, 34, 1)
             };
         }
 
@@ -138,14 +140,25 @@ namespace Art_of_battle.View
 
         public List<Card> GetAICards()
         {
-            var orc = new MeleeCreature(
+            var knight = new MeleeCreature(
                 CreatureType.Knight,
-                300, 
-                20,
+                150, 
+                15,
                 10,
                 new Size(150, 150));
 
-            return new List<Card>() { new Card(orc, 15, 1500) };
+            var goldKnight = new MeleeCreature(
+                CreatureType.GoldKnight,
+                250,
+                15,
+                10,
+                new Size(150, 150));
+
+            return new List<Card>()
+            {
+                new Card(knight, 15, 1500),
+                new Card(goldKnight, 10, 1000)
+            };
         }
 
         public void ShowStartScreen()

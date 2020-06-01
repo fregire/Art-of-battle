@@ -82,7 +82,7 @@ namespace Art_of_battle.View
             };
             var lvlLabel = new Label
             {
-                Size = new Size(100, 30),
+                Size = new Size(120, 30),
                 Text = lvl.LevelName.ToString(),
                 Font = new Font(mainForm.Font.Name, 16)
             };

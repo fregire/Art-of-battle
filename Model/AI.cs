@@ -15,7 +15,8 @@ namespace Art_of_battle.Model
 
         public void Act(int timeElapsedSinceStart)
         {
-            var cardToPlace = game.SecondPlayer.Cards.First();
+            var cardToPlace = game.CurrentLevel.LevelName == LevelName.Mountains 
+                ? GetCard() : game.SecondPlayer.ChoosedCardsForGame.First();
             var isEnoughTime = cardToPlace.TimeElapsed == 0 ||
                                timeElapsedSinceStart - cardToPlace.TimeElapsed > cardToPlace.TimeReloadInMs;
 
@@ -26,6 +27,14 @@ namespace Art_of_battle.Model
                 if (isEnoughGold)
                     cardToPlace.TimeElapsed = timeElapsedSinceStart;
             }
+        }
+
+        private Card GetCard()
+        {
+            var rnd = new Random();
+            var index = rnd.Next(0, game.SecondPlayer.ChoosedCardsForGame.Count);
+
+            return game.SecondPlayer.ChoosedCardsForGame[index];
         }
     }
 }
