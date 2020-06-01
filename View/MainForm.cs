@@ -140,12 +140,12 @@ namespace Art_of_battle.View
         {
             var orc = new MeleeCreature(
                 CreatureType.Knight,
-                200, 
-                10,
+                300, 
+                20,
                 10,
                 new Size(150, 150));
 
-            return new List<Card>() { new Card(orc, 10, 1000) };
+            return new List<Card>() { new Card(orc, 15, 1500) };
         }
 
         public void ShowStartScreen()
@@ -208,7 +208,6 @@ namespace Art_of_battle.View
                 default:
                     return Resources.game_background_2;
             }
-
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Art_of_battle.View
         private int tickIntervalInMs = 10;
         public int TimeElapsedSinceStart;
         public bool Paused;
-
+        public int TimeElapsedSinceLastPayment;
         public BattleControl(MainForm mainForm)
         {
             this.mainForm = mainForm;
@@ -37,6 +37,7 @@ namespace Art_of_battle.View
             fieldArea.BackgroundImage = mainForm.GetLevelImage(game.CurrentLevel);
             spriteController = new SpriteController(fieldArea);
             spriteController.DestroyAllSprites();
+            game.FirstPlayer.GoldChanged += ShowGoldAmount;
 
             LoadSprites();
             InitCastlesPositions();
@@ -111,7 +112,12 @@ namespace Art_of_battle.View
             creaturesInGame.Add(creature, GetCreatureSprite(creature));
 
             //GoldControl
-            goldText.Text = mainForm.Game.FirstPlayer.BattleGoldAmount.ToString();
+            ShowGoldAmount(game.FirstPlayer.BattleGoldAmount);
+        }
+
+        public void ShowGoldAmount(int goldAmount)
+        {
+            goldText.Text = goldAmount.ToString();
         }
 
         private void LoadSprites()
@@ -169,11 +175,13 @@ namespace Art_of_battle.View
                 return;
 
             TimeElapsedSinceStart += tickIntervalInMs;
+            TimeElapsedSinceLastPayment += tickIntervalInMs;
 
-            if (TimeElapsedSinceStart % game.GameSettings.TimeReceivingCoinsInMs == 0)
+            if (TimeElapsedSinceLastPayment >= game.GameSettings.TimeReceivingCoinsInMs)
             {
-                mainForm.Game.FirstPlayer.BattleGoldAmount += 5;
-                mainForm.Game.SecondPlayer.BattleGoldAmount += 5;
+                mainForm.Game.FirstPlayer.BattleGoldAmount += 1;
+                mainForm.Game.SecondPlayer.BattleGoldAmount += 1;
+                TimeElapsedSinceLastPayment = 0;
             }
 
             mainForm.Game.Act();

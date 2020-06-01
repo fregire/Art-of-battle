@@ -12,7 +12,7 @@ namespace Art_of_battle.Model
         public int CardsCountInPlayerHand = 2;
         public int GoldPerTick = 5;
         public int GoldAmountPerPlayer = 100;
-        public int TimeReceivingCoinsInMs = 1000;
+        public int TimeReceivingCoinsInMs = 100;
 
         public Dictionary<int, int> PlayerLevelsInfo = new Dictionary<int, int>
         {
