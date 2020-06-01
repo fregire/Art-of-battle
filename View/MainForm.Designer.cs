@@ -23,11 +23,11 @@ namespace Art_of_battle.View
 
         private void InitializeComponent()
         {
-            //SuspendLayout();
+            SuspendLayout();
 
             Init();
 
-            //ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         private void Init()

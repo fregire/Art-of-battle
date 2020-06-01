@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using Art_of_battle.Model;
@@ -77,6 +78,9 @@ namespace Art_of_battle.View
                     Dock = DockStyle.Fill,
                     BackColor = Color.Transparent
                 };
+
+                SetDoubleBuffer(group);
+
                 var checkbox = new CheckBox
                 {
                     Size = new Size(20, 20)
@@ -245,6 +249,13 @@ namespace Art_of_battle.View
                 warningLabel.Visible = false;
                 backBtn.Enabled = true;
             }
+        }
+
+        private void SetDoubleBuffer(Panel panel)
+        {
+            typeof(Panel).InvokeMember("DoubleBuffered",
+                BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
+                null, panel, new object[] { true });
         }
 
         private void OnBackBtnClick(Object sender, EventArgs args)

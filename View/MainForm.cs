@@ -29,6 +29,15 @@ namespace Art_of_battle.View
             InitializeComponent();
 
         }
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                var cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;    // Turn on WS_EX_COMPOSITED
+                return cp;
+            }
+        }
 
         private void InitalizeGame()
         {

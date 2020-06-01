@@ -62,7 +62,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="SpriteLibrary">
-      <HintPath>..\..\..\SpriteLibrary-1-0-6\SpriteLibrary\bin\Debug\SpriteLibrary.dll</HintPath>
+      <HintPath>Libs\SpriteLibrary\SpriteLibrary.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -158,6 +158,7 @@
   <ItemGroup>
     <Folder Include="Assets\Creatures\Castle\" />
     <Folder Include="Assets\Creatures\Orc\" />
+    <Folder Include="Libs\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
