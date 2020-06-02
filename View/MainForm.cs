@@ -16,8 +16,6 @@ namespace Art_of_battle.View
     {
         public Game Game { get; }
         public AI AI;
-        public bool debug;
-        public bool debug2;
 
         public MainForm()
         {
@@ -29,6 +27,7 @@ namespace Art_of_battle.View
             InitializeComponent();
 
         }
+
         protected override CreateParams CreateParams
         {
             get
@@ -79,7 +78,7 @@ namespace Art_of_battle.View
             return new List<Level>
             {
                 new Level(LevelName.Forest, 10, 20, 1),
-                new Level(LevelName.Mountains, 20, 34, 1)
+                new Level(LevelName.Mountains, 20, 34, 2)
             };
         }
 
@@ -164,11 +163,13 @@ namespace Art_of_battle.View
         public void ShowStartScreen()
         {
             startControl.BringToFront();
+            ShowUpdatedPlayerInfo();
         }
 
         public void ShowHeroesScreen()
         {
             heroesControl.BringToFront();
+            ShowUpdatedPlayerInfo();
         }
 
         public void ShowBattleScreen()
@@ -179,7 +180,9 @@ namespace Art_of_battle.View
 
         public void ShowLevelsScreen()
         {
+            levelsControl.RefreshLevels();
             levelsControl.BringToFront();
+            ShowUpdatedPlayerInfo();
         }
 
         private void ShowFinishScreen()
@@ -189,6 +192,18 @@ namespace Art_of_battle.View
             finishControl = new FinishControl(this);
             Controls.Add(finishControl);
             finishControl.BringToFront();
+            ShowUpdatedPlayerInfo();
+        }
+
+        public void ShowPlayerInfo()
+        {
+            ShowUpdatedPlayerInfo();
+            playerInfo.Show();
+        }
+
+        public void HidePlayerInfo()
+        {
+            playerInfo.Hide();
         }
 
         public Image GetCreatureImage(CreatureType creatureType)

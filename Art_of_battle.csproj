@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="Game.cs" />
     <Compile Include="Model\AI.cs" />
+    <Compile Include="Model\AnimationType.cs" />
     <Compile Include="Model\Level\LevelName.cs" />
     <Compile Include="Model\CreatureAnimation.cs" />
     <Compile Include="Model\Card.cs" />

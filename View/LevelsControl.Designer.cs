@@ -37,11 +37,18 @@ namespace Art_of_battle.View
             mainForm.ShowStartScreen();
         }
 
-        private void CreateLvlsNamePlates(List<Level> lvls)
+        public void RefreshLevels()
+        {
+            CreateAndUpdateLvlsNamePlates(mainForm.Game.Levels);
+        }
+
+        private void CreateAndUpdateLvlsNamePlates(List<Level> lvls)
         {
             var paddingValue = 15;
             var yCoord = paddingValue;
             var xCoord = paddingValue;
+
+            contentZone.Controls.Clear();
 
             foreach (var lvl in lvls)
             {
@@ -63,13 +70,14 @@ namespace Art_of_battle.View
                 Height = 120
             };
 
-            if (lvl.IsLocked)
+            if (lvl.IsLocked(mainForm.Game.FirstPlayer))
             {
                 panel.Controls.Add(new Label
                 {
                     Size = new Size(300, 50),
-                    Text = "This level is locked.\nYou need " + lvl.LevelToUnlock + " lvl to unlock it",
-                    Location = new Point(30, 30)
+                    Text = "Уровень закрыт\nНеобходим " + lvl.RequiredLevel + " уровень.",
+                    Location = new Point(30, 30),
+                    Font = new Font(mainForm.Font.Name, 16)
                 });
 
                 return panel;

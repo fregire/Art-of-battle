@@ -19,11 +19,11 @@ namespace Art_of_battle.View
         private PausedControl pausedControl;
         private void InitializeComponent()
         {
-            //this.SuspendLayout();
+            this.SuspendLayout();
 
             Init();
 
-            //this.ResumeLayout(false);
+            this.ResumeLayout(false);
         }
 
         private void Init()
@@ -47,7 +47,6 @@ namespace Art_of_battle.View
 
             pauseBtn.Location = new Point(fieldArea.Right - pauseBtn.Width - 20, 0);
             fieldArea.Controls.Add(pauseBtn);
-            fieldArea.Controls.Add(GetInitedGoldControl());
             fieldArea.BackgroundImageLayout = ImageLayout.Stretch;
             fieldArea.Parent = mainForm;
             cardsZone.BackColor = Color.FromArgb(73, 73, 68);

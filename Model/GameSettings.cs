@@ -12,14 +12,14 @@ namespace Art_of_battle.Model
         public int CardsCountInPlayerHand = 2;
         public int GoldPerTick = 5;
         public int GoldAmountPerPlayer = 100;
-        public int TimeReceivingCoinsInMs = 100;
+        public int TimeReceivingCoinsInMs = 1000;
 
         public Dictionary<int, int> PlayerLevelsInfo = new Dictionary<int, int>
         {
             {1, 0},
-            {2, 100},
-            {3, 300},
-            {4, 500}
+            {2, 10},
+            {3, 40},
+            {4, 100}
         };
     }
 }

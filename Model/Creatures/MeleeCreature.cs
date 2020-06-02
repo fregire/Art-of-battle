@@ -52,7 +52,7 @@ namespace Art_of_battle.Model.Creatures
         public void Move()
         {
             var dPoint = new Point(0, 0);
-            var distance = 5;
+            var distance = 10;
 
             switch (Player.CreaturesDirection)
             {

@@ -19,6 +19,7 @@ namespace Art_of_battle.View
         private FinishControl finishControl;
         private LevelsControl levelsControl;
         private PausedControl pausedControl;
+        private Label playerInfo;
         
 
         private void InitializeComponent()
@@ -73,6 +74,8 @@ namespace Art_of_battle.View
 
             WindowState = FormWindowState.Maximized;
             InitGameInfo();
+
+            InitPlayerInfoLabel();
         }
 
         private void InitGameInfo()
@@ -121,6 +124,37 @@ namespace Art_of_battle.View
             btn.MouseLeave += (sender, args) => btn.ForeColor = Color.White;
 
             return btn;
+        }
+
+        private void ShowUpdatedPlayerInfo()
+        {
+            playerInfo.Text = GetFormattedPlayerInfo();
+            playerInfo.BringToFront();
+        }
+
+        private void InitPlayerInfoLabel()
+        {
+            playerInfo = new Label
+            {
+                Text = GetFormattedPlayerInfo(),
+                Location = new Point(0, 0),
+                Size = new Size(300, 50),
+                Font = new Font(Font.Name, 10),
+                BackColor = Color.Transparent
+            };
+
+            Controls.Add(playerInfo);
+            playerInfo.BringToFront();
+        }
+
+        private string GetFormattedPlayerInfo()
+        {
+            var levelInfo = Game.FirstPlayer.PlayerLevelInfo;
+            var currLevel = levelInfo.CurrentLevel;
+            var requiredExp = levelInfo.RequiredExperienceForEachLevel[currLevel + 1] -
+                              levelInfo.RequiredExperienceForEachLevel[currLevel];
+
+            return "Уровень игрока: " + currLevel + "\nДо следующего уровня: " + requiredExp + " опыта";
         }
     }
 }

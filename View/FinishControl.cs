@@ -14,7 +14,7 @@ namespace Art_of_battle.View
         public FinishControl(MainForm mainForm) : base(mainForm)
         {
             SetBackground();
-
+            ShowWinText();
             contentZone.Padding = new Padding(15);
             var winner = mainForm.Game.GetWinner();
 
@@ -38,12 +38,13 @@ namespace Art_of_battle.View
             var goldRecvControl = GetReceivedInfoControl(
                 new Bitmap(Resources.Coin, new Size(40, 40)),
                 "+" + mainForm.Game.CurrentLevel.ReceivedGoldAmount);
-            goldRecvControl.Location = new Point(15, winLabel.Bottom);
+            goldRecvControl.Size = new Size(200, 40);
+            goldRecvControl.Location = new Point(30, winLabel.Bottom + 30);
 
             var expRecvControl = GetReceivedInfoControl(
                 new Bitmap(Resources.Star, new Size(40, 40)),
                 "+" + mainForm.Game.CurrentLevel.ReceivedExperienceAmount);
-            expRecvControl.Location = new Point(15, goldRecvControl.Bottom);
+            expRecvControl.Location = new Point(30, goldRecvControl.Bottom + 15);
 
             contentZone.Controls.Add(winLabel);
             contentZone.Controls.Add(goldRecvControl);

@@ -84,6 +84,7 @@ namespace Art_of_battle.View
             }
 
             cardsTable.Invalidate();
+            
         }
 
         private Panel CreateCardPanel(Card card)
@@ -115,8 +116,6 @@ namespace Art_of_battle.View
                     if (isEnoughGold)
                         card.TimeElapsed = battleControl.TimeElapsedSinceStart;
                 }
-                
-                //Do smth if not isEnoughGold
             };
 
             panel.Margin = new Padding(15, 0, 15, 0);

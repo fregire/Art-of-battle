@@ -242,11 +242,13 @@ namespace Art_of_battle.View
             if (choosedCardsCount != mainForm.Game.GameSettings.CardsCountInPlayerHand)
             {
                 warningLabel.Visible = true;
+                mainForm.HidePlayerInfo();
                 backBtn.Enabled = false;
             }
             else
             {
                 warningLabel.Visible = false;
+                mainForm.ShowPlayerInfo();
                 backBtn.Enabled = true;
             }
         }

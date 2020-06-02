@@ -10,7 +10,9 @@ using System.Windows.Forms;
 using Art_of_battle.Model;
 using Art_of_battle.Model.Creatures;
 using Art_of_battle.Properties;
+using Microsoft.Win32;
 using SpriteLibrary;
+using Timer = System.Windows.Forms.Timer;
 
 namespace Art_of_battle.View
 {
@@ -19,11 +21,13 @@ namespace Art_of_battle.View
         private MainForm mainForm;
         private Game game;
         private SpriteController spriteController;
-        private Dictionary<ICreature, Sprite> creaturesInGame = new Dictionary<ICreature, Sprite>();
-        private int tickIntervalInMs = 10;
+        private Dictionary<ICreature, Sprite> creaturesSprites = new Dictionary<ICreature, Sprite>();
+        private int tickIntervalInMs = 46;
         public int TimeElapsedSinceStart;
         public bool Paused;
         public int TimeElapsedSinceLastPayment;
+
+        private List<ICreature> creaturesInGame = new List<ICreature>();
         public BattleControl(MainForm mainForm)
         {
             this.mainForm = mainForm;
@@ -35,9 +39,9 @@ namespace Art_of_battle.View
         {
             cardsZone.RefreshCardsForGame();
             fieldArea.BackgroundImage = mainForm.GetLevelImage(game.CurrentLevel);
+            fieldArea.Paint += OnPaint;
             spriteController = new SpriteController(fieldArea);
             spriteController.DestroyAllSprites();
-            game.FirstPlayer.GoldChanged += ShowGoldAmount;
 
             LoadSprites();
             InitCastlesPositions();
@@ -51,11 +55,6 @@ namespace Art_of_battle.View
 
             game.CreaturePlacedOnField += CreatureCardPlaced;
             game.CreatureDeletedFromField += CreatureDeleted;
-        }
-
-        public void RefreshCards()
-        {
-            cardsZone.RefreshCardsForGame();
         }
 
         public void Pause()
@@ -85,6 +84,7 @@ namespace Art_of_battle.View
 
             game.FirstPlayer.ChoosedCardsForGame.ForEach(card => card.TimeElapsed = 0);
             game.SecondPlayer.ChoosedCardsForGame.ForEach(card => card.TimeElapsed = 0);
+            Paused = false;
         }
 
         public void ShowPausedControl()
@@ -100,24 +100,49 @@ namespace Art_of_battle.View
 
         public void CreatureDeleted(ICreature creature)
         {
-            if (creaturesInGame.ContainsKey(creature))
+            creaturesInGame.Remove(creature);
+            if (creaturesSprites.ContainsKey(creature))
             {
-                creaturesInGame[creature].Destroy();
-                creaturesInGame.Remove(creature);
+                creaturesSprites[creature].Destroy();
+                creaturesSprites.Remove(creature);
             }
         }
 
         public void CreatureCardPlaced(ICreature creature)
         {
-            creaturesInGame.Add(creature, GetCreatureSprite(creature));
+            creaturesInGame.Add(creature);
+            creaturesSprites.Add(creature, GetCreatureSprite(creature)); 
+            
+            if (creature.CreatureType != CreatureType.Castle)
+            {
+                var mel = (MeleeCreature)creature;
+                mel.PositionChanged += (ICreature cr) =>
+                {
+                    if (creaturesSprites[cr].AnimationIndex == 1)
+                        creaturesSprites[cr].ChangeAnimation(0);
+                    creaturesSprites[cr].PutBaseImageLocation(cr.Position);
+                };
 
-            //GoldControl
-            ShowGoldAmount(game.FirstPlayer.BattleGoldAmount);
+                mel.Attacked += (ICreature cr) =>
+                {
+                    if (creaturesSprites[cr].AnimationIndex == 0)
+                        creaturesSprites[cr].ChangeAnimation(1);
+                };
+            }
+
+            fieldArea.Invalidate();
         }
 
-        public void ShowGoldAmount(int goldAmount)
+        private void OnPaint(Object sender, PaintEventArgs e)
         {
-            goldText.Text = goldAmount.ToString();
+            e.Graphics.DrawString(
+                game.FirstPlayer.BattleGoldAmount.ToString(),
+                new Font(mainForm.Font.Name, 16), 
+                new SolidBrush(Color.White), 
+                0, 5);
+            e.Graphics.DrawImage(
+                new Bitmap(Resources.Sword, 30, 30),
+                new Point(45, 2));
         }
 
         private void LoadSprites()
@@ -166,12 +191,12 @@ namespace Art_of_battle.View
         private void ClearSprites()
         {
             spriteController.DestroyAllSprites();
-            creaturesInGame.Clear();
+            creaturesSprites.Clear();
         }
 
         private void OnTick(Object sender, EventArgs e)
         {
-            if (game.Stage != GameStage.Started)
+            if (game.Stage != GameStage.Started || Paused)
                 return;
 
             TimeElapsedSinceStart += tickIntervalInMs;
@@ -179,59 +204,21 @@ namespace Art_of_battle.View
 
             if (TimeElapsedSinceLastPayment >= game.GameSettings.TimeReceivingCoinsInMs)
             {
-                mainForm.Game.FirstPlayer.BattleGoldAmount += 1;
-                mainForm.Game.SecondPlayer.BattleGoldAmount += 1;
+                game.FirstPlayer.BattleGoldAmount += 10;
+                game.SecondPlayer.BattleGoldAmount += 10;
                 TimeElapsedSinceLastPayment = 0;
+                fieldArea.Invalidate();
             }
 
             mainForm.Game.Act();
             mainForm.AI.Act(TimeElapsedSinceStart);
-
-            var firstPlayerCreatures = game.GetPlayerCreaturesInGame(game.FirstPlayer);
-            var secondPlayerCreatures = game.GetPlayerCreaturesInGame(game.SecondPlayer);
-
-            foreach (var creature in firstPlayerCreatures)
-            {
-                if (creaturesInGame.ContainsKey(creature))
-                {
-                    if (creature.Position.X != creaturesInGame[creature].BaseImageLocation.X)
-                    {
-                        if (creaturesInGame[creature].AnimationIndex == 1)
-                            creaturesInGame[creature].ChangeAnimation(0);
-                        creaturesInGame[creature].PutBaseImageLocation(creature.Position.X, creature.Position.Y);
-                    }
-                    else
-                    {
-                        if (creaturesInGame[creature].AnimationIndex == 0)
-                            creaturesInGame[creature].ChangeAnimation(1);
-                    }
-                }
-            }
-
-            foreach (var creature in secondPlayerCreatures)
-            {
-                if (creaturesInGame.ContainsKey(creature))
-                {
-                    if (creature.Position.X != creaturesInGame[creature].BaseImageLocation.X)
-                    {
-                        if (creaturesInGame[creature].AnimationIndex == 1)
-                            creaturesInGame[creature].ChangeAnimation(0);
-                        creaturesInGame[creature].PutBaseImageLocation(creature.Position.X, creature.Position.Y);
-                    }
-                    else
-                    {
-                        if (creaturesInGame[creature].AnimationIndex == 0)
-                            creaturesInGame[creature].ChangeAnimation(1);
-                    }
-                }
-            }
         }
 
         private Sprite GetCreatureSprite(ICreature creature)
         {
             var spriteName = GetSpriteName(creature);
             var sprite = spriteController.DuplicateSprite(GetSpriteName(creature));
-            sprite.AutomaticallyMoves = false;
+            sprite.AutomaticallyMoves = true;
             sprite.SetSize(creature.Dimensions);
 
             if (creature.CreatureType != CreatureType.Castle)

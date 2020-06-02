@@ -61,7 +61,6 @@ namespace Art_of_battle
 
         public void PlaceCreatureOnField(ICreature creature)
         {
-            creature.Position = creature.Player.CreaturesSpawnPoint;
             playerCreaturesInGame[creature.Player].Add(creature);
 
             CreaturePlacedOnField?.Invoke(creature);

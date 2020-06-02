@@ -17,7 +17,7 @@ namespace Art_of_battle.View
         {
             SetBackground();
             AddBackButton();
-            CreateLvlsNamePlates(mainForm.Game.Levels);
+            RefreshLevels();
         }
     }
 }
